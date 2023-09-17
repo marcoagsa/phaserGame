@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { launch } from '../../../game/game';
 
 @Component({
   selector: 'app-play',
@@ -6,10 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./play.page.scss'],
 })
 export class PlayPage implements OnInit {
+  showButton: boolean = true;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  handleClickStart() {
+    // hides launch button
+    this.showButton = false;
+
+    // Runs the launch function
+    launch();
   }
-
 }
