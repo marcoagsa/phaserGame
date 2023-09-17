@@ -1,0 +1,7 @@
+{
+  "name": "phaserGame",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
