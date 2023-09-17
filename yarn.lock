@@ -5950,6 +5950,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eventemitter3@npm:^5.0.0":
+  version: 5.0.1
+  resolution: "eventemitter3@npm:5.0.1"
+  checksum: 543d6c858ab699303c3c32e0f0f47fc64d360bf73c3daf0ac0b5079710e340d6fe9f15487f94e66c629f5f82cd1a8678d692f3dbb6f6fcd1190e1b97fcad36f8
+  languageName: node
+  linkType: hard
+
 "events@npm:^3.2.0":
   version: 3.3.0
   resolution: "events@npm:3.3.0"
@@ -9420,6 +9427,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"phaser@npm:^3.60.0":
+  version: 3.60.0
+  resolution: "phaser@npm:3.60.0"
+  dependencies:
+    eventemitter3: ^5.0.0
+  checksum: 5045501cb61e6aa1b363ba41ba97e3810ba4157af9401a51082994cd6b79252bcdc9d688053600005ca95b4f20cfa473a9dd6cefafba3bf8dfd437e3c9b5ae2f
+  languageName: node
+  linkType: hard
+
 "phaserGame@workspace:.":
   version: 0.0.0-use.local
   resolution: "phaserGame@workspace:."
@@ -9466,6 +9482,7 @@ __metadata:
     karma-coverage-istanbul-reporter: ~3.0.2
     karma-jasmine: ~5.1.0
     karma-jasmine-html-reporter: ~2.0.0
+    phaser: ^3.60.0
     rxjs: ~7.8.0
     ts-node: ^8.3.0
     tslib: ^2.3.0
