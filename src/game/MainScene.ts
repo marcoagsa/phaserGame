@@ -35,14 +35,6 @@ export class MainScene extends Scene {
   }
 
   create() {
-    this.add.text(100, 100, 'Star Game...', {
-      font: '24px Courier',
-      color: '#eb445a',
-      lineSpacing: 0.3,
-      fontFamily: 'Courier',
-      fontStyle: 'bold',
-    });
-
     this.screenWidth = this.scale.width;
     this.screenHeight = this.scale.height;
     this.screenCenterX = this.screenWidth / 2;
@@ -222,7 +214,8 @@ export class MainScene extends Scene {
 
         this.input.on('pointerup', () => {
           this.score = 0;
-          this.scene.restart();
+          // this.scene.restart();
+          this.scene.stop();
         });
       },
       undefined,
