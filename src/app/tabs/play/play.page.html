@@ -1,10 +1,10 @@
-<ion-content fullscreen="true">
+<ion-content>
   <app-phaser-container />
 </ion-content>
 
-<ion-footer *ngIf="showButton">
+<ion-footer mode="ios" *ngIf="showButton">
   <ion-row>
-    <ion-button (click)="handleClickStart()">
+    <ion-button mode="ios" (click)="handleClickStart()">
       Play
     </ion-button>
   </ion-row>
