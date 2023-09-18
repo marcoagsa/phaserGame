@@ -1,7 +1,8 @@
-Ion-content {
+Ion-footer {
   Ion-row {
     justify-content: center;
     display: flex;
+    padding-bottom: 50px;
     Ion-button {
       background: var(--ion-color-danger);
       --background: var(--ion-color-danger);
@@ -10,12 +11,4 @@ Ion-content {
       padding: 20px;
     }
   }
-}
-
-#game {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
 }

@@ -1,4 +1,5 @@
-import { Game, AUTO, Scale, Scene } from 'phaser';
+import { Game, AUTO, Scale } from 'phaser';
+import { MainScene } from './MainScene';
 
 export function launch() {
   return new Game({
@@ -16,20 +17,4 @@ export function launch() {
     },
     scene: MainScene,
   });
-}
-
-export class MainScene extends Scene {
-  constructor() {
-    super({ key: 'MainScene' });
-  }
-
-  create() {
-    this.add.text(100, 100, 'Star Game...', {
-      font: '24px Courier',
-      color: '#eb445a',
-      lineSpacing: 0.3,
-      fontFamily: 'Sams',
-      fontStyle: 'bold',
-    });
-  }
 }
