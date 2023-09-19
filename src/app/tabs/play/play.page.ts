@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { launch } from '../../../game/game';
+import { PhaserSingletonService } from 'src/app/services/phaser-single.module';
 
 @Component({
   selector: 'app-play',
@@ -7,17 +7,18 @@ import { launch } from '../../../game/game';
   styleUrls: ['./play.page.scss'],
 })
 export class PlayPage implements OnInit {
-  showButton: boolean = true;
+  get showButton() {
+    return false;
+  }
 
   constructor() {}
 
-  ngOnInit() {}
+  async ngOnInit(): Promise<void> {
+    console.log('HomePageComponent', 'ngOnInit');
+    setTimeout(this.init, 500);
+  }
 
-  handleClickStart() {
-    // hides launch button
-    this.showButton = false;
-
-    // Runs the launch function
-    launch();
+  async init(): Promise<void> {
+    await PhaserSingletonService.init();
   }
 }

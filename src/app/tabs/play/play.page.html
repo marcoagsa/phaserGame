@@ -1,11 +1,9 @@
 <ion-content>
-  <app-phaser-container />
-</ion-content>
+  <app-phaser-container *ngIf="!showButton" />
 
-<ion-footer mode="ios" *ngIf="showButton">
-  <ion-row>
-    <ion-button mode="ios" (click)="handleClickStart()">
-      Play
+  <ion-row *ngIf="showButton">
+    <ion-button mode="ios" (click)="init()">
+      Play again
     </ion-button>
   </ion-row>
-</ion-footer>
+</ion-content>
