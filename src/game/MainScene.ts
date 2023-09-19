@@ -1,4 +1,5 @@
 import { Scene } from 'phaser';
+import { PhaserSingletonService } from 'src/app/services/phaser-single.module';
 
 export class MainScene extends Scene {
   screenWidth!: number;
@@ -194,7 +195,6 @@ export class MainScene extends Scene {
     );
 
     // Adds overlap between player and bombs
-
     this.physics.add.overlap(
       this.player,
       this.bombs,
@@ -214,8 +214,7 @@ export class MainScene extends Scene {
 
         this.input.on('pointerup', () => {
           this.score = 0;
-          // this.scene.restart();
-          this.scene.stop();
+          PhaserSingletonService.destroyActiveGame();
         });
       },
       undefined,
