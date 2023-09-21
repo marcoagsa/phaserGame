@@ -15,6 +15,9 @@ export class MainScene extends Scene {
   moveRight!: boolean;
   stars!: Phaser.Physics.Arcade.Group;
   bombs!: Phaser.Physics.Arcade.Group;
+  mushroomRed!: Phaser.Physics.Arcade.Group;
+  mushroomGreen!: Phaser.Physics.Arcade.Group;
+  mushroomBlue!: Phaser.Physics.Arcade.Group;
   score!: number;
   scoreText!: Phaser.GameObjects.Text;
   gameOverText!: Phaser.GameObjects.Text;
@@ -24,8 +27,8 @@ export class MainScene extends Scene {
   }
 
   preload() {
-    // this.load.image('star', 'assets/star.png');
-    this.load.image('star', 'assets/starGif.gif');
+    this.load.image('star', 'assets/star.png');
+    this.load.image('mushroomRed', 'assets/mushroomred.webp');
     this.load.image('bomb', 'assets/bomb.png');
     this.load.image('platform', 'assets/platform.png');
     this.load.image('leftArrow', 'assets/leftarrow.png');
@@ -116,7 +119,44 @@ export class MainScene extends Scene {
     });
   }
 
-  async addStars() {
+  addScore() {
+    this.score = 0;
+    this.scoreText = this.add
+      .text(this.screenCenterX, this.gameAreaHeight + 16, 'Score: 0', {
+        fontSize: '16px',
+        color: '#000',
+      })
+      .setOrigin(0.5, 0.5);
+  }
+
+  async addMushroomRed() {
+    // Adds generated stars
+    this.mushroomRed = this.physics.add.group({
+      gravityY: 200,
+    });
+
+    this.createMushroomRed();
+    this.createMushroomRedLoop();
+  }
+
+  createMushroomRed() {
+    const x = Math.random() * this.screenWidth;
+    const mushroomRed = this.mushroomRed.create(x, 0, 'mushroomRed');
+    mushroomRed.setScale(0.1);
+  }
+
+  createMushroomRedLoop() {
+    const delay = Math.floor(Math.random() * (1300 - 1000 + 1)) + 1000;
+
+    const event = this.time.addEvent({
+      delay: delay,
+      callback: this.createMushroomRed,
+      callbackScope: this,
+      loop: true,
+    });
+  }
+
+  addStars() {
     // Adds generated stars
     this.stars = this.physics.add.group({
       gravityY: 300,
@@ -129,11 +169,10 @@ export class MainScene extends Scene {
   createStar() {
     const x = Math.random() * this.screenWidth;
     const star = this.stars.create(x, 0, 'star');
-    star.setScale(0.1);
   }
 
   createStarLoop() {
-    const delay = Math.floor(Math.random() * (1200 - 1000 + 1)) + 1000;
+    const delay = Math.floor(Math.random() * (5000 - 4500 + 1)) + 4500;
 
     const event = this.time.addEvent({
       delay: delay,
@@ -164,7 +203,7 @@ export class MainScene extends Scene {
 
     const event = this.time.addEvent({
       // random number between 4.5 and 5 seconds
-      delay: Math.floor(Math.random() * (5000 - 4500 + 1)) + 4500,
+      delay: delay,
       callback: this.createBomb,
       callbackScope: this,
       loop: true,
@@ -173,20 +212,29 @@ export class MainScene extends Scene {
 
   playerAndStars() {
     // Adds overlap between player and stars
-    this.score = 0;
-    this.scoreText = this.add
-      .text(this.screenCenterX, this.gameAreaHeight + 16, 'Score: 0', {
-        fontSize: '16px',
-        color: '#000',
-      })
-      .setOrigin(0.5, 0.5);
-
     this.physics.add.overlap(
       this.player,
       this.stars,
       (object1: any, object2: any) => {
         const star = object1.key === 'player' ? object1 : object2;
         star.destroy();
+        this.score += 50;
+        this.player.scale += 0.1;
+        this.scoreText.setText('Score: ' + this.score);
+      },
+      undefined,
+      this
+    );
+  }
+
+  playerAndMushroomRed() {
+    // Adds overlap between player and stars
+    this.physics.add.overlap(
+      this.player,
+      this.mushroomRed,
+      (object1: any, object2: any) => {
+        const mushroomRed = object1.key === 'player' ? object1 : object2;
+        mushroomRed.destroy();
         this.score += 10;
         this.player.scale += 0.1;
         this.scoreText.setText('Score: ' + this.score);
@@ -231,10 +279,12 @@ export class MainScene extends Scene {
 
     // adds collider between player and platforms
     this.physics.add.collider(this.player, this.platform);
+    this.addScore();
 
     this.addPlayerMoves();
 
     this.addStars();
+    this.addMushroomRed();
     this.addBooms();
 
     // Adds colliders between stars and bombs with platform
@@ -248,6 +298,16 @@ export class MainScene extends Scene {
     );
 
     this.physics.add.collider(
+      this.mushroomRed,
+      this.platform,
+      (object1: any, object2: any) => {
+        const mushroomRed =
+          object1.texture.key === 'mushroomRed' ? object1 : object2;
+        mushroomRed.destroy();
+      }
+    );
+
+    this.physics.add.collider(
       this.bombs,
       this.platform,
       (object1: any, object2: any) => {
@@ -256,8 +316,8 @@ export class MainScene extends Scene {
       }
     );
 
+    this.playerAndMushroomRed();
     this.playerAndStars();
-
     this.playerAndBooms();
   }
 
