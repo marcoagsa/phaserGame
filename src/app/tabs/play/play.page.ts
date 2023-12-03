@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { IonicModule, Platform } from '@ionic/angular';
 import { MainScene } from 'src/app/game/MainScene';
 import * as Phaser from 'phaser';
@@ -8,12 +8,15 @@ import * as Phaser from 'phaser';
   standalone: true,
   imports: [IonicModule],
   template: `
-    <ion-header>
+    <!-- <ion-header>
       <ion-toolbar>
         <ion-title>Header Toolbar</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content id="phaser-main" />
+    <ion-content fullscreen="true" scrollY="false">
+      <div id="phaser-main"></div>
+    </ion-content> -->
+    <div id="phaser-main"></div>
   `,
   styles: [
     `
@@ -26,11 +29,10 @@ import * as Phaser from 'phaser';
     `,
   ],
 })
-export class PlayPage implements OnInit, OnDestroy {
+export class PlayPage implements OnInit {
   readonly platform = inject(Platform);
   config: Phaser.Types.Core.GameConfig = {};
   game: Phaser.Game | undefined;
-
   startGame = signal<boolean>(false);
 
   ngOnInit(): void {
@@ -41,9 +43,9 @@ export class PlayPage implements OnInit, OnDestroy {
     this.config = {
       type: Phaser.AUTO,
       scale: {
-        mode: Phaser.Scale.FIT,
-        width: this.platform.width(),
+        mode: Phaser.Scale.CENTER_BOTH,
         autoCenter: Phaser.Scale.CENTER_BOTH,
+        width: this.platform.width(),
         height: this.platform.height(),
       },
       parent: 'phaser-main',
@@ -67,7 +69,7 @@ export class PlayPage implements OnInit, OnDestroy {
     // this.startGame.set(true);
   }
 
-  ngOnDestroy(): void {
+  ionViewWillLeave() {
     if (this.game) {
       this.game.destroy(true, false);
     }
