@@ -1,5 +1,5 @@
 import { Scene } from 'phaser';
-import { PhaserSingletonService } from 'src/app/services/phaser-single.module';
+import * as Phaser from 'phaser';
 
 export class MainScene extends Scene {
   screenWidth!: number;
@@ -7,6 +7,7 @@ export class MainScene extends Scene {
   screenCenterX!: number;
   controlsAreaHeight!: number;
   gameAreaHeight!: number;
+  background!: any;
   platform!: Phaser.Types.Physics.Arcade.ImageWithStaticBody;
   player!: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
   leftArrow!: Phaser.GameObjects.Image;
@@ -31,6 +32,7 @@ export class MainScene extends Scene {
     this.load.image('mushroomRed', 'assets/mushroomred.webp');
     this.load.image('bomb', 'assets/bomb.png');
     this.load.image('platform', 'assets/platform.png');
+    this.load.image('background', 'assets/bg.jpg');
     this.load.image('leftArrow', 'assets/leftarrow.png');
     this.load.image('rightArrow', 'assets/rightarrow.png');
     this.load.spritesheet('player', 'assets/player.png', {
@@ -46,22 +48,32 @@ export class MainScene extends Scene {
     this.controlsAreaHeight = this.screenHeight * 0.2;
     this.gameAreaHeight = this.screenHeight - this.controlsAreaHeight;
 
+    this.background = this.physics.add.image(0, 0, 'background');
+    this.background.displayHeight = this.scale.height;
+    this.background.scaleX = this.background.scaleY;
+
+    this.background.y = this.scale.height / 2;
+    this.background.x = this.scale.width / 2;
+
+    this.background.x = this.background.displayHeight * 0.5;
+
     // adds the player, platform, and controls
     this.platform = this.physics.add
       .staticImage(0, this.gameAreaHeight, 'platform')
       .setOrigin(0, 0)
       .refreshBody();
+
     this.player = this.physics.add.sprite(
       this.screenCenterX,
       this.gameAreaHeight - 24,
       'player'
     );
     this.leftArrow = this.add
-      .image(this.screenWidth * 0.1, this.gameAreaHeight + 40, 'leftArrow')
+      .image(this.screenWidth * 0.05, this.gameAreaHeight + 80, 'leftArrow')
       .setOrigin(0, 0)
       .setInteractive();
     this.rightArrow = this.add
-      .image(this.screenWidth * 0.7, this.gameAreaHeight + 40, 'rightArrow')
+      .image(this.screenWidth * 0.7, this.gameAreaHeight + 80, 'rightArrow')
       .setOrigin(0, 0)
       .setInteractive();
   }
@@ -265,7 +277,7 @@ export class MainScene extends Scene {
 
         this.input.on('pointerup', () => {
           this.score = 0;
-          PhaserSingletonService.destroyActiveGame();
+          this.game.destroy(true, false);
         });
       },
       undefined,
