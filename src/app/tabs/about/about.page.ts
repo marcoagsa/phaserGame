@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-about',
   standalone: true,
   imports: [],
-  template: ``,
+  template: `<div id="phaser-main"></div>`,
   styles: [],
 })
 export class AboutPage {}

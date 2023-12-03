@@ -1,23 +1,13 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { IonicModule, Platform } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 import { MainScene } from 'src/app/game/MainScene';
 import * as Phaser from 'phaser';
 
 @Component({
   selector: 'app-play',
   standalone: true,
-  imports: [IonicModule],
-  template: `
-    <!-- <ion-header>
-      <ion-toolbar>
-        <ion-title>Header Toolbar</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content fullscreen="true" scrollY="false">
-      <div id="phaser-main"></div>
-    </ion-content> -->
-    <div id="phaser-main"></div>
-  `,
+  imports: [],
+  template: ` <div id="phaser-main"></div> `,
   styles: [
     `
       #phaser-main {
