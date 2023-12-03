@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject, signal } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { MainScene } from 'src/app/game/MainScene';
 import * as Phaser from 'phaser';
@@ -19,7 +19,7 @@ import * as Phaser from 'phaser';
     `,
   ],
 })
-export class PlayPage implements OnInit {
+export class PlayPage implements OnInit, OnDestroy {
   readonly platform = inject(Platform);
   config: Phaser.Types.Core.GameConfig = {};
   game: Phaser.Game | undefined;
@@ -56,10 +56,15 @@ export class PlayPage implements OnInit {
       },
     };
     this.game = new Phaser.Game(this.config);
-    // this.startGame.set(true);
   }
 
   ionViewWillLeave() {
+    if (this.game) {
+      this.game.destroy(true, false);
+    }
+  }
+
+  ngOnDestroy(): void {
     if (this.game) {
       this.game.destroy(true, false);
     }
