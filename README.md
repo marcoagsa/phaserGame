@@ -21,7 +21,7 @@ This project uses angular standalone components
 
 # Game Video
 
-https://github.com/marcoagsa/Tic-Tac-Toe/assets/14275804/1fc9f00b-19d8-4d40-a455-eecfdfcd3c0f
+https://github.com/marcoagsa/phaserGame/assets/14275804/198bf352-0b85-46ac-932d-b525010d8a78
 
 # Development Setup 💻
 
