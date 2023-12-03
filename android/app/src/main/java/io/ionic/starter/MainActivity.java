@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package com.msa.phaserGame;
 
 import com.getcapacitor.BridgeActivity;
 
