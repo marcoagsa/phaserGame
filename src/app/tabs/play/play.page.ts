@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, inject, signal } from '@angular/core';
 import { IonicModule, Platform } from '@ionic/angular';
-import { MainScene } from 'src/game/MainScene';
 import * as Phaser from 'phaser';
+import { MainScene } from 'src/app/game/MainScene';
 
 @Component({
   selector: 'app-play',
@@ -23,6 +23,7 @@ import * as Phaser from 'phaser';
 })
 export class PlayPage implements OnInit, OnDestroy {
   readonly platform = inject(Platform);
+  mainScene = inject(MainScene);
   config: Phaser.Types.Core.GameConfig = {};
   game: Phaser.Game | undefined;
 
@@ -42,7 +43,7 @@ export class PlayPage implements OnInit, OnDestroy {
         height: this.platform.height(),
       },
       parent: 'phaser-main',
-      scene: [MainScene],
+      scene: [this.mainScene],
       plugins: {
         global: [],
         scene: [],

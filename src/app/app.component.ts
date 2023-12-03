@@ -1,18 +1,13 @@
-import { Component, OnDestroy } from '@angular/core';
-import { PhaserSingletonService } from './services/phaser-single.module';
+import { Component } from '@angular/core';
+import { IonicModule } from '@ionic/angular';
 
 @Component({
-  selector: 'phaser-app-root',
-  templateUrl: 'app.component.html',
-  styleUrls: ['app.component.scss'],
+  selector: 'app-phaser-root',
+  standalone: true,
+  imports: [IonicModule],
+  template: `<ion-app>
+    <ion-router-outlet></ion-router-outlet>
+  </ion-app>`,
+  styles: [],
 })
-export class AppComponent implements OnDestroy {
-  constructor() {}
-
-  /**
-   * * Need to handle the destroy method so we dont lock up our computer!
-   */
-  ngOnDestroy(): void {
-    PhaserSingletonService.destroyActiveGame();
-  }
-}
+export class AppComponent {}

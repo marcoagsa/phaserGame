@@ -7,7 +7,6 @@ import {
   SkipSelf,
 } from '@angular/core';
 import * as Phaser from 'phaser';
-import { MainScene } from '../../game/MainScene';
 
 /**
  * * The PhaserInstance is a singleton that controls the Game Scene, which is the UI portion of the Game Engine
@@ -79,31 +78,31 @@ export class PhaserSingletonService {
       if (!PhaserSingletonService.activeGame) {
         // To scale game to always fit in parent container
         // https://photonstorm.github.io/phaser3-docs/Phaser.Scale.ScaleManager.html
-        PhaserSingletonService.activeGame = new Phaser.Game({
-          type: Phaser.AUTO,
-          scale: {
-            mode: Phaser.Scale.RESIZE,
-            width: window.innerWidth,
-            autoCenter: Phaser.Scale.CENTER_BOTH,
-            height: window.innerHeight,
-          },
-          parent: 'phaser-main',
-          scene: [MainScene],
-          plugins: {
-            global: [],
-            scene: [],
-          },
-          fps: {
-            forceSetTimeOut: true,
-          },
-          render: {
-            transparent: false,
-          },
-          backgroundColor: '#201726',
-          physics: {
-            default: 'arcade',
-          },
-        });
+        // PhaserSingletonService.activeGame = new Phaser.Game({
+        //   type: Phaser.AUTO,
+        //   scale: {
+        //     mode: Phaser.Scale.RESIZE,
+        //     width: window.innerWidth,
+        //     autoCenter: Phaser.Scale.CENTER_BOTH,
+        //     height: window.innerHeight,
+        //   },
+        //   parent: 'phaser-main',
+        //   scene: [MainScene],
+        //   plugins: {
+        //     global: [],
+        //     scene: [],
+        //   },
+        //   fps: {
+        //     forceSetTimeOut: true,
+        //   },
+        //   render: {
+        //     transparent: false,
+        //   },
+        //   backgroundColor: '#201726',
+        //   physics: {
+        //     default: 'arcade',
+        //   },
+        // });
       }
     });
   }
