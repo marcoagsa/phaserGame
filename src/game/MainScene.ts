@@ -199,7 +199,8 @@ export class MainScene extends Scene {
   }
 
   createBombLoop() {
-    const delay = Math.floor(Math.random() * (5000 - 4500 + 1)) + 4500;
+    const test = 4500 - this.score * 100;
+    const delay = Math.floor(Math.random() * (5000 - 4500 + 1)) + test;
 
     const event = this.time.addEvent({
       // random number between 4.5 and 5 seconds

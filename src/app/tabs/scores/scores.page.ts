@@ -1,15 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-scores',
-  templateUrl: './scores.page.html',
-  styleUrls: ['./scores.page.scss'],
+  standalone: true,
+  imports: [],
+  template: ``,
+  styles: [],
 })
-export class ScoresPage implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-}
+export class ScoresPage {}
