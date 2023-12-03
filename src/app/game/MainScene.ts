@@ -69,11 +69,11 @@ export class MainScene extends Scene {
       'player'
     );
     this.leftArrow = this.add
-      .image(this.screenWidth * 0.05, this.gameAreaHeight + 80, 'leftArrow')
+      .image(this.screenWidth * 0.1, this.gameAreaHeight + 50, 'leftArrow')
       .setOrigin(0, 0)
       .setInteractive();
     this.rightArrow = this.add
-      .image(this.screenWidth * 0.7, this.gameAreaHeight + 80, 'rightArrow')
+      .image(this.screenWidth * 0.7, this.gameAreaHeight + 50, 'rightArrow')
       .setOrigin(0, 0)
       .setInteractive();
   }
