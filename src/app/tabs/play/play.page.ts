@@ -1,24 +1,70 @@
-import { Component, OnInit } from '@angular/core';
-import { PhaserSingletonService } from 'src/app/services/phaser-single.module';
+import { Component, OnDestroy, OnInit, inject, signal } from '@angular/core';
+import { IonicModule, Platform } from '@ionic/angular';
+import { MainScene } from 'src/game/MainScene';
+import * as Phaser from 'phaser';
 
 @Component({
   selector: 'app-play',
-  templateUrl: './play.page.html',
-  styleUrls: ['./play.page.scss'],
+  standalone: true,
+  imports: [IonicModule],
+  template: `<ion-content fullscreen="true">
+    <div id="phaser-main"></div>
+  </ion-content>`,
+  styles: [
+    `
+      #phaser-main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #201726;
+      }
+    `,
+  ],
 })
-export class PlayPage implements OnInit {
-  get showButton() {
-    return false;
+export class PlayPage implements OnInit, OnDestroy {
+  readonly platform = inject(Platform);
+  config: Phaser.Types.Core.GameConfig = {};
+  game: Phaser.Game | undefined;
+
+  startGame = signal<boolean>(false);
+
+  ngOnInit(): void {
+    this.init();
   }
 
-  constructor() {}
-
-  async ngOnInit(): Promise<void> {
-    console.log('HomePageComponent', 'ngOnInit');
-    setTimeout(this.init, 500);
+  async init() {
+    this.config = {
+      type: Phaser.AUTO,
+      scale: {
+        mode: Phaser.Scale.FIT,
+        width: this.platform.width(),
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+        height: this.platform.height(),
+      },
+      parent: 'phaser-main',
+      scene: [MainScene],
+      plugins: {
+        global: [],
+        scene: [],
+      },
+      fps: {
+        forceSetTimeOut: true,
+      },
+      render: {
+        transparent: false,
+      },
+      backgroundColor: '#201726',
+      physics: {
+        default: 'arcade',
+      },
+    };
+    this.game = new Phaser.Game(this.config);
+    // this.startGame.set(true);
   }
 
-  async init(): Promise<void> {
-    await PhaserSingletonService.init();
+  ngOnDestroy(): void {
+    if (this.game) {
+      this.game.destroy(true, false);
+    }
   }
 }

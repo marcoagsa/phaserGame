@@ -9,18 +9,17 @@ const routes: Routes = [
     children: [
       {
         path: 'about',
-        loadChildren: () =>
-          import('./about/about.module').then((m) => m.AboutPageModule),
+        loadComponent: () =>
+          import('./about/about.page').then((m) => m.AboutPage),
       },
       {
         path: 'play',
-        loadChildren: () =>
-          import('./play/play.module').then((m) => m.PlayPageModule),
+        loadComponent: () => import('./play/play.page').then((m) => m.PlayPage),
       },
       {
         path: 'scores',
-        loadChildren: () =>
-          import('./scores/scores.module').then((m) => m.ScoresPageModule),
+        loadComponent: () =>
+          import('./scores/scores.page').then((m) => m.ScoresPage),
       },
       {
         path: '',

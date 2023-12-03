@@ -17,6 +17,8 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2022",
+    "types": ["phaser"],
+    "typeRoots": ["./node_modules/phaser/types"],
     "module": "es2020",
     "lib": ["es2018", "dom", "scripthost"],
     "useDefineForClassFields": false,
