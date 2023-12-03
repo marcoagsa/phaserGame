@@ -7,9 +7,14 @@ import * as Phaser from 'phaser';
   selector: 'app-play',
   standalone: true,
   imports: [IonicModule],
-  template: `<ion-content fullscreen="true">
-    <div id="phaser-main"></div>
-  </ion-content>`,
+  template: `
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Header Toolbar</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content id="phaser-main" />
+  `,
   styles: [
     `
       #phaser-main {
