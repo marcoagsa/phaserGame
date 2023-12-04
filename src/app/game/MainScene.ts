@@ -1,6 +1,11 @@
 import { Scene } from 'phaser';
 import * as Phaser from 'phaser';
 
+const HEALTH_ANIMATION = {
+  LOSE_FIRST_HALF: 'LOSE_FIRST_HALF',
+  LOSE_SECOND_HALF: 'LOSE_SECOND_HALF',
+} as const;
+
 export class MainScene extends Scene {
   screenWidth!: number;
   screenHeight!: number;
@@ -10,6 +15,7 @@ export class MainScene extends Scene {
   background!: any;
   platform!: Phaser.Types.Physics.Arcade.ImageWithStaticBody;
   player!: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
+  heart!: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
   leftArrow!: Phaser.GameObjects.Image;
   rightArrow!: Phaser.GameObjects.Image;
   moveLeft!: boolean;
@@ -22,6 +28,8 @@ export class MainScene extends Scene {
   score!: number;
   scoreText!: Phaser.GameObjects.Text;
   gameOverText!: Phaser.GameObjects.Text;
+  health!: number;
+  hearts: Phaser.GameObjects.Sprite[] = [];
 
   constructor() {
     super({ key: 'MainScene' });
@@ -35,6 +43,10 @@ export class MainScene extends Scene {
     this.load.image('background', 'assets/bg.jpg');
     this.load.image('leftArrow', 'assets/leftarrow.png');
     this.load.image('rightArrow', 'assets/rightarrow.png');
+    this.load.spritesheet('heart', 'assets/heart.png', {
+      frameWidth: 7,
+      frameHeight: 7,
+    });
     this.load.spritesheet('player', 'assets/player.png', {
       frameWidth: 32,
       frameHeight: 48,
@@ -63,11 +75,14 @@ export class MainScene extends Scene {
       .setOrigin(0, 0)
       .refreshBody();
 
+    this.addHealthBar();
+
     this.player = this.physics.add.sprite(
       this.screenCenterX,
       this.gameAreaHeight - 24,
       'player'
     );
+
     this.leftArrow = this.add
       .image(this.screenWidth * 0.1, this.gameAreaHeight + 50, 'leftArrow')
       .setOrigin(0, 0)
@@ -76,6 +91,20 @@ export class MainScene extends Scene {
       .image(this.screenWidth * 0.7, this.gameAreaHeight + 50, 'rightArrow')
       .setOrigin(0, 0)
       .setInteractive();
+  }
+
+  addHealthAnimation() {
+    this.anims.create({
+      key: HEALTH_ANIMATION.LOSE_FIRST_HALF,
+      frames: this.anims.generateFrameNames('heart', { start: 0, end: 2 }),
+      frameRate: 10,
+    });
+
+    this.anims.create({
+      key: HEALTH_ANIMATION.LOSE_SECOND_HALF,
+      frames: this.anims.generateFrameNames('heart', { start: 2, end: 4 }),
+      frameRate: 10,
+    });
   }
 
   addPlayerAnimation() {
@@ -139,6 +168,29 @@ export class MainScene extends Scene {
         color: '#000',
       })
       .setOrigin(0.5, 0.5);
+  }
+
+  addHealthBar() {
+    this.health = 6;
+    const numberOfHearts = Math.round(this.health / 2);
+    for (let index = 0; index < numberOfHearts; index++) {
+      this.heart = this.physics.add
+        .sprite(10 + index * 30, 50, 'heart', 0)
+        .setScale(3)
+        .setOrigin(0);
+      this.hearts.push(this.heart);
+    }
+  }
+
+  handleHearts() {
+    const heartIndex = Math.round(this.health / 2) - 1;
+    const isHalfHeart = this.health % 2 === 1;
+    if (isHalfHeart) {
+      this.hearts[heartIndex].play(HEALTH_ANIMATION.LOSE_SECOND_HALF);
+    } else {
+      this.hearts[heartIndex].play(HEALTH_ANIMATION.LOSE_FIRST_HALF);
+    }
+    this.health -= 1;
   }
 
   async addMushroomRed() {
@@ -265,9 +317,14 @@ export class MainScene extends Scene {
       (object1: any, object2: any) => {
         const bomb = object1.key === 'player' ? object1 : object2;
         bomb.destroy();
+
+        if (this.health !== 0) {
+          this.handleHearts();
+          return;
+        }
+
         this.time.removeAllEvents();
         this.physics.pause();
-
         this.gameOverText = this.add
           .text(this.screenCenterX, this.screenHeight / 2, 'Game Over', {
             fontSize: '32px',
@@ -287,7 +344,7 @@ export class MainScene extends Scene {
 
   create() {
     this.initValues();
-
+    this.addHealthAnimation();
     this.addPlayerAnimation();
 
     // adds collider between player and platforms
