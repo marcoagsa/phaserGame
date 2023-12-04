@@ -26,7 +26,7 @@ export class MainScene extends Scene {
   mushroomGreen!: Phaser.Physics.Arcade.Group;
   mushroomBlue!: Phaser.Physics.Arcade.Group;
   score!: number;
-  scoreText!: Phaser.GameObjects.Text;
+  scoreText!: Phaser.GameObjects.BitmapText;
   gameOverText!: Phaser.GameObjects.Text;
   health!: number;
   hearts: Phaser.GameObjects.Sprite[] = [];
@@ -36,6 +36,12 @@ export class MainScene extends Scene {
   }
 
   preload() {
+    this.load.bitmapFont(
+      'gothic',
+      'assets/fonts/bitmap/gothic.png',
+      'assets/fonts/bitmap/gothic.xml'
+    );
+
     this.load.image('star', 'assets/star.png');
     this.load.image('mushroomRed', 'assets/mushroomred.webp');
     this.load.image('bomb', 'assets/bomb.png');
@@ -163,11 +169,11 @@ export class MainScene extends Scene {
   addScore() {
     this.score = 0;
     this.scoreText = this.add
-      .text(this.screenCenterX, this.gameAreaHeight + 16, 'Score: 0', {
-        fontSize: '16px',
-        color: '#000',
-      })
-      .setOrigin(0.5, 0.5);
+      .bitmapText(20, 160, 'gothic', `Score: ${this.score}`, 20)
+      .setOrigin(0)
+      .setCenterAlign()
+      .setLetterSpacing(10)
+      .setLineSpacing(20);
   }
 
   addHealthBar() {
@@ -175,7 +181,7 @@ export class MainScene extends Scene {
     const numberOfHearts = Math.round(this.health / 2);
     for (let index = 0; index < numberOfHearts; index++) {
       this.heart = this.physics.add
-        .sprite(10 + index * 30, 50, 'heart', 0)
+        .sprite(20 + index * 30, 130, 'heart', 0)
         .setScale(3)
         .setOrigin(0);
       this.hearts.push(this.heart);
@@ -263,8 +269,8 @@ export class MainScene extends Scene {
   }
 
   createBombLoop() {
-    const test = 4500 - this.score * 100;
-    const delay = Math.floor(Math.random() * (5000 - 4500 + 1)) + test;
+    const calc = 4500 - this.score * 100;
+    const delay = Math.floor(Math.random() * (5000 - 4500 + 1)) + calc;
 
     const event = this.time.addEvent({
       // random number between 4.5 and 5 seconds
