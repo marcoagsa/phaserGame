@@ -1,5 +1,6 @@
 import { Scene } from 'phaser';
 import * as Phaser from 'phaser';
+import { HEALTH_BAR_ASSET_KEYS } from '../constants';
 
 const HEALTH_ANIMATION = {
   LOSE_FIRST_HALF: 'LOSE_FIRST_HALF',
@@ -15,7 +16,7 @@ export class MainScene extends Scene {
   background!: any;
   platform!: Phaser.Types.Physics.Arcade.ImageWithStaticBody;
   player!: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
-  heart!: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
+  heart!: Phaser.GameObjects.Sprite;
   leftArrow!: Phaser.GameObjects.Image;
   rightArrow!: Phaser.GameObjects.Image;
   moveLeft!: boolean;
@@ -30,6 +31,7 @@ export class MainScene extends Scene {
   gameOverText!: Phaser.GameObjects.Text;
   health!: number;
   hearts: Phaser.GameObjects.Sprite[] = [];
+  // hearts: any;
 
   constructor() {
     super({ key: 'MainScene' });
@@ -49,6 +51,10 @@ export class MainScene extends Scene {
     this.load.image('background', 'assets/bg.jpg');
     this.load.image('leftArrow', 'assets/leftarrow.png');
     this.load.image('rightArrow', 'assets/rightarrow.png');
+    this.load.image(
+      HEALTH_BAR_ASSET_KEYS.HEALTH_BACKGROUND,
+      'assets/custom-ui.png'
+    );
     this.load.spritesheet('heart', 'assets/heart.png', {
       frameWidth: 7,
       frameHeight: 7,
@@ -75,13 +81,27 @@ export class MainScene extends Scene {
 
     this.background.x = this.background.displayHeight * 0.5;
 
+    // Criando o container e adicionando elementos
+    const healthBackground = this.add
+      .image(0, 0, HEALTH_BAR_ASSET_KEYS.HEALTH_BACKGROUND)
+      .setOrigin(0)
+      .setScale(0.8, 0.6);
+
+    const heartsContainer = this.addHealthBar();
+
+    const container = this.add.container(10, 80, [
+      healthBackground,
+      this.addScore(),
+    ]);
+    heartsContainer.forEach((sprite) => {
+      container.add(sprite);
+    });
+
     // adds the player, platform, and controls
     this.platform = this.physics.add
       .staticImage(0, this.gameAreaHeight, 'platform')
       .setOrigin(0, 0)
       .refreshBody();
-
-    this.addHealthBar();
 
     this.player = this.physics.add.sprite(
       this.screenCenterX,
@@ -90,11 +110,11 @@ export class MainScene extends Scene {
     );
 
     this.leftArrow = this.add
-      .image(this.screenWidth * 0.1, this.gameAreaHeight + 50, 'leftArrow')
+      .image(this.screenWidth * 0.1, this.gameAreaHeight, 'leftArrow')
       .setOrigin(0, 0)
       .setInteractive();
     this.rightArrow = this.add
-      .image(this.screenWidth * 0.7, this.gameAreaHeight + 50, 'rightArrow')
+      .image(this.screenWidth * 0.7, this.gameAreaHeight, 'rightArrow')
       .setOrigin(0, 0)
       .setInteractive();
   }
@@ -169,23 +189,31 @@ export class MainScene extends Scene {
   addScore() {
     this.score = 0;
     this.scoreText = this.add
-      .bitmapText(20, 160, 'gothic', `Score: ${this.score}`, 20)
+      .bitmapText(30, 45, 'gothic', `Score: ${this.score}`, 20)
       .setOrigin(0)
       .setCenterAlign()
       .setLetterSpacing(10)
-      .setLineSpacing(20);
+      .setLineSpacing(20)
+      .setTint(0x00000)
+      .setDepth(1);
+
+    return this.scoreText;
   }
 
   addHealthBar() {
     this.health = 6;
     const numberOfHearts = Math.round(this.health / 2);
+
     for (let index = 0; index < numberOfHearts; index++) {
-      this.heart = this.physics.add
-        .sprite(20 + index * 30, 130, 'heart', 0)
+      this.heart = this.add
+        .sprite(30 + index * 30, 20, 'heart', 0)
+        .setOrigin(0)
         .setScale(3)
-        .setOrigin(0);
+        .setDepth(1);
       this.hearts.push(this.heart);
     }
+
+    return this.hearts;
   }
 
   handleHearts() {
@@ -355,7 +383,7 @@ export class MainScene extends Scene {
 
     // adds collider between player and platforms
     this.physics.add.collider(this.player, this.platform);
-    this.addScore();
+    // this.addScore();
 
     this.addPlayerMoves();
 
