@@ -7,23 +7,14 @@ import * as Phaser from 'phaser';
   selector: 'app-play',
   standalone: true,
   imports: [],
-  template: ` <div id="phaser-main"></div> `,
-  styles: [
-    `
-      #phaser-main {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: #201726;
-      }
-    `,
-  ],
+  template: `<div id="phaser-main"></div>`,
+  styles: [],
 })
 export class PlayPage implements OnInit, OnDestroy {
   readonly platform = inject(Platform);
   config: Phaser.Types.Core.GameConfig = {};
   game: Phaser.Game | undefined;
-  startGame = signal<boolean>(false);
+  startGame = signal(false);
 
   ngOnInit(): void {
     this.init();
@@ -31,14 +22,15 @@ export class PlayPage implements OnInit, OnDestroy {
 
   async init() {
     this.config = {
-      type: Phaser.AUTO,
+      type: Phaser.CANVAS,
+      pixelArt: false,
       scale: {
+        parent: 'phaser-main',
         mode: Phaser.Scale.CENTER_BOTH,
         autoCenter: Phaser.Scale.CENTER_BOTH,
         width: this.platform.width(),
         height: this.platform.height(),
       },
-      parent: 'phaser-main',
       scene: [MainScene],
       plugins: {
         global: [],
