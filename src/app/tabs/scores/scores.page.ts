@@ -8,7 +8,7 @@ import { PreloadScene } from 'src/app/scenes/preload-scene';
   selector: 'app-scores',
   standalone: true,
   imports: [],
-  template: ``,
+  template: `<div id="phaser-main"></div>`,
   styles: [],
 })
 export class ScoresPage implements OnInit {
