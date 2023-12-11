@@ -1,11 +1,10 @@
 import { Scene } from 'phaser';
 import * as Phaser from 'phaser';
-import { HEALTH_BAR_ASSET_KEYS } from '../constants';
-
-const HEALTH_ANIMATION = {
-  LOSE_FIRST_HALF: 'LOSE_FIRST_HALF',
-  LOSE_SECOND_HALF: 'LOSE_SECOND_HALF',
-} as const;
+import {
+  ASSETS_PATH,
+  HEALTH_ANIMATION,
+  HEALTH_BAR_ASSET_KEYS,
+} from '../constants';
 
 export class MainScene extends Scene {
   screenWidth!: number;
@@ -31,7 +30,6 @@ export class MainScene extends Scene {
   gameOverText!: Phaser.GameObjects.Text;
   health!: number;
   hearts: Phaser.GameObjects.Sprite[] = [];
-  // hearts: any;
 
   constructor() {
     super({ key: 'MainScene' });
@@ -40,26 +38,26 @@ export class MainScene extends Scene {
   preload() {
     this.load.bitmapFont(
       'gothic',
-      'assets/fonts/bitmap/gothic.png',
-      'assets/fonts/bitmap/gothic.xml'
+      `${ASSETS_PATH.FONTS}gothic.png`,
+      `${ASSETS_PATH.FONTS}gothic.xml`
     );
 
-    this.load.image('star', 'assets/star.png');
-    this.load.image('mushroomRed', 'assets/mushroomred.webp');
-    this.load.image('bomb', 'assets/bomb.png');
-    this.load.image('platform', 'assets/platform.png');
-    this.load.image('background', 'assets/bg.jpg');
-    this.load.image('leftArrow', 'assets/leftarrow.png');
-    this.load.image('rightArrow', 'assets/rightarrow.png');
+    this.load.image('star', `${ASSETS_PATH.ITEM}star.png`);
+    this.load.image('mushroomRed', `${ASSETS_PATH.ITEM}mushroomred.webp`);
+    this.load.image('bomb', `${ASSETS_PATH.ITEM}bomb.png`);
+    this.load.image('platform', `${ASSETS_PATH.ITEM}platform.png`);
+    this.load.image('background', `${ASSETS_PATH.BACKGROUNDS}bg.jpg`);
+    this.load.image('leftArrow', `${ASSETS_PATH.ITEM}leftarrow.png`);
+    this.load.image('rightArrow', `${ASSETS_PATH.ITEM}rightarrow.png`);
     this.load.image(
       HEALTH_BAR_ASSET_KEYS.HEALTH_BACKGROUND,
-      'assets/custom-ui.png'
+      `${ASSETS_PATH.UI}custom-ui.png`
     );
-    this.load.spritesheet('heart', 'assets/heart.png', {
+    this.load.spritesheet('heart', `${ASSETS_PATH.SPRITES}heart.png`, {
       frameWidth: 7,
       frameHeight: 7,
     });
-    this.load.spritesheet('player', 'assets/player.png', {
+    this.load.spritesheet('player', `${ASSETS_PATH.SPRITES}player.png`, {
       frameWidth: 32,
       frameHeight: 48,
     });
@@ -89,10 +87,9 @@ export class MainScene extends Scene {
 
     const heartsContainer = this.addHealthBar();
 
-    const container = this.add.container(10, 80, [
-      healthBackground,
-      this.addScore(),
-    ]);
+    const container = this.add
+      .container(10, 30, [healthBackground, this.addScore()])
+      .setDepth(2);
     heartsContainer.forEach((sprite) => {
       container.add(sprite);
     });
@@ -112,11 +109,13 @@ export class MainScene extends Scene {
     this.leftArrow = this.add
       .image(this.screenWidth * 0.1, this.gameAreaHeight, 'leftArrow')
       .setOrigin(0, 0)
-      .setInteractive();
+      .setInteractive()
+      .setDepth(2);
     this.rightArrow = this.add
       .image(this.screenWidth * 0.7, this.gameAreaHeight, 'rightArrow')
       .setOrigin(0, 0)
-      .setInteractive();
+      .setInteractive()
+      .setDepth(2);
   }
 
   addHealthAnimation() {
