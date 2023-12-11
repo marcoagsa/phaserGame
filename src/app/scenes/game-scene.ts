@@ -1,10 +1,7 @@
 import * as Phaser from 'phaser';
 import {
   BACKGROUND_ASSET_KEYS,
-  GAME_PAD_ASSET_KEYS,
   HEALTH_BAR_ASSET_KEYS,
-  MONKEY_ASSET_KEYS,
-  PLATFORM_ASSET_KEYS,
   SCENE_KEYS,
 } from '../constants';
 
@@ -21,12 +18,6 @@ export class GameScene extends Phaser.Scene {
   }
 
   create() {
-    // const screenWidth = this.scale.width;
-    // const screenHeight = this.scale.height;
-    // const screenCenterX = screenWidth / 2;
-    // const controlsAreaHeight = screenHeight * 0.2;
-    // const gameAreaHeight = screenHeight - controlsAreaHeight;
-
     // add main background
     this.add.image(0, 0, BACKGROUND_ASSET_KEYS.BACKGROUND).setOrigin(0);
 
