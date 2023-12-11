@@ -24,7 +24,7 @@ export class PlayPage implements OnInit {
 
   async init() {
     this.config = {
-      type: Phaser.CANVAS,
+      type: Phaser.AUTO,
       pixelArt: false,
       scale: {
         parent: 'phaser-main',

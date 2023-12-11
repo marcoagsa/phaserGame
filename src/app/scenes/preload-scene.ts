@@ -2,6 +2,7 @@ import * as Phaser from 'phaser';
 import {
   ASSETS_PATH,
   BACKGROUND_ASSET_KEYS,
+  FONT_ASSET_KEYS,
   GAME_PAD_ASSET_KEYS,
   HEALTH_BAR_ASSET_KEYS,
   MONKEY_ASSET_KEYS,
@@ -20,10 +21,11 @@ export class PreloadScene extends Phaser.Scene {
 
   preload() {
     this.load.bitmapFont(
-      'gothic',
+      FONT_ASSET_KEYS.GOTHIC,
       `${ASSETS_PATH.FONTS}gothic.png`,
       `${ASSETS_PATH.FONTS}gothic.xml`
     );
+
     this.load.image(
       BACKGROUND_ASSET_KEYS.BACKGROUND,
       `${ASSETS_PATH.BACKGROUNDS}bg.jpg`
