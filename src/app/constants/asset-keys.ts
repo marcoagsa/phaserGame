@@ -4,6 +4,7 @@ export const BACKGROUND_ASSET_KEYS = Object.freeze({
 
 export const HEALTH_BAR_ASSET_KEYS = Object.freeze({
   HEALTH_BACKGROUND: 'HEALTH_BACKGROUND',
+  HEART: 'heart',
 });
 
 export const MONKEY_ASSET_KEYS = Object.freeze({
@@ -15,20 +16,21 @@ export const PLATFORM_ASSET_KEYS = Object.freeze({
 });
 
 export const OBJECTS_ASSET_KEYS = Object.freeze({
-  STAR: 'STAR',
-  RED_MUSHROOM: 'RED_MUSHROOM',
-  BOMB: 'BOMB',
+  STAR: 'star',
+  MUSHROOM_RED: 'mushroomRed',
+  BOMB: 'bomb',
 });
 
 export const GAME_PAD_ASSET_KEYS = Object.freeze({
   RIGHT: 'RIGHT',
   LEFT: 'LEFT',
+  TURN: 'TURN',
 });
 
 export const ASSETS_PATH = Object.freeze({
   BACKGROUNDS: 'assets/backgrounds/',
   FONTS: 'assets/fonts/bitmap/',
-  ITEM: 'assets/items/',
+  ITEMS: 'assets/items/',
   SPRITES: 'assets/sprites/',
   UI: 'assets/ui/',
 });

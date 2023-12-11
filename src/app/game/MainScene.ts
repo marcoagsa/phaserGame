@@ -1,9 +1,14 @@
 import { Scene } from 'phaser';
 import * as Phaser from 'phaser';
 import {
-  ASSETS_PATH,
+  BACKGROUND_ASSET_KEYS,
+  GAME_PAD_ASSET_KEYS,
   HEALTH_ANIMATION,
   HEALTH_BAR_ASSET_KEYS,
+  MONKEY_ASSET_KEYS,
+  OBJECTS_ASSET_KEYS,
+  PLATFORM_ASSET_KEYS,
+  SCENE_KEYS,
 } from '../constants';
 
 export class MainScene extends Scene {
@@ -32,36 +37,10 @@ export class MainScene extends Scene {
   hearts: Phaser.GameObjects.Sprite[] = [];
 
   constructor() {
-    super({ key: 'MainScene' });
+    super({ key: SCENE_KEYS.MAIN_SCENE });
   }
 
-  preload() {
-    this.load.bitmapFont(
-      'gothic',
-      `${ASSETS_PATH.FONTS}gothic.png`,
-      `${ASSETS_PATH.FONTS}gothic.xml`
-    );
-
-    this.load.image('star', `${ASSETS_PATH.ITEM}star.png`);
-    this.load.image('mushroomRed', `${ASSETS_PATH.ITEM}mushroomred.webp`);
-    this.load.image('bomb', `${ASSETS_PATH.ITEM}bomb.png`);
-    this.load.image('platform', `${ASSETS_PATH.ITEM}platform.png`);
-    this.load.image('background', `${ASSETS_PATH.BACKGROUNDS}bg.jpg`);
-    this.load.image('leftArrow', `${ASSETS_PATH.ITEM}leftarrow.png`);
-    this.load.image('rightArrow', `${ASSETS_PATH.ITEM}rightarrow.png`);
-    this.load.image(
-      HEALTH_BAR_ASSET_KEYS.HEALTH_BACKGROUND,
-      `${ASSETS_PATH.UI}custom-ui.png`
-    );
-    this.load.spritesheet('heart', `${ASSETS_PATH.SPRITES}heart.png`, {
-      frameWidth: 7,
-      frameHeight: 7,
-    });
-    this.load.spritesheet('player', `${ASSETS_PATH.SPRITES}player.png`, {
-      frameWidth: 32,
-      frameHeight: 48,
-    });
-  }
+  preload() {}
 
   initValues() {
     this.screenWidth = this.scale.width;
@@ -70,7 +49,11 @@ export class MainScene extends Scene {
     this.controlsAreaHeight = this.screenHeight * 0.2;
     this.gameAreaHeight = this.screenHeight - this.controlsAreaHeight;
 
-    this.background = this.physics.add.image(0, 0, 'background');
+    this.background = this.physics.add.image(
+      0,
+      0,
+      BACKGROUND_ASSET_KEYS.BACKGROUND
+    );
     this.background.displayHeight = this.scale.height;
     this.background.scaleX = this.background.scaleY;
 
@@ -96,23 +79,31 @@ export class MainScene extends Scene {
 
     // adds the player, platform, and controls
     this.platform = this.physics.add
-      .staticImage(0, this.gameAreaHeight, 'platform')
+      .staticImage(0, this.gameAreaHeight, PLATFORM_ASSET_KEYS.BASE)
       .setOrigin(0, 0)
       .refreshBody();
 
     this.player = this.physics.add.sprite(
       this.screenCenterX,
       this.gameAreaHeight - 24,
-      'player'
+      MONKEY_ASSET_KEYS.MONKEY
     );
 
     this.leftArrow = this.add
-      .image(this.screenWidth * 0.1, this.gameAreaHeight, 'leftArrow')
+      .image(
+        this.screenWidth * 0.1,
+        this.gameAreaHeight,
+        GAME_PAD_ASSET_KEYS.LEFT
+      )
       .setOrigin(0, 0)
       .setInteractive()
       .setDepth(2);
     this.rightArrow = this.add
-      .image(this.screenWidth * 0.7, this.gameAreaHeight, 'rightArrow')
+      .image(
+        this.screenWidth * 0.7,
+        this.gameAreaHeight,
+        GAME_PAD_ASSET_KEYS.RIGHT
+      )
       .setOrigin(0, 0)
       .setInteractive()
       .setDepth(2);
@@ -121,39 +112,51 @@ export class MainScene extends Scene {
   addHealthAnimation() {
     this.anims.create({
       key: HEALTH_ANIMATION.LOSE_FIRST_HALF,
-      frames: this.anims.generateFrameNames('heart', { start: 0, end: 2 }),
+      frames: this.anims.generateFrameNames(HEALTH_BAR_ASSET_KEYS.HEART, {
+        start: 0,
+        end: 2,
+      }),
       frameRate: 10,
     });
 
     this.anims.create({
       key: HEALTH_ANIMATION.LOSE_SECOND_HALF,
-      frames: this.anims.generateFrameNames('heart', { start: 2, end: 4 }),
+      frames: this.anims.generateFrameNames(HEALTH_BAR_ASSET_KEYS.HEART, {
+        start: 2,
+        end: 4,
+      }),
       frameRate: 10,
     });
   }
 
   addPlayerAnimation() {
     // adds animations for player
-    if (!this.anims.exists('left')) {
+    if (!this.anims.exists(GAME_PAD_ASSET_KEYS.LEFT)) {
       this.anims.create({
-        key: 'left',
-        frames: this.anims.generateFrameNumbers('player', { start: 0, end: 3 }),
+        key: GAME_PAD_ASSET_KEYS.LEFT,
+        frames: this.anims.generateFrameNumbers(MONKEY_ASSET_KEYS.MONKEY, {
+          start: 0,
+          end: 3,
+        }),
         frameRate: 10,
         repeat: -1,
       });
     }
 
-    if (!this.anims.exists('turn')) {
+    if (!this.anims.exists(GAME_PAD_ASSET_KEYS.TURN)) {
       this.anims.create({
-        key: 'turn',
-        frames: [{ key: 'player', frame: 4 }],
+        key: GAME_PAD_ASSET_KEYS.TURN,
+        frames: [{ key: MONKEY_ASSET_KEYS.MONKEY, frame: 4 }],
       });
     }
 
-    if (!this.anims.exists('right')) {
+    if (!this.anims.exists(GAME_PAD_ASSET_KEYS.RIGHT)) {
       this.anims.create({
-        key: 'right',
-        frames: this.anims.generateFrameNumbers('player', { start: 5, end: 8 }),
+        key: GAME_PAD_ASSET_KEYS.RIGHT,
+        frames: this.anims.generateFrameNumbers(MONKEY_ASSET_KEYS.MONKEY, {
+          start: 5,
+          end: 8,
+        }),
         frameRate: 10,
         repeat: -1,
       });
@@ -382,20 +385,20 @@ export class MainScene extends Scene {
 
     // adds collider between player and platforms
     this.physics.add.collider(this.player, this.platform);
-    // this.addScore();
 
     this.addPlayerMoves();
 
-    this.addStars();
     this.addMushroomRed();
     this.addBooms();
+    this.addStars();
 
     // Adds colliders between stars and bombs with platform
     this.physics.add.collider(
       this.stars,
       this.platform,
       (object1: any, object2: any) => {
-        const star = object1.texture.key === 'star' ? object1 : object2;
+        const star =
+          object1.texture.key === OBJECTS_ASSET_KEYS.STAR ? object1 : object2;
         star.destroy();
       }
     );
@@ -405,7 +408,9 @@ export class MainScene extends Scene {
       this.platform,
       (object1: any, object2: any) => {
         const mushroomRed =
-          object1.texture.key === 'mushroomRed' ? object1 : object2;
+          object1.texture.key === OBJECTS_ASSET_KEYS.MUSHROOM_RED
+            ? object1
+            : object2;
         mushroomRed.destroy();
       }
     );
@@ -414,7 +419,8 @@ export class MainScene extends Scene {
       this.bombs,
       this.platform,
       (object1: any, object2: any) => {
-        const bomb = object1.key === 'bomb' ? object1 : object2;
+        const bomb =
+          object1.key === OBJECTS_ASSET_KEYS.BOMB ? object1 : object2;
         bomb.destroy();
       }
     );
@@ -427,16 +433,13 @@ export class MainScene extends Scene {
   override update() {
     if (this.moveLeft && !this.moveRight) {
       this.player.setVelocityX(0 - 200);
-
-      this.player.anims.play('left', true);
+      this.player.anims.play(GAME_PAD_ASSET_KEYS.LEFT, true);
     } else if (this.moveRight && !this.moveLeft) {
       this.player.setVelocityX(200);
-
-      this.player.anims.play('right', true);
+      this.player.anims.play(GAME_PAD_ASSET_KEYS.RIGHT, true);
     } else {
       this.player.setVelocityX(0);
-
-      this.player.anims.play('turn');
+      this.player.anims.play(GAME_PAD_ASSET_KEYS.TURN);
     }
   }
 }
