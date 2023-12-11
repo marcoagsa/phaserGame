@@ -22,7 +22,7 @@ export class ScoresPage implements OnInit {
         parent: 'game-container',
         width: this.platform.width(),
         height: this.platform.height(),
-        mode: Phaser.Scale.RESIZE,
+        mode: Phaser.Scale.CENTER_BOTH,
         autoCenter: Phaser.Scale.CENTER_BOTH,
       },
       backgroundColor: '#201726',

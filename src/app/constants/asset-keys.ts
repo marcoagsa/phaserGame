@@ -24,3 +24,16 @@ export const GAME_PAD_ASSET_KEYS = Object.freeze({
   RIGHT: 'RIGHT',
   LEFT: 'LEFT',
 });
+
+export const ASSETS_PATH = Object.freeze({
+  BACKGROUNDS: 'assets/backgrounds/',
+  FONTS: 'assets/fonts/bitmap/',
+  ITEM: 'assets/items/',
+  SPRITES: 'assets/sprites/',
+  UI: 'assets/ui/',
+});
+
+export const HEALTH_ANIMATION = Object.freeze({
+  LOSE_FIRST_HALF: 'LOSE_FIRST_HALF',
+  LOSE_SECOND_HALF: 'LOSE_SECOND_HALF',
+});
