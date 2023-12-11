@@ -2,6 +2,7 @@ import { Scene } from 'phaser';
 import * as Phaser from 'phaser';
 import {
   BACKGROUND_ASSET_KEYS,
+  FONT_ASSET_KEYS,
   GAME_PAD_ASSET_KEYS,
   HEALTH_ANIMATION,
   HEALTH_BAR_ASSET_KEYS,
@@ -32,15 +33,13 @@ export class MainScene extends Scene {
   mushroomBlue!: Phaser.Physics.Arcade.Group;
   score!: number;
   scoreText!: Phaser.GameObjects.BitmapText;
-  gameOverText!: Phaser.GameObjects.Text;
+  gameOverText!: Phaser.GameObjects.BitmapText;
   health!: number;
   hearts: Phaser.GameObjects.Sprite[] = [];
 
   constructor() {
     super({ key: SCENE_KEYS.MAIN_SCENE });
   }
-
-  preload() {}
 
   initValues() {
     this.screenWidth = this.scale.width;
@@ -62,7 +61,6 @@ export class MainScene extends Scene {
 
     this.background.x = this.background.displayHeight * 0.5;
 
-    // Criando o container e adicionando elementos
     const healthBackground = this.add
       .image(0, 0, HEALTH_BAR_ASSET_KEYS.HEALTH_BACKGROUND)
       .setOrigin(0)
@@ -190,13 +188,14 @@ export class MainScene extends Scene {
 
   addScore() {
     this.score = 0;
+
     this.scoreText = this.add
       .bitmapText(30, 45, 'gothic', `Score: ${this.score}`, 20)
       .setOrigin(0)
       .setCenterAlign()
       .setLetterSpacing(10)
       .setLineSpacing(20)
-      .setTint(0x00000)
+      .setTint(0xffffff)
       .setDepth(1);
 
     return this.scoreText;
@@ -351,7 +350,8 @@ export class MainScene extends Scene {
       this.player,
       this.bombs,
       (object1: any, object2: any) => {
-        const bomb = object1.key === 'player' ? object1 : object2;
+        const bomb =
+          object1.key === MONKEY_ASSET_KEYS.MONKEY ? object1 : object2;
         bomb.destroy();
 
         if (this.health !== 0) {
@@ -359,14 +359,24 @@ export class MainScene extends Scene {
           return;
         }
 
+        this.gameOverText = this.add
+          .bitmapText(
+            50,
+            this.screenHeight / 2,
+            FONT_ASSET_KEYS.GOTHIC,
+            `GAME OVER`,
+            45
+          )
+          .setOrigin(0)
+          .setCenterAlign()
+          .setLetterSpacing(10)
+          .setLineSpacing(20)
+          .setTint(0xff0000)
+          .setDropShadow(2, 4, 0xffffff)
+          .setDepth(1);
+
         this.time.removeAllEvents();
         this.physics.pause();
-        this.gameOverText = this.add
-          .text(this.screenCenterX, this.screenHeight / 2, 'Game Over', {
-            fontSize: '32px',
-            color: 'red',
-          })
-          .setOrigin(0.5, 0.5);
 
         this.input.on('pointerup', () => {
           this.score = 0;

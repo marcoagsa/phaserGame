@@ -1,3 +1,7 @@
+export const FONT_ASSET_KEYS = Object.freeze({
+  GOTHIC: 'gothic',
+});
+
 export const BACKGROUND_ASSET_KEYS = Object.freeze({
   BACKGROUND: 'BACKGROUND',
 });
