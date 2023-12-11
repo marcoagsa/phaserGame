@@ -34,6 +34,7 @@
             "styles": ["src/theme/variables.scss", "src/global.scss"],
             "scripts": [],
             "allowedCommonJsDependencies": [
+              "phaser",
               "rxjs-compat",
               "validator",
               "twilio-video",
