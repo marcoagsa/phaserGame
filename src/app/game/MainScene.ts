@@ -69,7 +69,7 @@ export class MainScene extends Scene {
     const heartsContainer = this.addHealthBar();
 
     const container = this.add
-      .container(10, 30, [healthBackground, this.addScore()])
+      .container(10, 80, [healthBackground, this.addScore()])
       .setDepth(2);
     heartsContainer.forEach((sprite) => {
       container.add(sprite);
@@ -359,6 +359,9 @@ export class MainScene extends Scene {
           return;
         }
 
+        this.time.removeAllEvents();
+        this.physics.pause();
+
         this.gameOverText = this.add
           .bitmapText(
             50,
@@ -374,9 +377,6 @@ export class MainScene extends Scene {
           .setTint(0xff0000)
           .setDropShadow(2, 4, 0xffffff)
           .setDepth(1);
-
-        this.time.removeAllEvents();
-        this.physics.pause();
 
         this.input.on('pointerup', () => {
           this.score = 0;
