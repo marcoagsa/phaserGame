@@ -19,19 +19,18 @@ export class PreloadScene extends Phaser.Scene {
   }
 
   preload() {
+    this.load.bitmapFont(
+      'gothic',
+      `${ASSETS_PATH.FONTS}gothic.png`,
+      `${ASSETS_PATH.FONTS}gothic.xml`
+    );
     this.load.image(
       BACKGROUND_ASSET_KEYS.BACKGROUND,
       `${ASSETS_PATH.BACKGROUNDS}bg.jpg`
     );
-    this.load.image(OBJECTS_ASSET_KEYS.STAR, `${ASSETS_PATH.ITEM}star.png`);
-    this.load.image(
-      OBJECTS_ASSET_KEYS.RED_MUSHROOM,
-      `${ASSETS_PATH.ITEM}mushroomred.webp`
-    );
-    this.load.image(OBJECTS_ASSET_KEYS.BOMB, `${ASSETS_PATH.ITEM}bomb.png`);
     this.load.image(
       PLATFORM_ASSET_KEYS.BASE,
-      `${ASSETS_PATH.ITEM}platform.png`
+      `${ASSETS_PATH.ITEMS}platform.png`
     );
     this.load.image(
       HEALTH_BAR_ASSET_KEYS.HEALTH_BACKGROUND,
@@ -47,15 +46,28 @@ export class PreloadScene extends Phaser.Scene {
     );
     this.load.image(
       GAME_PAD_ASSET_KEYS.LEFT,
-      `${ASSETS_PATH.ITEM}leftarrow.png`
+      `${ASSETS_PATH.ITEMS}leftarrow.png`
     );
     this.load.image(
       GAME_PAD_ASSET_KEYS.RIGHT,
-      `${ASSETS_PATH.ITEM}rightarrow.png`
+      `${ASSETS_PATH.ITEMS}rightarrow.png`
     );
+    this.load.spritesheet('heart', `${ASSETS_PATH.SPRITES}heart.png`, {
+      frameWidth: 7,
+      frameHeight: 7,
+    });
+    this.load.image(OBJECTS_ASSET_KEYS.STAR, `${ASSETS_PATH.ITEMS}star.png`);
+
+    this.load.image(
+      OBJECTS_ASSET_KEYS.MUSHROOM_RED,
+      `${ASSETS_PATH.ITEMS}mushroomred.webp`
+    );
+
+    this.load.image(OBJECTS_ASSET_KEYS.BOMB, `${ASSETS_PATH.ITEMS}bomb.png`);
   }
 
   create() {
-    this.scene.start(SCENE_KEYS.GAME_SCENE);
+    // this.scene.start(SCENE_KEYS.GAME_SCENE);
+    this.scene.start(SCENE_KEYS.MAIN_SCENE);
   }
 }
