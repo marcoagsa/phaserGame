@@ -6,8 +6,8 @@ import { IonicModule } from '@ionic/angular';
   standalone: true,
   imports: [IonicModule],
   template: `<ion-app>
-    <ion-router-outlet></ion-router-outlet>
-  </ion-app>`,
+    <ion-router-outlet />
+  </ion-app> `,
   styles: [],
 })
 export class AppComponent {}

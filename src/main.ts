@@ -1,5 +1,4 @@
 import { enableProdMode, importProvidersFrom } from '@angular/core';
-import { environment } from './environments/environment';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import {
   PreloadAllModules,
@@ -7,8 +6,9 @@ import {
   RouterModule,
 } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { AppComponent } from './app/app.component';
+import { environment } from './environments/environment';
 import { ROUTES } from './app/constants';
+import { AppComponent } from './app/app.component';
 import { PhaserSingletonService } from './app/services/phaser-single.module';
 
 if (environment.production) {
