@@ -6,21 +6,7 @@ import { UtilsService } from 'src/app/services/utils.service';
   selector: 'app-about',
   standalone: true,
   imports: [IonicModule],
-  template: ` <ion-header>
-      <ion-toolbar>
-        <ion-title>About</ion-title>
-        <ion-buttons slot="primary">
-          <ion-button (click)="openTabs()">
-            <ion-icon
-              slot="icon-only"
-              ios="ellipsis-horizontal"
-              md="ellipsis-vertical"
-            />
-          </ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content> </ion-content>`,
+  template: `<ion-content></ion-content>`,
   styles: [``],
 })
 export class AboutPage {

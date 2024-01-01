@@ -18,7 +18,6 @@ export class UtilsService {
     });
 
     await modal.present();
-    return modal.onDidDismiss();
   }
 
   async dismissTabs() {
