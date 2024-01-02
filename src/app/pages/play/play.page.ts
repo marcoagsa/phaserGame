@@ -1,28 +1,43 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { IonicModule, Platform } from '@ionic/angular';
 import { SCENE_KEYS } from 'src/app/constants';
 import { MainScene } from 'src/app/game/MainScene';
 import { PreloadScene } from 'src/app/scenes/preload-scene';
-import { UtilsService } from 'src/app/services/utils.service';
 import * as Phaser from 'phaser';
+import { UtilsService } from 'src/app/services';
 
 @Component({
   selector: 'app-play',
   standalone: true,
   imports: [IonicModule],
-  template: `<ion-content>
+  template: ` @if(toggleStart()) {
     <div id="phaser-main"></div>
-  </ion-content>`,
+    }@else{
+    <ion-content>
+      <ion-item>
+        <ion-button
+          (click)="init()"
+          expand="block"
+          shape="round"
+          color="primary"
+        >
+          Start Game {{ toggleStart() }}
+        </ion-button>
+      </ion-item>
+    </ion-content>
+    }`,
   styles: [],
 })
 export class PlayPage implements OnInit {
   private platform = inject(Platform);
-  private utilsService = inject(UtilsService);
+  private utils = inject(UtilsService);
+
+  toggleStart = signal(false);
   config: Phaser.Types.Core.GameConfig = {};
   game: Phaser.Game | undefined;
 
   async ngOnInit() {
-    this.init();
+    console.log('xupa');
   }
 
   init() {
@@ -53,8 +68,11 @@ export class PlayPage implements OnInit {
       },
     };
     this.game = new Phaser.Game(this.config);
-    this.addScenes();
-    this.startScene(SCENE_KEYS.PRELOAD_SCENE);
+
+    this.game?.scene.add(SCENE_KEYS.PRELOAD_SCENE, PreloadScene);
+    this.game?.scene.add(SCENE_KEYS.MAIN_SCENE, MainScene);
+    this.game?.scene.start(SCENE_KEYS.PRELOAD_SCENE);
+    this.startGame();
   }
 
   addScenes() {
@@ -64,5 +82,9 @@ export class PlayPage implements OnInit {
 
   startScene(scene: string) {
     this.game?.scene.start(scene);
+  }
+
+  startGame() {
+    this.toggleStart.set(true);
   }
 }

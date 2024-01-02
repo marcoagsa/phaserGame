@@ -8,22 +8,31 @@ import { TabsComponent } from '../components';
 export class UtilsService {
   private modalCtrl = inject(ModalController);
 
+  modal: HTMLIonModalElement | undefined;
+
   async openTabs() {
-    const modal = await this.modalCtrl.create({
+    if (this.modal) {
+      return;
+    }
+
+    this.modal = await this.modalCtrl.create({
       component: TabsComponent,
       initialBreakpoint: 0.1,
-      breakpoints: [0.1],
+      breakpoints: [0, 0.1],
+      backdropBreakpoint: 0.1,
       backdropDismiss: false,
+      canDismiss: false,
+      cssClass: 'tabsModal',
     });
 
-    await modal.present();
+    await this.modal.present();
   }
 
   async dismissTabs() {
     await this.modalCtrl.dismiss();
   }
 
-  async changeTabPosition() {
-    await this.modalCtrl.getTop();
+  async tabsBreakPoint(breakpoint: number) {
+    await this.modal?.setCurrentBreakpoint(breakpoint);
   }
 }
