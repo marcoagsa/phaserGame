@@ -1,6 +1,5 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { UtilsService } from './services/utils.service';
 
 @Component({
   selector: 'app-phaser-root',
@@ -11,18 +10,4 @@ import { UtilsService } from './services/utils.service';
   </ion-app> `,
   styles: [],
 })
-export class AppComponent implements OnInit {
-  private utils = inject(UtilsService);
-
-  // constructor() {
-  //   this.openTabs();
-  // }
-
-  ngOnInit(): void {
-    this.openTabs();
-  }
-
-  async openTabs() {
-    await this.utils.openTabs();
-  }
-}
+export class AppComponent {}

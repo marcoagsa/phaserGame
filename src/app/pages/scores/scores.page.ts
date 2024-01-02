@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
+import { UtilsService } from 'src/app/services';
 
 @Component({
   selector: 'app-scores',
@@ -10,4 +11,14 @@ import { IonicModule } from '@ionic/angular';
   </ion-content>`,
   styles: [],
 })
-export class ScoresPage {}
+export class ScoresPage implements OnInit {
+  public utils = inject(UtilsService);
+
+  ngOnInit(): void {
+    this.init();
+  }
+
+  async init() {
+    await this.utils.openTabs();
+  }
+}
