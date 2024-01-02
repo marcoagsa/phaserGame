@@ -1,5 +1,4 @@
-import { Injectable, inject, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Injectable, inject } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { TabsComponent } from '../components';
 
@@ -22,5 +21,9 @@ export class UtilsService {
 
   async dismissTabs() {
     await this.modalCtrl.dismiss();
+  }
+
+  async changeTabPosition() {
+    await this.modalCtrl.getTop();
   }
 }

@@ -1,24 +1,27 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
-import { Platform } from '@ionic/angular';
+import { Component, OnInit, inject } from '@angular/core';
+import { IonicModule, Platform } from '@ionic/angular';
 import { SCENE_KEYS } from 'src/app/constants';
 import { MainScene } from 'src/app/game/MainScene';
 import { PreloadScene } from 'src/app/scenes/preload-scene';
+import { UtilsService } from 'src/app/services/utils.service';
 import * as Phaser from 'phaser';
 
 @Component({
   selector: 'app-play',
   standalone: true,
-  imports: [],
-  template: `<div id="phaser-main"></div>`,
+  imports: [IonicModule],
+  template: `<ion-content>
+    <div id="phaser-main"></div>
+  </ion-content>`,
   styles: [],
 })
 export class PlayPage implements OnInit {
-  readonly platform = inject(Platform);
+  private platform = inject(Platform);
+  private utilsService = inject(UtilsService);
   config: Phaser.Types.Core.GameConfig = {};
   game: Phaser.Game | undefined;
-  startGame = signal(false);
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.init();
   }
 
@@ -50,7 +53,6 @@ export class PlayPage implements OnInit {
       },
     };
     this.game = new Phaser.Game(this.config);
-
     this.addScenes();
     this.startScene(SCENE_KEYS.PRELOAD_SCENE);
   }

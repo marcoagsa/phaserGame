@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 
 @Component({
@@ -10,8 +10,4 @@ import { IonicModule } from '@ionic/angular';
   </ion-content>`,
   styles: [],
 })
-export class ScoresPage implements OnInit {
-  ngOnInit(): void {
-    console.log('test');
-  }
-}
+export class ScoresPage {}

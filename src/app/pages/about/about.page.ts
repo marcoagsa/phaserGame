@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { UtilsService } from 'src/app/services/utils.service';
 
@@ -6,7 +6,9 @@ import { UtilsService } from 'src/app/services/utils.service';
   selector: 'app-about',
   standalone: true,
   imports: [IonicModule],
-  template: `<ion-content></ion-content>`,
+  template: `<ion-content>
+    <ion-title>About</ion-title>
+  </ion-content>`,
   styles: [``],
 })
 export class AboutPage {
