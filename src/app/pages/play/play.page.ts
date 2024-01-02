@@ -1,6 +1,6 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { IonicModule, Platform } from '@ionic/angular';
-import { SCENE_KEYS } from 'src/app/constants';
+import { ASSETS_PATH, SCENE_KEYS } from 'src/app/constants';
 import { MainScene } from 'src/app/game/MainScene';
 import { PreloadScene } from 'src/app/scenes/preload-scene';
 import * as Phaser from 'phaser';
@@ -14,31 +14,65 @@ import { UtilsService } from 'src/app/services';
     <div id="phaser-main"></div>
     }@else{
     <ion-content>
-      <ion-item>
+      <ion-card>
+        <ion-img [src]="image" />
+
         <ion-button
-          (click)="init()"
-          expand="block"
+          aria-label="Favorite"
+          color="medium"
+          size="large"
+          fill="outline"
           shape="round"
-          color="primary"
+          expand="block"
+          (click)="init()"
         >
-          Start Game {{ toggleStart() }}
+          Start Game
+          <ion-icon name="play-outline" size="large" color="danger" />
         </ion-button>
-      </ion-item>
+
+        <ion-button
+          aria-label="Favorite"
+          color="medium"
+          size="large"
+          fill="outline"
+          shape="round"
+          expand="block"
+          (click)="utils.openTabs()"
+        >
+          <ion-icon name="caret-back-outline" size="large" color="danger" />
+          Go Back
+        </ion-button>
+      </ion-card>
     </ion-content>
     }`,
-  styles: [],
+  styles: [
+    `
+      ion-card {
+        margin-top: 30vh;
+        display: grid;
+        gap: 10px;
+        padding: 20px;
+      }
+
+      ion-button {
+        margin-top: 20px;
+      }
+
+      ion-img {
+        height: 100px;
+      }
+    `,
+  ],
 })
-export class PlayPage implements OnInit {
+export class PlayPage {
   private platform = inject(Platform);
-  private utils = inject(UtilsService);
+  readonly utils = inject(UtilsService);
 
   toggleStart = signal(false);
+
+  image = `${ASSETS_PATH.BACKGROUNDS}monkey.png`;
   config: Phaser.Types.Core.GameConfig = {};
   game: Phaser.Game | undefined;
-
-  async ngOnInit() {
-    console.log('xupa');
-  }
 
   init() {
     this.config = {
@@ -69,10 +103,8 @@ export class PlayPage implements OnInit {
     };
     this.game = new Phaser.Game(this.config);
 
-    this.game?.scene.add(SCENE_KEYS.PRELOAD_SCENE, PreloadScene);
-    this.game?.scene.add(SCENE_KEYS.MAIN_SCENE, MainScene);
-    this.game?.scene.start(SCENE_KEYS.PRELOAD_SCENE);
-    this.startGame();
+    this.addScenes();
+    this.startScene(SCENE_KEYS.PRELOAD_SCENE);
   }
 
   addScenes() {
@@ -82,9 +114,10 @@ export class PlayPage implements OnInit {
 
   startScene(scene: string) {
     this.game?.scene.start(scene);
+    this.playGame();
   }
 
-  startGame() {
+  playGame() {
     this.toggleStart.set(true);
   }
 }
