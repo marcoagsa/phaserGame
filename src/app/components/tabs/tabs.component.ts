@@ -51,12 +51,6 @@ import { triangle, ellipse, square } from 'ionicons/icons';
 })
 export class TabsComponent {
   constructor() {
-    /**
-     * On Ionicons 7.2+ this icon
-     * gets mapped to a "logo-ionic" key.
-     * Alternatively, developers can do:
-     * addIcons({ 'logo-ionic': logoIonic });
-     */
     addIcons({ triangle, ellipse, square });
   }
 }
