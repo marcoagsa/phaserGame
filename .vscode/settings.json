@@ -1,3 +1,7 @@
 {
-  "cSpell.words": ["backgroundcolor"]
+  "cSpell.words": ["backgroundcolor"],
+  "typescript.preferences.autoImportFileExcludePatterns": [
+    "@ionic/angular/common",
+    "@ionic/angular"
+  ]
 }

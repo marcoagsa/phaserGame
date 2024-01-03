@@ -1,15 +1,13 @@
-import { enableProdMode, importProvidersFrom } from '@angular/core';
-import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
-import {
-  PreloadAllModules,
-  RouteReuseStrategy,
-  RouterModule,
-} from '@angular/router';
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { enableProdMode } from '@angular/core';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { RouteReuseStrategy, provideRouter } from '@angular/router';
 import { environment } from './environments/environment';
 import { ROUTES } from './app/constants';
 import { AppComponent } from './app/app.component';
-import { PhaserSingletonService } from './app/services/phaser-single.module';
+import {
+  IonicRouteStrategy,
+  provideIonicAngular,
+} from '@ionic/angular/standalone';
 
 if (environment.production) {
   enableProdMode();
@@ -17,14 +15,8 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
   providers: [
-    importProvidersFrom(
-      RouterModule.forRoot(ROUTES, {
-        preloadingStrategy: PreloadAllModules,
-      }),
-      IonicModule.forRoot({ innerHTMLTemplatesEnabled: true }),
-      PhaserSingletonService.forRoot()
-    ),
-    BrowserModule,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    provideIonicAngular(),
+    provideRouter(ROUTES),
   ],
-}).catch((err) => console.error(err));
+});

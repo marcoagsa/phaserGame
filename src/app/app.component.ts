@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-phaser-root',
   standalone: true,
-  imports: [IonicModule],
+  imports: [IonApp, IonRouterOutlet],
   template: `<ion-app>
     <ion-router-outlet />
   </ion-app> `,

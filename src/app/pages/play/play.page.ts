@@ -1,5 +1,14 @@
 import { Component, inject, signal } from '@angular/core';
-import { IonicModule, Platform } from '@ionic/angular';
+import { Platform } from '@ionic/angular/standalone';
+import {
+  IonButton,
+  IonCard,
+  IonContent,
+  IonIcon,
+  IonImg,
+} from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { caretBackOutline, playOutline } from 'ionicons/icons';
 import { ASSETS_PATH, SCENE_KEYS } from 'src/app/constants';
 import { MainScene } from 'src/app/game/MainScene';
 import { PreloadScene } from 'src/app/scenes/preload-scene';
@@ -9,7 +18,7 @@ import { UtilsService } from 'src/app/services';
 @Component({
   selector: 'app-play',
   standalone: true,
-  imports: [IonicModule],
+  imports: [IonContent, IonCard, IonButton, IonImg, IonIcon],
   template: ` @if(toggleStart()) {
     <div id="phaser-main"></div>
     }@else{
@@ -73,6 +82,10 @@ export class PlayPage {
   image = `${ASSETS_PATH.BACKGROUNDS}monkey.png`;
   config: Phaser.Types.Core.GameConfig = {};
   game: Phaser.Game | undefined;
+
+  constructor() {
+    addIcons({ playOutline, caretBackOutline });
+  }
 
   init() {
     this.config = {

@@ -1,10 +1,18 @@
 import { Component } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import {
+  IonIcon,
+  IonLabel,
+  IonTabBar,
+  IonTabButton,
+  IonTabs,
+} from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { triangle, ellipse, square } from 'ionicons/icons';
 
 @Component({
   selector: 'app-tabs',
   standalone: true,
-  imports: [IonicModule],
+  imports: [IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel],
   template: `
     <ion-tabs>
       <ion-tab-bar>
@@ -41,4 +49,14 @@ import { IonicModule } from '@ionic/angular';
     `,
   ],
 })
-export class TabsComponent {}
+export class TabsComponent {
+  constructor() {
+    /**
+     * On Ionicons 7.2+ this icon
+     * gets mapped to a "logo-ionic" key.
+     * Alternatively, developers can do:
+     * addIcons({ 'logo-ionic': logoIonic });
+     */
+    addIcons({ triangle, ellipse, square });
+  }
+}

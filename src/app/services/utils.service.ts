@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { ModalController } from '@ionic/angular';
 import { TabsComponent } from '../components';
+import { ModalController } from '@ionic/angular/standalone';
 
 @Injectable({
   providedIn: 'root',
