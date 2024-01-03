@@ -1,11 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { IonContent, IonTitle } from '@ionic/angular/standalone';
 import { UtilsService } from 'src/app/services';
 
 @Component({
   selector: 'app-scores',
   standalone: true,
-  imports: [IonicModule],
+  imports: [IonContent, IonTitle],
   template: `<ion-content>
     <ion-title>Scores</ion-title>
   </ion-content>`,
