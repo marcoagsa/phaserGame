@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { NgClass } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   IonIcon,
   IonLabel,
@@ -16,21 +18,27 @@ import {
 @Component({
   selector: 'app-tabs',
   standalone: true,
-  imports: [IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel],
+  imports: [IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, NgClass],
   template: `
     <ion-tabs>
       <ion-tab-bar>
-        <ion-tab-button [href]="'about'">
+        <ion-tab-button
+          [href]="'about'"
+          [ngClass]="{ active: active('about') }"
+        >
           <ion-icon aria-hidden="true" name="information-circle-outline" />
           <ion-label>About</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button [href]="'play'">
+        <ion-tab-button [href]="'play'" [ngClass]="{ active: active('play') }">
           <ion-icon aria-hidden="true" name="game-controller-outline" />
           <ion-label>Play</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button [href]="'scores'">
+        <ion-tab-button
+          [href]="'scores'"
+          [ngClass]="{ active: active('scores') }"
+        >
           <ion-icon aria-hidden="true" name="medal-outline" />
           <ion-label>Scores</ion-label>
         </ion-tab-button>
@@ -42,19 +50,29 @@ import {
       ion-tabs {
         background: var(--ion-toolbar-background);
         display: block;
-        padding-top: 20px;
+        margin-top: 20px;
         ion-tab-bar {
           background: var(--ion-toolbar-background);
         }
         ion-tab-button {
           background: var(--ion-toolbar-background);
+          --color-focused: red;
         }
+      }
+      .active {
+        color: var(--ion-color-primary);
       }
     `,
   ],
 })
 export class TabsComponent {
+  private route = inject(Router);
   constructor() {
     addIcons({ informationCircleOutline, gameControllerOutline, medalOutline });
+  }
+
+  active(page: string): boolean {
+    const url = this.route.url.slice(1, this.route.url.length);
+    return url === page;
   }
 }
