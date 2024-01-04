@@ -7,7 +7,7 @@ import {
   IonTabs,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { triangle, ellipse, square } from 'ionicons/icons';
+import { triangle, gameControllerOutline, square } from 'ionicons/icons';
 
 @Component({
   selector: 'app-tabs',
@@ -21,7 +21,7 @@ import { triangle, ellipse, square } from 'ionicons/icons';
           <ion-label>About</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button [href]="'play'">
+        <ion-tab-button [href]="'game-controller-outline'">
           <ion-icon aria-hidden="true" name="ellipse" />
           <ion-label>Play</ion-label>
         </ion-tab-button>
@@ -51,6 +51,6 @@ import { triangle, ellipse, square } from 'ionicons/icons';
 })
 export class TabsComponent {
   constructor() {
-    addIcons({ triangle, ellipse, square });
+    addIcons({ triangle, gameControllerOutline, square });
   }
 }
