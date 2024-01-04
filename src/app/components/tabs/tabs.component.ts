@@ -12,7 +12,7 @@ import { addIcons } from 'ionicons';
 import {
   informationCircleOutline,
   gameControllerOutline,
-  medalOutline,
+  trophyOutline,
 } from 'ionicons/icons';
 
 @Component({
@@ -39,7 +39,7 @@ import {
           [href]="'scores'"
           [ngClass]="{ active: active('scores') }"
         >
-          <ion-icon aria-hidden="true" name="medal-outline" />
+          <ion-icon aria-hidden="true" name="trophy-outline" />
           <ion-label>Scores</ion-label>
         </ion-tab-button>
       </ion-tab-bar>
@@ -68,7 +68,11 @@ import {
 export class TabsComponent {
   private route = inject(Router);
   constructor() {
-    addIcons({ informationCircleOutline, gameControllerOutline, medalOutline });
+    addIcons({
+      informationCircleOutline,
+      gameControllerOutline,
+      trophyOutline,
+    });
   }
 
   active(page: string): boolean {
