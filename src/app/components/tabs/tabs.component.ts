@@ -7,7 +7,11 @@ import {
   IonTabs,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { triangle, gameControllerOutline, square } from 'ionicons/icons';
+import {
+  informationCircleOutline,
+  gameControllerOutline,
+  medalOutline,
+} from 'ionicons/icons';
 
 @Component({
   selector: 'app-tabs',
@@ -17,17 +21,17 @@ import { triangle, gameControllerOutline, square } from 'ionicons/icons';
     <ion-tabs>
       <ion-tab-bar>
         <ion-tab-button [href]="'about'">
-          <ion-icon aria-hidden="true" name="triangle" />
+          <ion-icon aria-hidden="true" name="information-circle-outline" />
           <ion-label>About</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button [href]="'game-controller-outline'">
-          <ion-icon aria-hidden="true" name="ellipse" />
+        <ion-tab-button [href]="'play'">
+          <ion-icon aria-hidden="true" name="game-controller-outline" />
           <ion-label>Play</ion-label>
         </ion-tab-button>
 
         <ion-tab-button [href]="'scores'">
-          <ion-icon aria-hidden="true" name="square" />
+          <ion-icon aria-hidden="true" name="medal-outline" />
           <ion-label>Scores</ion-label>
         </ion-tab-button>
       </ion-tab-bar>
@@ -51,6 +55,6 @@ import { triangle, gameControllerOutline, square } from 'ionicons/icons';
 })
 export class TabsComponent {
   constructor() {
-    addIcons({ triangle, gameControllerOutline, square });
+    addIcons({ informationCircleOutline, gameControllerOutline, medalOutline });
   }
 }
