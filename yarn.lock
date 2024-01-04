@@ -2444,9 +2444,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ionic/cli@npm:^7.1.6":
-  version: 7.1.6
-  resolution: "@ionic/cli@npm:7.1.6"
+"@ionic/cli@npm:^7.2.0":
+  version: 7.2.0
+  resolution: "@ionic/cli@npm:7.2.0"
   dependencies:
     "@ionic/cli-framework": "npm:6.0.1"
     "@ionic/cli-framework-output": "npm:2.2.8"
@@ -2476,7 +2476,7 @@ __metadata:
     tslib: "npm:^2.0.1"
   bin:
     ionic: bin/ionic
-  checksum: a53f2f589d6606d5e4a5560ef6f224649aa520ec7fbb6a58defcfcb2637e321c21ee5fa61cc7eff98e1b00fc461b4ece8fd65d903ebd9fac32437605deede3ac
+  checksum: 288881ffbfed576727da6341fe05f5fdafc8fa32a9cc7ffef41ad7062001a3cb9672f21b0089d9baeab7bdd130cb3ec978f8b0b6d87b23c8721f79c6b0652113
   languageName: node
   linkType: hard
 
@@ -10006,7 +10006,7 @@ __metadata:
     "@capacitor/status-bar": "npm:5.0.6"
     "@ionic/angular": "npm:7.6.2"
     "@ionic/angular-toolkit": "npm:10.0.0"
-    "@ionic/cli": "npm:^7.1.6"
+    "@ionic/cli": "npm:^7.2.0"
     "@types/jasmine": "npm:5.1.4"
     "@types/node": "npm:20.10.5"
     "@typescript-eslint/eslint-plugin": "npm:6.16.0"
