@@ -24,3 +24,15 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+
+ion-modal.ios {
+  --height: calc(100% - (var(--ion-safe-area-top)) + 400px);
+}
+
+ion-modal::part(content) {
+  background-color: #262626;
+}
+
+ion-modal::part(handle) {
+  background-color: var(--ion-color-primary);
+}
