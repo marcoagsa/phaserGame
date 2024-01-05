@@ -83,8 +83,8 @@ export class PlayPage implements OnInit, OnDestroy {
   init() {
     this.game = new Phaser.Game(this.config);
     this.game?.scene.add(SCENE_KEYS.PRELOAD_SCENE, PreloadScene);
-    this.game?.scene.add(SCENE_KEYS.GAME_SCENE, GameScene);
-    // this.game?.scene.add(SCENE_KEYS.MAIN_SCENE, MainScene);
+    // this.game?.scene.add(SCENE_KEYS.GAME_SCENE, GameScene);
+    this.game?.scene.add(SCENE_KEYS.MAIN_SCENE, MainScene);
     this.game?.scene.start(SCENE_KEYS.PRELOAD_SCENE);
   }
 }
