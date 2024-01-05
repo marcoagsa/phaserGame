@@ -14,8 +14,6 @@ export class GameScene extends Scene {
     });
   }
 
-  initValues() {}
-
   create() {
     this.#background = new Background(this);
 
