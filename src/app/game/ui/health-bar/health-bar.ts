@@ -11,6 +11,7 @@ export class HealthBar {
   constructor(scene: Phaser.Scene) {
     this.#scene = scene;
     this.initHealthBar();
+    this.addHealthAnimation();
   }
 
   initHealthBar() {
@@ -69,5 +70,31 @@ export class HealthBar {
       this.hearts[heartIndex].play(HEALTH_ANIMATION.LOSE_FIRST_HALF);
     }
     this.health -= 1;
+  }
+
+  addHealthAnimation() {
+    this.#scene.anims.create({
+      key: HEALTH_ANIMATION.LOSE_FIRST_HALF,
+      frames: this.#scene.anims.generateFrameNames(
+        HEALTH_BAR_ASSET_KEYS.HEART,
+        {
+          start: 0,
+          end: 2,
+        }
+      ),
+      frameRate: 10,
+    });
+
+    this.#scene.anims.create({
+      key: HEALTH_ANIMATION.LOSE_SECOND_HALF,
+      frames: this.#scene.anims.generateFrameNames(
+        HEALTH_BAR_ASSET_KEYS.HEART,
+        {
+          start: 2,
+          end: 4,
+        }
+      ),
+      frameRate: 10,
+    });
   }
 }
