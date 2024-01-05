@@ -1,39 +1,24 @@
-import * as Phaser from 'phaser';
-import {
-  BACKGROUND_ASSET_KEYS,
-  HEALTH_BAR_ASSET_KEYS,
-  SCENE_KEYS,
-} from '../constants';
+import { Scene } from 'phaser';
+import { SCENE_KEYS } from '../constants';
+import { Background } from '../game/ui/background/background';
+import { HealthBar } from '../game/ui/health-bar/health-bar';
 
-export class GameScene extends Phaser.Scene {
-  moveLeft!: boolean;
-  moveRight!: boolean;
-  player!: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
+export class GameScene extends Scene {
+  #background: any;
+  #healthBar: any;
 
   constructor() {
     super({
       key: SCENE_KEYS.GAME_SCENE,
-      // active: true,
     });
   }
 
-  create() {
-    // add main background
-    this.add.image(0, 0, BACKGROUND_ASSET_KEYS.BACKGROUND).setOrigin(0);
+  initValues() {}
 
-    const score = 0;
-    this.add.container(0, 50, [
-      this.add
-        .image(5, 5, HEALTH_BAR_ASSET_KEYS.HEALTH_BACKGROUND)
-        .setOrigin(0)
-        .setScale(0.5, 0.5),
-      this.add
-        .text(50, 50, `Score: ${score}`, {
-          fontSize: '15px',
-          color: 'black',
-        })
-        .setOrigin(0.5, 0.5),
-    ]);
+  create() {
+    this.#background = new Background(this);
+
+    this.#healthBar = new HealthBar(this);
   }
 
   override update() {}
