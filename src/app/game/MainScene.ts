@@ -1,5 +1,7 @@
 import { Scene } from 'phaser';
+import * as Phaser from 'phaser';
 import {
+  BACKGROUND_ASSET_KEYS,
   FONT_ASSET_KEYS,
   GAME_PAD_ASSET_KEYS,
   HEALTH_ANIMATION,
@@ -9,12 +11,17 @@ import {
   PLATFORM_ASSET_KEYS,
   SCENE_KEYS,
 } from '../constants';
-import { HealthBar } from './ui/health-bar/health-bar';
-import { Background } from './ui/background/background';
 
 export class MainScene extends Scene {
+  screenWidth!: number;
+  screenHeight!: number;
+  screenCenterX!: number;
+  controlsAreaHeight!: number;
+  gameAreaHeight!: number;
+  background!: any;
   platform!: Phaser.Types.Physics.Arcade.ImageWithStaticBody;
   player!: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
+  heart!: Phaser.GameObjects.Sprite;
   leftArrow!: Phaser.GameObjects.Image;
   rightArrow!: Phaser.GameObjects.Image;
   moveLeft!: boolean;
@@ -24,35 +31,66 @@ export class MainScene extends Scene {
   mushroomRed!: Phaser.Physics.Arcade.Group;
   mushroomGreen!: Phaser.Physics.Arcade.Group;
   mushroomBlue!: Phaser.Physics.Arcade.Group;
+  score!: number;
+  scoreText!: Phaser.GameObjects.BitmapText;
   gameOverText!: Phaser.GameObjects.BitmapText;
-  #background: any;
-  #healthBar: any;
+  health!: number;
+  hearts: Phaser.GameObjects.Sprite[] = [];
 
   constructor() {
     super({ key: SCENE_KEYS.MAIN_SCENE });
   }
 
   initValues() {
-    this.#background = new Background(this);
+    this.screenWidth = this.scale.width;
+    this.screenHeight = this.scale.height;
+    this.screenCenterX = this.screenWidth / 2;
+    this.controlsAreaHeight = this.screenHeight * 0.2;
+    this.gameAreaHeight = this.screenHeight - this.controlsAreaHeight;
 
-    this.#healthBar = new HealthBar(this);
+    this.background = this.physics.add.image(
+      0,
+      0,
+      BACKGROUND_ASSET_KEYS.BACKGROUND
+    );
+    this.background.displayHeight = this.scale.height;
+    this.background.scaleX = this.background.scaleY;
+
+    this.background.y = this.scale.height / 2;
+    this.background.x = this.scale.width / 2;
+
+    this.background.x = this.background.displayHeight * 0.5;
+
+    const healthBackground = this.add
+      .image(0, 0, HEALTH_BAR_ASSET_KEYS.HEALTH_BACKGROUND)
+      .setOrigin(0)
+      .setScale(0.8, 0.6);
+
+    const heartsContainer = this.addHealthBar();
+
+    const container = this.add
+      .container(10, 80, [healthBackground, this.addScore()])
+      .setDepth(2);
+    heartsContainer.forEach((sprite) => {
+      container.add(sprite);
+    });
 
     // adds the player, platform, and controls
     this.platform = this.physics.add
-      .staticImage(0, this.#background.gameAreaHeight, PLATFORM_ASSET_KEYS.BASE)
+      .staticImage(0, this.gameAreaHeight, PLATFORM_ASSET_KEYS.BASE)
       .setOrigin(0, 0)
       .refreshBody();
 
     this.player = this.physics.add.sprite(
-      this.#background.screenCenterX,
-      this.#background.gameAreaHeight - 24,
+      this.screenCenterX,
+      this.gameAreaHeight - 24,
       MONKEY_ASSET_KEYS.MONKEY
     );
 
     this.leftArrow = this.add
       .image(
-        this.#background.screenWidth * 0.1,
-        this.#background.gameAreaHeight,
+        this.screenWidth * 0.1,
+        this.gameAreaHeight,
         GAME_PAD_ASSET_KEYS.LEFT
       )
       .setOrigin(0, 0)
@@ -60,8 +98,8 @@ export class MainScene extends Scene {
       .setDepth(2);
     this.rightArrow = this.add
       .image(
-        this.#background.screenWidth * 0.7,
-        this.#background.gameAreaHeight,
+        this.screenWidth * 0.7,
+        this.gameAreaHeight,
         GAME_PAD_ASSET_KEYS.RIGHT
       )
       .setOrigin(0, 0)
@@ -148,8 +186,50 @@ export class MainScene extends Scene {
     });
   }
 
+  addScore() {
+    this.score = 0;
+
+    this.scoreText = this.add
+      .bitmapText(30, 45, 'gothic', `Score: ${this.score}`, 20)
+      .setOrigin(0)
+      .setCenterAlign()
+      .setLetterSpacing(10)
+      .setLineSpacing(20)
+      .setTint(0xffffff)
+      .setDepth(1);
+
+    return this.scoreText;
+  }
+
+  addHealthBar() {
+    this.health = 6;
+    const numberOfHearts = Math.round(this.health / 2);
+
+    for (let index = 0; index < numberOfHearts; index++) {
+      this.heart = this.add
+        .sprite(30 + index * 30, 20, 'heart', 0)
+        .setOrigin(0)
+        .setScale(3)
+        .setDepth(1);
+      this.hearts.push(this.heart);
+    }
+
+    return this.hearts;
+  }
+
+  handleHearts() {
+    const heartIndex = Math.round(this.health / 2) - 1;
+    const isHalfHeart = this.health % 2 === 1;
+    if (isHalfHeart) {
+      this.hearts[heartIndex].play(HEALTH_ANIMATION.LOSE_SECOND_HALF);
+    } else {
+      this.hearts[heartIndex].play(HEALTH_ANIMATION.LOSE_FIRST_HALF);
+    }
+    this.health -= 1;
+  }
+
   async addMushroomRed() {
-    // Adds generated red mushroom
+    // Adds generated stars
     this.mushroomRed = this.physics.add.group({
       gravityY: 200,
     });
@@ -159,7 +239,7 @@ export class MainScene extends Scene {
   }
 
   createMushroomRed() {
-    const x = Math.random() * this.#background.screenWidth;
+    const x = Math.random() * this.screenWidth;
     const mushroomRed = this.mushroomRed.create(x, 0, 'mushroomRed');
     mushroomRed.setScale(0.1);
   }
@@ -186,7 +266,7 @@ export class MainScene extends Scene {
   }
 
   createStar() {
-    const x = Math.random() * this.#background.screenWidth;
+    const x = Math.random() * this.screenWidth;
     const star = this.stars.create(x, 0, 'star');
   }
 
@@ -212,14 +292,13 @@ export class MainScene extends Scene {
   }
 
   createBomb() {
-    const x = Math.random() * this.#background.screenWidth;
+    const x = Math.random() * this.screenWidth;
     const bomb = this.bombs.create(x, 0, 'bomb');
     bomb.setScale(2).refreshBody();
   }
 
   createBombLoop() {
-    // const calc = 4500 - this.score * 100;
-    const calc = 4500 - this.#healthBar.score * 100;
+    const calc = 4500 - this.score * 100;
     const delay = Math.floor(Math.random() * (5000 - 4500 + 1)) + calc;
 
     const event = this.time.addEvent({
@@ -239,11 +318,9 @@ export class MainScene extends Scene {
       (object1: any, object2: any) => {
         const star = object1.key === 'player' ? object1 : object2;
         star.destroy();
-        this.#healthBar.score += 50;
-        // this.score += 50;
+        this.score += 50;
         this.player.scale += 0.1;
-        // this.scoreText.setText('Score: ' + this.score);
-        this.#healthBar.scoreText.setText('Score: ' + this.#healthBar.score);
+        this.scoreText.setText('Score: ' + this.score);
       },
       undefined,
       this
@@ -258,9 +335,9 @@ export class MainScene extends Scene {
       (object1: any, object2: any) => {
         const mushroomRed = object1.key === 'player' ? object1 : object2;
         mushroomRed.destroy();
-        this.#healthBar.score += 10;
+        this.score += 10;
         this.player.scale += 0.1;
-        this.#healthBar.scoreText.setText('Score: ' + this.#healthBar.score);
+        this.scoreText.setText('Score: ' + this.score);
       },
       undefined,
       this
@@ -277,8 +354,8 @@ export class MainScene extends Scene {
           object1.key === MONKEY_ASSET_KEYS.MONKEY ? object1 : object2;
         bomb.destroy();
 
-        if (this.#healthBar.health !== 0) {
-          this.#healthBar.handleHearts();
+        if (this.health !== 0) {
+          this.handleHearts();
           return;
         }
 
@@ -288,7 +365,7 @@ export class MainScene extends Scene {
         this.gameOverText = this.add
           .bitmapText(
             50,
-            this.#background.screenHeight / 2,
+            this.screenHeight / 2,
             FONT_ASSET_KEYS.GOTHIC,
             `GAME OVER`,
             45
@@ -302,7 +379,7 @@ export class MainScene extends Scene {
           .setDepth(1);
 
         this.input.on('pointerup', () => {
-          this.#healthBar.score = 0;
+          this.score = 0;
           this.game.destroy(true, false);
         });
       },
@@ -320,6 +397,7 @@ export class MainScene extends Scene {
     this.physics.add.collider(this.player, this.platform);
 
     this.addPlayerMoves();
+
     this.addMushroomRed();
     this.addBooms();
     this.addStars();
