@@ -4,10 +4,13 @@ export class GamePad {
   #scene: Phaser.Scene;
   leftArrow!: Phaser.GameObjects.Image;
   rightArrow!: Phaser.GameObjects.Image;
+  moveLeft!: boolean;
+  moveRight!: boolean;
 
   constructor(scene: Phaser.Scene) {
     this.#scene = scene;
     this.initGamePad();
+    this.gamePadMoves();
   }
 
   initGamePad() {
@@ -32,5 +35,26 @@ export class GamePad {
       .setOrigin(0, 0)
       .setInteractive()
       .setDepth(2);
+  }
+
+  gamePadMoves() {
+    this.moveLeft = false;
+    this.moveRight = false;
+
+    this.leftArrow.on('pointerdown', () => {
+      this.moveLeft = true;
+    });
+
+    this.leftArrow.on('pointerup', () => {
+      this.moveLeft = false;
+    });
+
+    this.rightArrow.on('pointerdown', () => {
+      this.moveRight = true;
+    });
+
+    this.rightArrow.on('pointerup', () => {
+      this.moveRight = false;
+    });
   }
 }
