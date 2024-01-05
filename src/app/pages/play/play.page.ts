@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { Platform } from '@ionic/angular/standalone';
 import {
   IonButton,
@@ -9,51 +9,20 @@ import {
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { caretBackOutline, playOutline } from 'ionicons/icons';
-import { ASSETS_PATH, SCENE_KEYS } from 'src/app/constants';
+import { SCENE_KEYS } from 'src/app/constants';
 import { MainScene } from 'src/app/game/MainScene';
 import { PreloadScene } from 'src/app/scenes/preload-scene';
 import * as Phaser from 'phaser';
-import { UtilsService } from 'src/app/services';
 
 @Component({
   selector: 'app-play',
   standalone: true,
   imports: [IonContent, IonCard, IonButton, IonImg, IonIcon],
-  template: ` @if(toggleStart()) {
-    <div id="phaser-main"></div>
-    }@else{
-    <ion-content>
-      <ion-card>
-        <ion-img [src]="image" />
-
-        <ion-button
-          aria-label="Favorite"
-          color="medium"
-          size="large"
-          fill="outline"
-          shape="round"
-          expand="block"
-          (click)="init()"
-        >
-          Start Game
-          <ion-icon name="play-outline" size="large" color="danger" />
-        </ion-button>
-
-        <ion-button
-          aria-label="Favorite"
-          color="medium"
-          size="large"
-          fill="outline"
-          shape="round"
-          expand="block"
-          (click)="utils.openTabs()"
-        >
-          <ion-icon name="caret-back-outline" size="large" color="danger" />
-          Go Back
-        </ion-button>
-      </ion-card>
+  template: `
+    <ion-content [fullscreen]="true">
+      <div id="phaser-main"></div>
     </ion-content>
-    }`,
+  `,
   styles: [
     `
       ion-card {
@@ -73,64 +42,52 @@ import { UtilsService } from 'src/app/services';
     `,
   ],
 })
-export class PlayPage {
+export class PlayPage implements OnInit, OnDestroy {
   private platform = inject(Platform);
-  readonly utils = inject(UtilsService);
 
-  toggleStart = signal(false);
-
-  image = `${ASSETS_PATH.BACKGROUNDS}monkey.png`;
-  config: Phaser.Types.Core.GameConfig = {};
+  config: Phaser.Types.Core.GameConfig = {
+    type: Phaser.CANVAS,
+    pixelArt: false,
+    parent: 'phaser-main',
+    scale: {
+      width: this.platform.width(),
+      height: this.platform.height(),
+      mode: Phaser.Scale.FIT,
+      autoCenter: Phaser.Scale.CENTER_BOTH,
+    },
+    plugins: {
+      global: [],
+      scene: [],
+    },
+    fps: {
+      forceSetTimeOut: true,
+    },
+    render: {
+      transparent: false,
+    },
+    backgroundColor: '#201726',
+    physics: {
+      default: 'arcade',
+    },
+  };
   game: Phaser.Game | undefined;
 
   constructor() {
     addIcons({ playOutline, caretBackOutline });
   }
 
-  init() {
-    this.config = {
-      type: Phaser.AUTO,
-      pixelArt: false,
-      scale: {
-        parent: 'phaser-main',
-        width: this.platform.width(),
-        height: this.platform.height(),
-        mode: Phaser.Scale.CENTER_BOTH,
-        autoCenter: Phaser.Scale.CENTER_BOTH,
-      },
-      // scene: [MainScene],
-      plugins: {
-        global: [],
-        scene: [],
-      },
-      fps: {
-        forceSetTimeOut: true,
-      },
-      render: {
-        transparent: false,
-      },
-      backgroundColor: '#201726',
-      physics: {
-        default: 'arcade',
-      },
-    };
-    this.game = new Phaser.Game(this.config);
-
-    this.addScenes();
-    this.startScene(SCENE_KEYS.PRELOAD_SCENE);
+  ngOnInit(): void {
+    this.init();
   }
 
-  addScenes() {
+  ngOnDestroy(): void {
+    this.game?.destroy(true, false);
+  }
+
+  init() {
+    this.game = new Phaser.Game(this.config);
     this.game?.scene.add(SCENE_KEYS.PRELOAD_SCENE, PreloadScene);
     this.game?.scene.add(SCENE_KEYS.MAIN_SCENE, MainScene);
-  }
-
-  startScene(scene: string) {
-    this.game?.scene.start(scene);
-    this.playGame();
-  }
-
-  playGame() {
-    this.toggleStart.set(true);
+    this.game?.scene.start(SCENE_KEYS.PRELOAD_SCENE);
   }
 }
