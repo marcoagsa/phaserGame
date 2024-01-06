@@ -2,7 +2,7 @@ import { BACKGROUND_ASSET_KEYS, PLATFORM_ASSET_KEYS } from 'src/app/constants';
 
 export class Background {
   #scene: Phaser.Scene;
-  background!: any;
+  background!: Phaser.Physics.Arcade.Image;
   platform!: Phaser.Types.Physics.Arcade.ImageWithStaticBody;
 
   constructor(scene: Phaser.Scene) {
