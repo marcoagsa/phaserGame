@@ -1,4 +1,4 @@
-import { GAME_PAD_ASSET_KEYS } from 'src/app/constants';
+import { GAME_PAD_DIRECTIONS } from 'src/app/constants';
 
 export class GamePad {
   #scene: Phaser.Scene;
@@ -21,7 +21,7 @@ export class GamePad {
       .image(
         this.#scene.scale.width * 0.1,
         gameAreaHeight,
-        GAME_PAD_ASSET_KEYS.LEFT
+        GAME_PAD_DIRECTIONS.LEFT
       )
       .setOrigin(0, 0)
       .setInteractive()
@@ -30,7 +30,7 @@ export class GamePad {
       .image(
         this.#scene.scale.width * 0.7,
         gameAreaHeight,
-        GAME_PAD_ASSET_KEYS.RIGHT
+        GAME_PAD_DIRECTIONS.RIGHT
       )
       .setOrigin(0, 0)
       .setInteractive()

@@ -1,7 +1,7 @@
 import { Scene } from 'phaser';
 import {
   FONT_ASSET_KEYS,
-  GAME_PAD_ASSET_KEYS,
+  GAME_PAD_DIRECTIONS,
   MONKEY_ASSET_KEYS,
   OBJECTS_ASSET_KEYS,
   SCENE_KEYS,
@@ -16,10 +16,10 @@ export class MainScene extends Scene {
   mushroomBlue!: Phaser.Physics.Arcade.Group;
   gameOverText!: Phaser.GameObjects.BitmapText;
 
-  #background: any;
-  #healthBar: any;
-  #gamePad: any;
-  #monkey: any;
+  #background!: Background;
+  #gamePad!: GamePad;
+  #healthBar!: HealthBar;
+  #monkey!: Monkey;
 
   constructor() {
     super({ key: SCENE_KEYS.MAIN_SCENE });
@@ -245,14 +245,11 @@ export class MainScene extends Scene {
 
   override update() {
     if (this.#gamePad.moveLeft && !this.#gamePad.moveRight) {
-      this.#monkey.monkey.setVelocityX(0 - 200);
-      this.#monkey.monkey.anims.play(GAME_PAD_ASSET_KEYS.LEFT, true);
+      this.#monkey.move(0 - 200, GAME_PAD_DIRECTIONS.LEFT, true);
     } else if (this.#gamePad.moveRight && !this.#gamePad.moveLeft) {
-      this.#monkey.monkey.setVelocityX(200);
-      this.#monkey.monkey.anims.play(GAME_PAD_ASSET_KEYS.RIGHT, true);
+      this.#monkey.move(200, GAME_PAD_DIRECTIONS.RIGHT, true);
     } else {
-      this.#monkey.monkey.setVelocityX(0);
-      this.#monkey.monkey.anims.play(GAME_PAD_ASSET_KEYS.TURN);
+      this.#monkey.move(0, GAME_PAD_DIRECTIONS.TURN, undefined);
     }
   }
 }

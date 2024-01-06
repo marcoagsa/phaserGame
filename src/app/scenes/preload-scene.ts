@@ -3,7 +3,7 @@ import {
   ASSETS_PATH,
   BACKGROUND_ASSET_KEYS,
   FONT_ASSET_KEYS,
-  GAME_PAD_ASSET_KEYS,
+  GAME_PAD_DIRECTIONS,
   HEALTH_BAR_ASSET_KEYS,
   MONKEY_ASSET_KEYS,
   OBJECTS_ASSET_KEYS,
@@ -47,11 +47,11 @@ export class PreloadScene extends Phaser.Scene {
       }
     );
     this.load.image(
-      GAME_PAD_ASSET_KEYS.LEFT,
+      GAME_PAD_DIRECTIONS.LEFT,
       `${ASSETS_PATH.ITEMS}leftarrow.png`
     );
     this.load.image(
-      GAME_PAD_ASSET_KEYS.RIGHT,
+      GAME_PAD_DIRECTIONS.RIGHT,
       `${ASSETS_PATH.ITEMS}rightarrow.png`
     );
     this.load.spritesheet('heart', `${ASSETS_PATH.SPRITES}heart.png`, {

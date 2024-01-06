@@ -1,4 +1,4 @@
-import { GAME_PAD_ASSET_KEYS, MONKEY_ASSET_KEYS } from 'src/app/constants';
+import { GAME_PAD_DIRECTIONS, MONKEY_ASSET_KEYS } from 'src/app/constants';
 
 export class Monkey {
   #scene: Phaser.Scene;
@@ -6,11 +6,14 @@ export class Monkey {
 
   constructor(scene: Phaser.Scene) {
     this.#scene = scene;
-    this.initMonkey();
-    this.addPlayerAnimation();
+    this.init();
+    this.animation();
   }
 
-  initMonkey() {
+  /**
+   * init monkey in the scene
+   */
+  init() {
     const controlsAreaHeight = this.#scene.scale.height * 0.2;
     const gameAreaHeight = this.#scene.scale.height - controlsAreaHeight;
     this.monkey = this.#scene.physics.add.sprite(
@@ -20,11 +23,15 @@ export class Monkey {
     );
   }
 
-  addPlayerAnimation() {
+  /**
+   * Animation of the monkey
+   */
+  animation() {
     // adds animations for player
-    if (!this.#scene.anims.exists(GAME_PAD_ASSET_KEYS.LEFT)) {
+
+    if (!this.#scene.anims.exists(GAME_PAD_DIRECTIONS.LEFT)) {
       this.#scene.anims.create({
-        key: GAME_PAD_ASSET_KEYS.LEFT,
+        key: GAME_PAD_DIRECTIONS.LEFT,
         frames: this.#scene.anims.generateFrameNumbers(
           MONKEY_ASSET_KEYS.MONKEY,
           {
@@ -37,16 +44,16 @@ export class Monkey {
       });
     }
 
-    if (!this.#scene.anims.exists(GAME_PAD_ASSET_KEYS.TURN)) {
+    if (!this.#scene.anims.exists(GAME_PAD_DIRECTIONS.TURN)) {
       this.#scene.anims.create({
-        key: GAME_PAD_ASSET_KEYS.TURN,
+        key: GAME_PAD_DIRECTIONS.TURN,
         frames: [{ key: MONKEY_ASSET_KEYS.MONKEY, frame: 4 }],
       });
     }
 
-    if (!this.#scene.anims.exists(GAME_PAD_ASSET_KEYS.RIGHT)) {
+    if (!this.#scene.anims.exists(GAME_PAD_DIRECTIONS.RIGHT)) {
       this.#scene.anims.create({
-        key: GAME_PAD_ASSET_KEYS.RIGHT,
+        key: GAME_PAD_DIRECTIONS.RIGHT,
         frames: this.#scene.anims.generateFrameNumbers(
           MONKEY_ASSET_KEYS.MONKEY,
           {
@@ -62,5 +69,22 @@ export class Monkey {
     // sets player physics
     this.monkey.body.setGravityY(300);
     this.monkey.setCollideWorldBounds(true);
+  }
+
+  /**
+   *
+   * Move monkey
+   *
+   * @param {number} velocityX
+   * @param {keyof typeof GAME_PAD_DIRECTIONS } keypress
+   * @param {(boolean | undefined)} ignoreIfPlaying
+   */
+  move(
+    velocityX: number,
+    keypress: string,
+    ignoreIfPlaying: boolean | undefined
+  ) {
+    this.monkey.setVelocityX(velocityX);
+    this.monkey.anims.play(keypress, ignoreIfPlaying);
   }
 }
