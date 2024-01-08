@@ -27,6 +27,7 @@ export class MainScene extends Scene {
 
   initValues() {
     this.#background = new Background(this);
+    this.#background.showBackground();
 
     this.#healthBar = new HealthBar(this);
 
@@ -105,7 +106,7 @@ export class MainScene extends Scene {
   }
 
   createBombLoop() {
-    const calc = 4500 - this.#healthBar.score * 100;
+    const calc = 4500 - Math.floor(Math.random()) * 100;
     const delay = Math.floor(Math.random() * (5000 - 4500 + 1)) + calc;
 
     const event = this.time.addEvent({
@@ -125,9 +126,10 @@ export class MainScene extends Scene {
       (object1: any, object2: any) => {
         const star = object1.key === 'player' ? object1 : object2;
         star.destroy();
-        this.#healthBar.score += 50;
-        this.#monkey.monkey.scale += 0.1;
-        this.#healthBar.scoreText.setText('Score: ' + this.#healthBar.score);
+
+        this.#healthBar.updateScoreValue(50);
+        this.#monkey.increaseMonkeyScale(0.1);
+        this.#healthBar.updateScaleValue(this.#monkey.monkey.scale);
       },
       undefined,
       this
@@ -142,9 +144,9 @@ export class MainScene extends Scene {
       (object1: any, object2: any) => {
         const mushroomRed = object1.key === 'player' ? object1 : object2;
         mushroomRed.destroy();
-        this.#healthBar.score += 10;
-        this.#monkey.monkey.scale += 0.1;
-        this.#healthBar.scoreText.setText('Score: ' + this.#healthBar.score);
+        this.#healthBar.updateScoreValue(10);
+        this.#monkey.increaseMonkeyScale(0.1);
+        this.#healthBar.updateScaleValue(this.#monkey.monkey.scale);
       },
       undefined,
       this
@@ -186,7 +188,8 @@ export class MainScene extends Scene {
           .setDepth(1);
 
         this.input.on('pointerup', () => {
-          this.#healthBar.score = 0;
+          // this.#healthBar.updateScore(0);
+
           this.game.destroy(true, false);
         });
       },

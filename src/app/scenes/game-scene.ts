@@ -16,6 +16,7 @@ export class GameScene extends Scene {
 
   create() {
     this.#background = new Background(this);
+    this.#background.showBackground();
 
     this.#healthBar = new HealthBar(this);
 
