@@ -10,60 +10,33 @@ export class HealthBar {
   #scaleText!: Phaser.GameObjects.BitmapText;
   #scoreValueText!: Phaser.GameObjects.BitmapText;
   #scaleValueText!: Phaser.GameObjects.BitmapText;
-
   #healthBarContainer!: Phaser.GameObjects.Container;
   #scoreContainer!: Phaser.GameObjects.Container;
   #scaleContainer!: Phaser.GameObjects.Container;
 
   constructor(scene: Phaser.Scene) {
     this.#scene = scene;
-    this.#init();
-    this.#initHeartsBar();
-    this.#addHealthAnimation();
+    this.init();
+    this.initHeartsBar();
+    this.heartsAnimation();
   }
 
   /**
-   * handle the hearts animation
+   * Function to init health bar
+   * @private
    */
-  handleHearts() {
-    const heartIndex = Math.round(this.health / 2) - 1;
-    const isHalfHeart = this.health % 2 === 1;
-    if (isHalfHeart) {
-      this.#hearts[heartIndex].play(HEALTH_ANIMATION.LOSE_SECOND_HALF);
-    } else {
-      this.#hearts[heartIndex].play(HEALTH_ANIMATION.LOSE_FIRST_HALF);
-    }
-    this.health -= 1;
-  }
+  private init() {
+    this.#scoreValueText = this.addText(110, 52, '0');
+    this.#scaleValueText = this.addText(280, 17, '1');
+    this.#scoreText = this.addText(30, 50, 'Score');
+    this.#scaleText = this.addText(200, 15, 'Scale');
 
-  /**
-   * update score value on the health bar
-   */
-  updateScoreValue(score: number) {
-    this.#score += score;
-    this.#scoreValueText.setText(`${this.#score}`);
-  }
-
-  /**
-   * update scale value on the health bar
-   */
-  updateScaleValue(scale: number) {
-    const scaleString = parseInt(scale.toString());
-    this.#scaleValueText.setText(`${scaleString}`);
-  }
-
-  #init() {
-    this.#scoreValueText = this.#addText(110, 52, '0');
-    this.#scaleValueText = this.#addText(280, 17, '1');
-    this.#scoreText = this.#addText(30, 50, 'Score');
-    this.#scaleText = this.#addText(200, 15, 'Scale');
-
-    this.#scoreContainer = this.#createContainer(0, 0, [
+    this.#scoreContainer = this.createContainer(0, 0, [
       this.#scoreValueText,
       this.#scoreText,
     ]);
 
-    this.#scaleContainer = this.#createContainer(0, 0, [
+    this.#scaleContainer = this.createContainer(0, 0, [
       this.#scaleValueText,
       this.#scaleText,
     ]);
@@ -80,15 +53,22 @@ export class HealthBar {
       .setDepth(2);
   }
 
-  #initHeartsBar() {
-    const heartsContainer = this.#createHearts();
-
-    heartsContainer.forEach((sprite) => {
+  /**
+   * Function to init hearts bar
+   * @private
+   */
+  private initHeartsBar() {
+    for (const sprite of this.createHearts()) {
       this.#healthBarContainer.add(sprite);
-    });
+    }
   }
 
-  #createHearts() {
+  /**
+   * Function to create a Phaser sprite array of hearts
+   * @private
+   * @return {*}  {Phaser.GameObjects.Sprite[]}
+   */
+  private createHearts(): Phaser.GameObjects.Sprite[] {
     this.health = 6;
     const numberOfHearts = Math.round(this.health / 2);
 
@@ -105,9 +85,10 @@ export class HealthBar {
   }
 
   /**
-   * Implement animation for the hearts
+   * Function to add hearts animation
+   * @private
    */
-  #addHealthAnimation() {
+  private heartsAnimation() {
     this.#scene.anims.create({
       key: HEALTH_ANIMATION.LOSE_FIRST_HALF,
       frames: this.#scene.anims.generateFrameNames(
@@ -133,7 +114,19 @@ export class HealthBar {
     });
   }
 
-  #addText(x: number, y: number, text: string): Phaser.GameObjects.BitmapText {
+  /**
+   * Function to add Phaser BitmapText
+   * @private
+   * @param {number} x position of the text
+   * @param {number} y position of the text
+   * @param {string} text string to add
+   * @return {*}  {Phaser.GameObjects.BitmapText}
+   */
+  private addText(
+    x: number,
+    y: number,
+    text: string
+  ): Phaser.GameObjects.BitmapText {
     return this.#scene.add
       .bitmapText(x, y, 'gothic', `${text}`, 20)
       .setOrigin(0)
@@ -143,11 +136,51 @@ export class HealthBar {
       .setDepth(1);
   }
 
-  #createContainer(
+  /**
+   * Function to create a Phaser Game Object container
+   * @private
+   * @param {number} x position of the text
+   * @param {number} y position of the text
+   * @param {Phaser.GameObjects.GameObject[]} gameObject
+   * @return {*} {Phaser.GameObjects.Container}
+   */
+  private createContainer(
     x: number,
     y: number,
     gameObject: Phaser.GameObjects.GameObject[]
   ): Phaser.GameObjects.Container {
     return this.#scene.add.container(x, y, gameObject).setDepth(2);
+  }
+
+  /**
+   * Function to handle hearts animation
+   */
+  handleHearts() {
+    const heartIndex = Math.round(this.health / 2) - 1;
+    const isHalfHeart = this.health % 2 === 1;
+    if (isHalfHeart) {
+      this.#hearts[heartIndex].play(HEALTH_ANIMATION.LOSE_SECOND_HALF);
+    } else {
+      this.#hearts[heartIndex].play(HEALTH_ANIMATION.LOSE_FIRST_HALF);
+    }
+    this.health -= 1;
+  }
+
+  /**
+   * Function to update the score value
+   * @param {number} score score value
+   */
+  updateScoreValue(score: number) {
+    this.#score += score;
+    this.#scoreValueText.setText(`${this.#score}`);
+  }
+
+  /**
+   * Function to update the scale value
+   * @param {number} scale scale value
+   */
+  updateScaleValue(scale: number) {
+    const scaleString = parseInt(scale.toString());
+    this.#scaleValueText.setText(`${scaleString}`);
   }
 }
