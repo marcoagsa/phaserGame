@@ -4,12 +4,13 @@ export class HealthBar {
   health!: number;
   #scene: Phaser.Scene;
   #score: number = 0;
+  #level: number = 1;
   #heart!: Phaser.GameObjects.Sprite;
   #hearts: Phaser.GameObjects.Sprite[] = [];
   #scoreText!: Phaser.GameObjects.BitmapText;
-  #scaleText!: Phaser.GameObjects.BitmapText;
+  #levelText!: Phaser.GameObjects.BitmapText;
   #scoreValueText!: Phaser.GameObjects.BitmapText;
-  #scaleValueText!: Phaser.GameObjects.BitmapText;
+  #levelValueText!: Phaser.GameObjects.BitmapText;
   #healthBarContainer!: Phaser.GameObjects.Container;
   #scoreContainer!: Phaser.GameObjects.Container;
   #scaleContainer!: Phaser.GameObjects.Container;
@@ -27,9 +28,9 @@ export class HealthBar {
    */
   private init() {
     this.#scoreValueText = this.addText(110, 52, '0');
-    this.#scaleValueText = this.addText(280, 17, '1');
-    this.#scoreText = this.addText(30, 50, 'Score');
-    this.#scaleText = this.addText(200, 15, 'Scale');
+    this.#levelValueText = this.addText(280, 17, '1');
+    this.#scoreText = this.addText(30, 50, 'Score:');
+    this.#levelText = this.addText(200, 15, 'Level:');
 
     this.#scoreContainer = this.createContainer(0, 0, [
       this.#scoreValueText,
@@ -37,8 +38,8 @@ export class HealthBar {
     ]);
 
     this.#scaleContainer = this.createContainer(0, 0, [
-      this.#scaleValueText,
-      this.#scaleText,
+      this.#levelValueText,
+      this.#levelText,
     ]);
 
     this.#healthBarContainer = this.#scene.add
@@ -176,11 +177,11 @@ export class HealthBar {
   }
 
   /**
-   * Function to update the scale value
-   * @param {number} scale scale value
+   * Function to update the level value
    */
-  updateScaleValue(scale: number) {
-    const scaleString = parseInt(scale.toString());
-    this.#scaleValueText.setText(`${scaleString}`);
+  updateLevelValue(reset: boolean = false) {
+    this.#levelValueText.setText(
+      `${reset ? (this.#level = 0) : (this.#level += 1)}`
+    );
   }
 }
