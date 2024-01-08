@@ -6,14 +6,14 @@ export class Monkey {
 
   constructor(scene: Phaser.Scene) {
     this.#scene = scene;
-    this.init();
-    this.animation();
+    this.#init();
+    this.#animation();
   }
 
   /**
    * init monkey in the scene
    */
-  init() {
+  #init() {
     const controlsAreaHeight = this.#scene.scale.height * 0.2;
     const gameAreaHeight = this.#scene.scale.height - controlsAreaHeight;
     this.monkey = this.#scene.physics.add.sprite(
@@ -26,7 +26,7 @@ export class Monkey {
   /**
    * Animation of the monkey
    */
-  animation() {
+  #animation() {
     // adds animations for player
 
     if (!this.#scene.anims.exists(GAME_PAD_DIRECTIONS.LEFT)) {
@@ -72,9 +72,7 @@ export class Monkey {
   }
 
   /**
-   *
-   * Move monkey
-   *
+   * Monkey move
    * @param {number} velocityX
    * @param {keyof typeof GAME_PAD_DIRECTIONS } keypress
    * @param {(boolean | undefined)} ignoreIfPlaying
@@ -86,5 +84,21 @@ export class Monkey {
   ) {
     this.monkey.setVelocityX(velocityX);
     this.monkey.anims.play(keypress, ignoreIfPlaying);
+  }
+
+  /**
+   * Increase monkey scale
+   * @param {number} scale a number between 0 and 1
+   */
+  increaseMonkeyScale(scale: number) {
+    this.monkey.scale += scale;
+  }
+
+  /**
+   * Reduce monkey scale
+   * @param {number} scale a number between 0 and 1
+   */
+  reduceMonkeyScale(scale: number) {
+    this.monkey.scale += scale;
   }
 }
