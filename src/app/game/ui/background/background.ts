@@ -28,27 +28,30 @@ export class Background {
    * Function to update the background
    */
   updateBackground() {
-    this.#background = this.#scene.physics.add.image(
-      0,
-      0,
-      BACKGROUND_ASSET_KEYS.BG_TOXIC
-    );
+    this.#background.destroy();
+    this.initBackground(BACKGROUND_ASSET_KEYS.BG_TOXIC);
+    this.showBackground();
   }
 
   /**
-   * Function to init the game background
+   * Function to add background image
    * @private
+   * @param {(Phaser.Textures.Texture
+   *       | string)} [background=BACKGROUND_ASSET_KEYS.BG_FOREST]
    */
-  private initBackground() {
+  private initBackground(
+    background:
+      | Phaser.Textures.Texture
+      | string = BACKGROUND_ASSET_KEYS.BG_FOREST
+  ) {
     this.#background = this.#scene.physics.add
-      .image(0, 0, BACKGROUND_ASSET_KEYS.BG_FOREST)
-      .setAlpha(0);
+      .image(0, 0, background)
+      .setDepth(0)
+      .setAlpha(1);
     this.#background.displayHeight = this.#scene.scale.height;
     this.#background.scaleX = this.#background.scaleY;
-
     this.#background.y = this.#scene.scale.height / 2;
     this.#background.x = this.#scene.scale.width / 2;
-
     this.#background.x = this.#background.displayHeight * 0.5;
   }
 
@@ -60,6 +63,7 @@ export class Background {
     this.platform = this.#scene.physics.add
       .staticImage(0, this.#gameAreaHeight, PLATFORM_ASSET_KEYS.BASE)
       .setOrigin(0, 0)
+      .setDepth(3)
       .refreshBody();
   }
 }
