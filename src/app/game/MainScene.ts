@@ -129,7 +129,11 @@ export class MainScene extends Scene {
 
         this.#healthBar.updateScoreValue(50);
         this.#monkey.increaseMonkeyScale(0.1);
-        this.#healthBar.updateScaleValue(this.#monkey.monkey.scale);
+        if (Number(this.#monkey.monkey.scale.toFixed(1)) === 5.9) {
+          this.#background.updateBackground();
+          this.#healthBar.updateLevelValue();
+          this.#monkey.monkey.scale = 1;
+        }
       },
       undefined,
       this
@@ -146,7 +150,11 @@ export class MainScene extends Scene {
         mushroomRed.destroy();
         this.#healthBar.updateScoreValue(10);
         this.#monkey.increaseMonkeyScale(0.1);
-        this.#healthBar.updateScaleValue(this.#monkey.monkey.scale);
+        if (Number(this.#monkey.monkey.scale.toFixed(1)) === 5.9) {
+          this.#background.updateBackground();
+          this.#healthBar.updateLevelValue();
+          this.#monkey.monkey.scale = 1;
+        }
       },
       undefined,
       this
@@ -165,6 +173,7 @@ export class MainScene extends Scene {
 
         if (this.#healthBar.health !== 0) {
           this.#healthBar.handleHearts();
+          this.#monkey.reduceMonkeyScale(0.1);
           return;
         }
 
@@ -188,8 +197,8 @@ export class MainScene extends Scene {
           .setDepth(1);
 
         this.input.on('pointerup', () => {
-          // this.#healthBar.updateScore(0);
-
+          this.#healthBar.updateScoreValue(0);
+          this.#healthBar.updateLevelValue(true);
           this.game.destroy(true, false);
         });
       },
