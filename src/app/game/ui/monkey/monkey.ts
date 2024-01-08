@@ -3,30 +3,36 @@ import { GAME_PAD_DIRECTIONS, MONKEY_ASSET_KEYS } from 'src/app/constants';
 export class Monkey {
   #scene: Phaser.Scene;
   monkey!: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
+  #controlsAreaHeight: number;
+  #sceneHeight: number;
+  #gameAreaHeight: number;
 
   constructor(scene: Phaser.Scene) {
     this.#scene = scene;
-    this.#init();
-    this.#animation();
+    this.#sceneHeight = this.#scene.scale.height;
+    this.#controlsAreaHeight = this.#sceneHeight * 0.2;
+    this.#gameAreaHeight = this.#sceneHeight - this.#controlsAreaHeight;
+    this.init();
+    this.animation();
   }
 
   /**
-   * init monkey in the scene
+   * Function to init monkey
+   * @private
    */
-  #init() {
-    const controlsAreaHeight = this.#scene.scale.height * 0.2;
-    const gameAreaHeight = this.#scene.scale.height - controlsAreaHeight;
+  private init() {
     this.monkey = this.#scene.physics.add.sprite(
       this.#scene.scale.width / 2,
-      gameAreaHeight - 24,
+      this.#gameAreaHeight - 24,
       MONKEY_ASSET_KEYS.MONKEY
     );
   }
 
   /**
-   * Animation of the monkey
+   * Function to add monkey animation
+   * @private
    */
-  #animation() {
+  private animation() {
     // adds animations for player
 
     if (!this.#scene.anims.exists(GAME_PAD_DIRECTIONS.LEFT)) {
@@ -73,8 +79,8 @@ export class Monkey {
 
   /**
    * Monkey move
-   * @param {number} velocityX
-   * @param {keyof typeof GAME_PAD_DIRECTIONS } keypress
+   * @param {number} velocityX velocity x for the monkey
+   * @param {keyof typeof GAME_PAD_DIRECTIONS } keypress direction press
    * @param {(boolean | undefined)} ignoreIfPlaying
    */
   move(
