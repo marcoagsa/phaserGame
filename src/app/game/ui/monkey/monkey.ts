@@ -21,11 +21,13 @@ export class Monkey {
    * @private
    */
   private init() {
-    this.monkey = this.#scene.physics.add.sprite(
-      this.#scene.scale.width / 2,
-      this.#gameAreaHeight - 24,
-      MONKEY_ASSET_KEYS.MONKEY
-    );
+    this.monkey = this.#scene.physics.add
+      .sprite(
+        this.#scene.scale.width / 2,
+        this.#gameAreaHeight - 24,
+        MONKEY_ASSET_KEYS.MONKEY
+      )
+      .setDepth(3);
   }
 
   /**
@@ -105,6 +107,9 @@ export class Monkey {
    * @param {number} scale a number between 0 and 1
    */
   reduceMonkeyScale(scale: number) {
-    this.monkey.scale += scale;
+    if (this.monkey.scale < 1) {
+      return;
+    }
+    this.monkey.scale -= scale;
   }
 }
