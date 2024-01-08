@@ -27,17 +27,25 @@ export class PreloadScene extends Phaser.Scene {
     );
 
     this.load.image(
-      BACKGROUND_ASSET_KEYS.BACKGROUND,
+      BACKGROUND_ASSET_KEYS.BG_FOREST,
       `${ASSETS_PATH.BACKGROUNDS}bg.jpg`
     );
+
+    this.load.image(
+      BACKGROUND_ASSET_KEYS.BG_TOXIC,
+      `${ASSETS_PATH.BACKGROUNDS}bg-3.png`
+    );
+
     this.load.image(
       PLATFORM_ASSET_KEYS.BASE,
       `${ASSETS_PATH.ITEMS}platform.png`
     );
+
     this.load.image(
       HEALTH_BAR_ASSET_KEYS.HEALTH_BACKGROUND,
       `${ASSETS_PATH.UI}custom-ui.png`
     );
+
     this.load.spritesheet(
       MONKEY_ASSET_KEYS.MONKEY,
       `${ASSETS_PATH.SPRITES}player.png`,
@@ -46,18 +54,22 @@ export class PreloadScene extends Phaser.Scene {
         frameHeight: 48,
       }
     );
+
     this.load.image(
       GAME_PAD_DIRECTIONS.LEFT,
       `${ASSETS_PATH.ITEMS}leftarrow.png`
     );
+
     this.load.image(
       GAME_PAD_DIRECTIONS.RIGHT,
       `${ASSETS_PATH.ITEMS}rightarrow.png`
     );
+
     this.load.spritesheet('heart', `${ASSETS_PATH.SPRITES}heart.png`, {
       frameWidth: 7,
       frameHeight: 7,
     });
+
     this.load.image(OBJECTS_ASSET_KEYS.STAR, `${ASSETS_PATH.ITEMS}star.png`);
 
     this.load.image(

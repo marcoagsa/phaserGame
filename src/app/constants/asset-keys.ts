@@ -3,7 +3,8 @@ export const FONT_ASSET_KEYS = {
 };
 
 export const BACKGROUND_ASSET_KEYS = {
-  BACKGROUND: 'BACKGROUND',
+  BG_FOREST: 'BG_FOREST',
+  BG_TOXIC: 'BG_TOXIC',
 };
 
 export const HEALTH_BAR_ASSET_KEYS = {
