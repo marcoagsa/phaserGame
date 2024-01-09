@@ -129,7 +129,7 @@ export class MainScene extends Scene {
 
         this.#healthBar.updateScoreValue(50);
         this.#monkey.increaseMonkeyScale(0.1);
-        if (Number(this.#monkey.monkey.scale.toFixed(1)) === 5.9) {
+        if (Number(this.#monkey.monkey.scale.toFixed(1)) === 2.9) {
           this.#background.updateBackground();
           this.#healthBar.updateLevelValue();
           this.#monkey.monkey.scale = 1;
@@ -150,7 +150,7 @@ export class MainScene extends Scene {
         mushroomRed.destroy();
         this.#healthBar.updateScoreValue(10);
         this.#monkey.increaseMonkeyScale(0.1);
-        if (Number(this.#monkey.monkey.scale.toFixed(1)) === 5.9) {
+        if (Number(this.#monkey.monkey.scale.toFixed(1)) === 2.9) {
           this.#background.updateBackground();
           this.#healthBar.updateLevelValue();
           this.#monkey.monkey.scale = 1;
@@ -172,7 +172,7 @@ export class MainScene extends Scene {
         bomb.destroy();
 
         if (this.#healthBar.health !== 0) {
-          this.#healthBar.handleHearts();
+          this.#healthBar.handleLoseHearts();
           this.#monkey.reduceMonkeyScale(0.1);
           return;
         }
