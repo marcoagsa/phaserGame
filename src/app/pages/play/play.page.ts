@@ -46,7 +46,7 @@ export class PlayPage implements OnInit, OnDestroy {
   private platform = inject(Platform);
 
   config: Phaser.Types.Core.GameConfig = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     pixelArt: false,
     parent: 'phaser-main',
     scale: {

@@ -27,8 +27,8 @@ export class HealthBar {
    * @private
    */
   private init() {
-    this.#scoreValueText = this.addText(110, 52, '0');
-    this.#levelValueText = this.addText(280, 17, '1');
+    this.#scoreValueText = this.addText(110, 52, '0', 0x201726);
+    this.#levelValueText = this.addText(280, 17, '1', 0x201726);
     this.#scoreText = this.addText(30, 50, 'Score:');
     this.#levelText = this.addText(200, 15, 'Level:');
 
@@ -121,19 +121,21 @@ export class HealthBar {
    * @param {number} x position of the text
    * @param {number} y position of the text
    * @param {string} text string to add
+   * @param {number} [color=0xffffff]
    * @return {*}  {Phaser.GameObjects.BitmapText}
    */
   private addText(
     x: number,
     y: number,
-    text: string
+    text: string,
+    color: number = 0xffffff
   ): Phaser.GameObjects.BitmapText {
     return this.#scene.add
       .bitmapText(x, y, 'gothic', `${text}`, 20)
       .setOrigin(0)
       .setLetterSpacing(10)
       .setLineSpacing(20)
-      .setTint(0xffffff)
+      .setTint(color)
       .setDepth(1);
   }
 
