@@ -113,6 +113,30 @@ export class HealthBar {
       ),
       frameRate: 10,
     });
+
+    this.#scene.anims.create({
+      key: HEALTH_ANIMATION.WIN_FIRST_HALF,
+      frames: this.#scene.anims.generateFrameNames(
+        HEALTH_BAR_ASSET_KEYS.HEART,
+        {
+          start: 4,
+          end: 2,
+        }
+      ),
+      frameRate: 10,
+    });
+
+    this.#scene.anims.create({
+      key: HEALTH_ANIMATION.WIN_SECOND_HALF,
+      frames: this.#scene.anims.generateFrameNames(
+        HEALTH_BAR_ASSET_KEYS.HEART,
+        {
+          start: 2,
+          end: 1,
+        }
+      ),
+      frameRate: 10,
+    });
   }
 
   /**
@@ -158,7 +182,7 @@ export class HealthBar {
   /**
    * Function to handle hearts animation
    */
-  handleHearts() {
+  handleLoseHearts() {
     const heartIndex = Math.round(this.health / 2) - 1;
     const isHalfHeart = this.health % 2 === 1;
     if (isHalfHeart) {
@@ -167,6 +191,17 @@ export class HealthBar {
       this.#hearts[heartIndex].play(HEALTH_ANIMATION.LOSE_FIRST_HALF);
     }
     this.health -= 1;
+  }
+
+  handleWinHearts() {
+    const heartIndex = Math.round(this.health / 2);
+    const isHalfHeart = this.health % 2 === 1;
+    if (isHalfHeart) {
+      this.#hearts[heartIndex].play(HEALTH_ANIMATION.WIN_SECOND_HALF);
+    } else {
+      this.#hearts[heartIndex].play(HEALTH_ANIMATION.WIN_FIRST_HALF);
+    }
+    this.health += 1;
   }
 
   /**
@@ -182,6 +217,10 @@ export class HealthBar {
    * Function to update the level value
    */
   updateLevelValue(reset: boolean = false) {
+    if (this.health < 6) {
+      this.handleWinHearts();
+    }
+
     this.#levelValueText.setText(
       `${reset ? (this.#level = 0) : (this.#level += 1)}`
     );
