@@ -56,3 +56,22 @@ https://github.com/marcoagsa/phaserGame/assets/14275804/198bf352-0b85-46ac-932d-
 > npx ionic cap sync ios
 >
 > npx ionic cap run ios
+
+# TODO LIST
+
+## [`Bugs`]
+
+> - [ ] The Game don't update more then level 3
+> - [ ]
+
+## [`Feactures`]
+
+> - [ ] Add more background's images for the game
+> - [ ] Improve score panel to have a health bar using the monkey scale
+> - [ ] Try to fix the reduce scale of the monkey on change levels [ use tweens ]
+> - [ ] Improve score panel to have a health bar using the monkey scale
+> - [ ] Create a class for all object that monkey can collider
+> - [ ] Create a class for all colliders
+> - [ ] Refactor main scene to improve the code
+> - [ ] Start layout for the about page
+> - [ ] Start layout for the scores page
