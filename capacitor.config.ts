@@ -3,7 +3,7 @@ import { CapacitorConfig } from '@capacitor/cli';
 const config: CapacitorConfig = {
   appId: 'com.msa.phaserGame',
   appName: 'phaserGame',
-  webDir: 'www',
+  webDir: 'www/browser',
   server: {
     url: 'http://192.168.1.19:8100',
     cleartext: true,
