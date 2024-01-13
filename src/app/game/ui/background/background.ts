@@ -3,10 +3,11 @@ import { BACKGROUND_ASSET_KEYS, PLATFORM_ASSET_KEYS } from 'src/app/constants';
 export class Background {
   platform!: Phaser.Types.Physics.Arcade.ImageWithStaticBody;
   #scene: Phaser.Scene;
-  #background!: Phaser.Physics.Arcade.Image;
+  #background!: Phaser.GameObjects.Image;
   #controlsAreaHeight: number;
   #sceneHeight: number;
   #gameAreaHeight: number;
+  #index: number = 0;
 
   constructor(scene: Phaser.Scene) {
     this.#scene = scene;
@@ -18,46 +19,42 @@ export class Background {
   }
 
   /**
-   * Function to show background on the game
-   */
-  showBackground() {
-    this.#background.setAlpha(1);
-  }
-
-  /**
-   * Function to update the background
-   */
-  updateBackground() {
-    this.#background.destroy();
-    this.initBackground(BACKGROUND_ASSET_KEYS.BG_TOXIC);
-    this.showBackground();
-  }
-
-  /**
    * Function to add background image
    * @private
    * @param {(Phaser.Textures.Texture
    *       | string)} [background=BACKGROUND_ASSET_KEYS.BG_FOREST]
    */
   private initBackground(
-    background:
-      | Phaser.Textures.Texture
-      | string = BACKGROUND_ASSET_KEYS.BG_FOREST
+    background: Phaser.Textures.Texture | string = BACKGROUND_ASSET_KEYS.BG0
   ) {
     this.#background = this.#scene.physics.add
       .image(0, 0, background)
       .setDepth(0)
       .setAlpha(1);
-    this.#background.displayHeight = this.#scene.scale.height;
-    this.#background.scaleX = this.#background.scaleY;
-    this.#background.y = this.#scene.scale.height / 2;
-    this.#background.x = this.#scene.scale.width / 2;
-    this.#background.x = this.#background.displayHeight * 0.5;
+    this.#background.displayHeight = this.#scene.scale.height * 2;
+    this.#background.displayWidth = this.#scene.scale.width * 2;
+    this.#background.x = 200;
+  }
+
+  /**
+   * Function to show background on the game
+   */
+  showBackground() {
+    const bg = `BG${this.#index}`;
+    this.#background.setTexture(bg).setAlpha(1);
+  }
+
+  updateBackground() {
+    this.#index += 1;
+
+    if (this.#index > 6) {
+      this.#index = 0;
+    }
+    this.showBackground();
   }
 
   /**
    * Function to add platform for the monkey
-   * @private
    */
   private initPlatform() {
     this.platform = this.#scene.physics.add
