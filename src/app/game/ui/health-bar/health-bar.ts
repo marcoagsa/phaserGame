@@ -50,6 +50,7 @@ export class HealthBar {
           .setScale(0.8, 0.7),
         this.#scoreContainer,
         this.#scaleContainer,
+        this.scaleBar(100, 30),
       ])
       .setDepth(2);
   }
@@ -180,6 +181,70 @@ export class HealthBar {
   }
 
   /**
+   * Function to add scale bar
+   *
+   * @private
+   * @param {number} x position of the text
+   * @param {number} y position of the text
+   * @return {*}
+   */
+  private scaleBar(x: number, y: number) {
+    const scaleY = 0.7;
+    const leftCapShadow = this.#scene.add
+      .image(x, y, HEALTH_BAR_ASSET_KEYS.LEFT_CAP_SHADOW)
+      .setOrigin(0, 0.5)
+      .setScale(1, scaleY);
+    const leftCap = this.#scene.add
+      .image(x, y, HEALTH_BAR_ASSET_KEYS.LEFT_CAP)
+      .setOrigin(0, 0.5)
+      .setScale(1, scaleY);
+    const middleCapShadow = this.#scene.add
+      .image(
+        leftCapShadow.x + leftCapShadow.width,
+        y,
+        HEALTH_BAR_ASSET_KEYS.MIDDLE_CAP_SHADOW
+      )
+      .setOrigin(0, 0.5)
+      .setScale(1, scaleY);
+    middleCapShadow.displayWidth = 150;
+
+    const middleCap = this.#scene.add
+      .image(leftCap.x + leftCap.width, y, HEALTH_BAR_ASSET_KEYS.MIDDLE_CAP)
+      .setOrigin(0, 0.5)
+      .setScale(1, scaleY);
+    middleCap.displayWidth = 0;
+
+    const rightCapShadow = this.#scene.add
+      .image(
+        middleCapShadow.x + middleCapShadow.displayWidth,
+        y,
+        HEALTH_BAR_ASSET_KEYS.RIGHT_CAP_SHADOW
+      )
+      .setOrigin(0, 0.5)
+      .setScale(1, scaleY);
+
+    const rightCap = this.#scene.add
+      .image(
+        middleCap.x + middleCap.displayWidth,
+        y,
+        HEALTH_BAR_ASSET_KEYS.RIGHT_CAP
+      )
+      .setOrigin(0, 0.5)
+      .setScale(1, scaleY);
+
+    return this.#scene.add
+      .container(x, y, [
+        leftCapShadow,
+        leftCap,
+        middleCapShadow,
+        middleCap,
+        rightCapShadow,
+        rightCap,
+      ])
+      .setDepth(2);
+  }
+
+  /**
    * Function to handle hearts animation
    */
   handleLoseHearts() {
@@ -194,10 +259,11 @@ export class HealthBar {
   }
 
   handleWinHearts() {
-    const heartIndex = Math.round(this.health / 2);
+    const heartIndex = Math.round(this.health / 2) - 1;
     const isHalfHeart = this.health % 2 === 1;
     if (isHalfHeart) {
       this.#hearts[heartIndex].play(HEALTH_ANIMATION.WIN_SECOND_HALF);
+      console.log(`MSA 🔊 this.#hearts[heartIndex]:`, this.#hearts[heartIndex]);
     } else {
       this.#hearts[heartIndex].play(HEALTH_ANIMATION.WIN_FIRST_HALF);
     }

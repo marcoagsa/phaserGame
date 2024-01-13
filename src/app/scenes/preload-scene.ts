@@ -27,13 +27,33 @@ export class PreloadScene extends Phaser.Scene {
     );
 
     this.load.image(
-      BACKGROUND_ASSET_KEYS.BG_FOREST,
-      `${ASSETS_PATH.BACKGROUNDS}bg.jpg`
+      BACKGROUND_ASSET_KEYS.BG0,
+      `${ASSETS_PATH.BACKGROUNDS}bg0.png`
     );
 
     this.load.image(
-      BACKGROUND_ASSET_KEYS.BG_TOXIC,
-      `${ASSETS_PATH.BACKGROUNDS}bg-3.png`
+      BACKGROUND_ASSET_KEYS.BG1,
+      `${ASSETS_PATH.BACKGROUNDS}bg1.png`
+    );
+
+    this.load.image(
+      BACKGROUND_ASSET_KEYS.BG2,
+      `${ASSETS_PATH.BACKGROUNDS}bg2.png`
+    );
+
+    this.load.image(
+      BACKGROUND_ASSET_KEYS.BG3,
+      `${ASSETS_PATH.BACKGROUNDS}bg3.png`
+    );
+
+    this.load.image(
+      BACKGROUND_ASSET_KEYS.BG4,
+      `${ASSETS_PATH.BACKGROUNDS}bg4.png`
+    );
+
+    this.load.image(
+      BACKGROUND_ASSET_KEYS.BG5,
+      `${ASSETS_PATH.BACKGROUNDS}bg5.png`
     );
 
     this.load.image(
@@ -44,6 +64,36 @@ export class PreloadScene extends Phaser.Scene {
     this.load.image(
       HEALTH_BAR_ASSET_KEYS.HEALTH_BACKGROUND,
       `${ASSETS_PATH.UI}custom-ui.png`
+    );
+
+    this.load.image(
+      HEALTH_BAR_ASSET_KEYS.LEFT_CAP,
+      `${ASSETS_PATH.UI}barHorizontal_green_left.png`
+    );
+
+    this.load.image(
+      HEALTH_BAR_ASSET_KEYS.MIDDLE_CAP,
+      `${ASSETS_PATH.UI}barHorizontal_green_mid.png`
+    );
+
+    this.load.image(
+      HEALTH_BAR_ASSET_KEYS.RIGHT_CAP,
+      `${ASSETS_PATH.UI}barHorizontal_green_right.png`
+    );
+
+    this.load.image(
+      HEALTH_BAR_ASSET_KEYS.LEFT_CAP_SHADOW,
+      `${ASSETS_PATH.UI}barHorizontal_shadow_left.png`
+    );
+
+    this.load.image(
+      HEALTH_BAR_ASSET_KEYS.MIDDLE_CAP_SHADOW,
+      `${ASSETS_PATH.UI}barHorizontal_shadow_mid.png`
+    );
+
+    this.load.image(
+      HEALTH_BAR_ASSET_KEYS.RIGHT_CAP_SHADOW,
+      `${ASSETS_PATH.UI}barHorizontal_shadow_right.png`
     );
 
     this.load.spritesheet(
