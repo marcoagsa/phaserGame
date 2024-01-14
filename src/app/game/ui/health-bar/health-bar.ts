@@ -16,14 +16,14 @@ export class HealthBar {
   #scaleContainer!: Phaser.GameObjects.Container;
   #fullWidth: number;
   #scaleY: number;
-
   #leftCap!: Phaser.GameObjects.Image;
   #middleCap!: Phaser.GameObjects.Image;
   #rightCap!: Phaser.GameObjects.Image;
-
   #leftCapShadow!: Phaser.GameObjects.Image;
   #middleCapShadow!: Phaser.GameObjects.Image;
   #rightCapShadow!: Phaser.GameObjects.Image;
+
+  #scaleMeter: number = 0;
 
   constructor(scene: Phaser.Scene) {
     this.#scene = scene;
@@ -32,7 +32,7 @@ export class HealthBar {
     this.init();
     this.initHeartsBar();
     this.heartsAnimation();
-    this.initScaleMeterPercentage(0);
+    this.initScaleMeterPercentage();
   }
 
   /**
@@ -279,8 +279,8 @@ export class HealthBar {
    * @private
    * @param {number} [percentage=1]
    */
-  private initScaleMeterPercentage(percentage = 1) {
-    const width = this.#fullWidth * percentage;
+  private initScaleMeterPercentage() {
+    const width = this.#fullWidth * this.#scaleMeter;
 
     this.#middleCap.displayWidth = width;
 
@@ -293,8 +293,9 @@ export class HealthBar {
    * @param {number} percentage
    * @param {*} options
    */
-  public handledScaleMeter(percentage: number, options: any) {
-    const width = this.#fullWidth * percentage;
+  public handledScaleMeter(options: any) {
+    this.#scaleMeter += 0.2;
+    const width = this.#fullWidth * this.#scaleMeter;
 
     this.#scene.tweens.add({
       targets: this.#middleCap,
