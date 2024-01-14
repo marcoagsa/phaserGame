@@ -120,8 +120,8 @@ export class HealthBar {
       frames: this.#scene.anims.generateFrameNames(
         HEALTH_BAR_ASSET_KEYS.HEART,
         {
-          start: 4,
-          end: 2,
+          start: 2,
+          end: 0,
         }
       ),
       frameRate: 10,
@@ -131,9 +131,10 @@ export class HealthBar {
       key: HEALTH_ANIMATION.WIN_SECOND_HALF,
       frames: this.#scene.anims.generateFrameNames(
         HEALTH_BAR_ASSET_KEYS.HEART,
+
         {
-          start: 2,
-          end: 1,
+          start: 4,
+          end: 2,
         }
       ),
       frameRate: 10,
@@ -259,15 +260,15 @@ export class HealthBar {
   }
 
   handleWinHearts() {
+    this.health += 1;
     const heartIndex = Math.round(this.health / 2) - 1;
     const isHalfHeart = this.health % 2 === 1;
+
     if (isHalfHeart) {
       this.#hearts[heartIndex].play(HEALTH_ANIMATION.WIN_SECOND_HALF);
-      console.log(`MSA 🔊 this.#hearts[heartIndex]:`, this.#hearts[heartIndex]);
     } else {
       this.#hearts[heartIndex].play(HEALTH_ANIMATION.WIN_FIRST_HALF);
     }
-    this.health += 1;
   }
 
   /**
