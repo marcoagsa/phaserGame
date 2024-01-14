@@ -61,15 +61,17 @@ https://github.com/marcoagsa/phaserGame/assets/14275804/198bf352-0b85-46ac-932d-
 
 ## [`Bugs`]
 
-> - [ ] The Game don't update more then level 3
-> - [ ]
+> - [x] The Game don't update more then level 3
+> - [ ] Fix update scale meter
 
 ## [`Feactures`]
 
-> - [ ] Add more background's images for the game
-> - [ ] Improve score panel to have a health bar using the monkey scale
+> - [x] Add more background's images for the game
+> - [x] Improve background changes
+> - [x] Improve score panel to have a health bar using the monkey scale
 > - [ ] Try to fix the reduce scale of the monkey on change levels [ use tweens ]
-> - [ ] Improve score panel to have a health bar using the monkey scale
+> - [ ] Add new object to give or remove life
+> - [ ] Add new object to add more points
 > - [ ] Create a class for all object that monkey can collider
 > - [ ] Create a class for all colliders
 > - [ ] Refactor main scene to improve the code
