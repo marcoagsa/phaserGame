@@ -37,23 +37,6 @@ export class Background {
   }
 
   /**
-   * Function to show background on the game
-   */
-  showBackground() {
-    const bg = `BG${this.#index}`;
-    this.#background.setTexture(bg).setAlpha(1);
-  }
-
-  updateBackground() {
-    this.#index += 1;
-
-    if (this.#index > 6) {
-      this.#index = 0;
-    }
-    this.showBackground();
-  }
-
-  /**
    * Function to add platform for the monkey
    */
   private initPlatform() {
@@ -62,5 +45,26 @@ export class Background {
       .setOrigin(0, 0)
       .setDepth(3)
       .refreshBody();
+  }
+
+  /**
+   * Function to show background by index
+   */
+  public showBackground() {
+    const bg = `BG${this.#index}`;
+    this.#background.setTexture(bg).setAlpha(1);
+  }
+
+  /**
+   * Function to update background index and
+   * show the new background
+   */
+  public updateBackground() {
+    this.#index += 1;
+
+    if (this.#index > 5) {
+      this.#index = 0;
+    }
+    this.showBackground();
   }
 }
