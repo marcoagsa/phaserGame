@@ -14,12 +14,25 @@ export class HealthBar {
   #healthBarContainer!: Phaser.GameObjects.Container;
   #scoreContainer!: Phaser.GameObjects.Container;
   #scaleContainer!: Phaser.GameObjects.Container;
+  #fullWidth: number;
+  #scaleY: number;
+
+  #leftCap!: Phaser.GameObjects.Image;
+  #middleCap!: Phaser.GameObjects.Image;
+  #rightCap!: Phaser.GameObjects.Image;
+
+  #leftCapShadow!: Phaser.GameObjects.Image;
+  #middleCapShadow!: Phaser.GameObjects.Image;
+  #rightCapShadow!: Phaser.GameObjects.Image;
 
   constructor(scene: Phaser.Scene) {
     this.#scene = scene;
+    this.#fullWidth = 150;
+    this.#scaleY = 0.7;
     this.init();
     this.initHeartsBar();
     this.heartsAnimation();
+    this.initScaleMeterPercentage(0);
   }
 
   /**
@@ -50,7 +63,8 @@ export class HealthBar {
           .setScale(0.8, 0.7),
         this.#scoreContainer,
         this.#scaleContainer,
-        this.scaleBar(100, 30),
+        this.scaleMeterShadow(100, 30),
+        this.scaleMeter(100, 30),
       ])
       .setDepth(2);
   }
@@ -182,6 +196,48 @@ export class HealthBar {
   }
 
   /**
+   * Function to add scale bar shadow
+   *
+   * @private
+   * @param {number} x position of the text
+   * @param {number} y position of the text
+   * @return {*}
+   */
+  private scaleMeterShadow(x: number, y: number) {
+    this.#leftCapShadow = this.#scene.add
+      .image(x, y, HEALTH_BAR_ASSET_KEYS.LEFT_CAP_SHADOW)
+      .setOrigin(0, 0.5)
+      .setScale(1, this.#scaleY);
+
+    this.#middleCapShadow = this.#scene.add
+      .image(
+        this.#leftCapShadow.x + this.#leftCapShadow.width,
+        y,
+        HEALTH_BAR_ASSET_KEYS.MIDDLE_CAP_SHADOW
+      )
+      .setOrigin(0, 0.5)
+      .setScale(1, this.#scaleY);
+    this.#middleCapShadow.displayWidth = this.#fullWidth;
+
+    this.#rightCapShadow = this.#scene.add
+      .image(
+        this.#middleCapShadow.x + this.#middleCapShadow.displayWidth,
+        y,
+        HEALTH_BAR_ASSET_KEYS.RIGHT_CAP_SHADOW
+      )
+      .setOrigin(0, 0.5)
+      .setScale(1, this.#scaleY);
+
+    return this.#scene.add
+      .container(x, y, [
+        this.#leftCapShadow,
+        this.#middleCapShadow,
+        this.#rightCapShadow,
+      ])
+      .setDepth(2);
+  }
+
+  /**
    * Function to add scale bar
    *
    * @private
@@ -189,66 +245,77 @@ export class HealthBar {
    * @param {number} y position of the text
    * @return {*}
    */
-  private scaleBar(x: number, y: number) {
-    const scaleY = 0.7;
-    const leftCapShadow = this.#scene.add
-      .image(x, y, HEALTH_BAR_ASSET_KEYS.LEFT_CAP_SHADOW)
-      .setOrigin(0, 0.5)
-      .setScale(1, scaleY);
-    const leftCap = this.#scene.add
+  private scaleMeter(x: number, y: number) {
+    this.#leftCap = this.#scene.add
       .image(x, y, HEALTH_BAR_ASSET_KEYS.LEFT_CAP)
       .setOrigin(0, 0.5)
-      .setScale(1, scaleY);
-    const middleCapShadow = this.#scene.add
+      .setScale(1, this.#scaleY);
+
+    this.#middleCap = this.#scene.add
       .image(
-        leftCapShadow.x + leftCapShadow.width,
+        this.#leftCap.x + this.#leftCap.width,
         y,
-        HEALTH_BAR_ASSET_KEYS.MIDDLE_CAP_SHADOW
+        HEALTH_BAR_ASSET_KEYS.MIDDLE_CAP
       )
       .setOrigin(0, 0.5)
-      .setScale(1, scaleY);
-    middleCapShadow.displayWidth = 150;
+      .setScale(1, this.#scaleY);
 
-    const middleCap = this.#scene.add
-      .image(leftCap.x + leftCap.width, y, HEALTH_BAR_ASSET_KEYS.MIDDLE_CAP)
-      .setOrigin(0, 0.5)
-      .setScale(1, scaleY);
-    middleCap.displayWidth = 0;
-
-    const rightCapShadow = this.#scene.add
+    this.#rightCap = this.#scene.add
       .image(
-        middleCapShadow.x + middleCapShadow.displayWidth,
-        y,
-        HEALTH_BAR_ASSET_KEYS.RIGHT_CAP_SHADOW
-      )
-      .setOrigin(0, 0.5)
-      .setScale(1, scaleY);
-
-    const rightCap = this.#scene.add
-      .image(
-        middleCap.x + middleCap.displayWidth,
+        this.#middleCap.x + this.#middleCap.displayWidth,
         y,
         HEALTH_BAR_ASSET_KEYS.RIGHT_CAP
       )
       .setOrigin(0, 0.5)
-      .setScale(1, scaleY);
+      .setScale(1, this.#scaleY);
 
     return this.#scene.add
-      .container(x, y, [
-        leftCapShadow,
-        leftCap,
-        middleCapShadow,
-        middleCap,
-        rightCapShadow,
-        rightCap,
-      ])
+      .container(x, y, [this.#leftCap, this.#middleCap, this.#rightCap])
       .setDepth(2);
+  }
+
+  /**
+   * Function to init scale meter
+   * @private
+   * @param {number} [percentage=1]
+   */
+  private initScaleMeterPercentage(percentage = 1) {
+    const width = this.#fullWidth * percentage;
+
+    this.#middleCap.displayWidth = width;
+
+    this.#rightCap.x = this.#middleCap.x + this.#middleCap.displayWidth;
+  }
+
+  /**
+   * Function to update scale meter
+   *
+   * @param {number} percentage
+   * @param {*} options
+   */
+  public handledScaleMeter(percentage: number, options: any) {
+    const width = this.#fullWidth * percentage;
+
+    this.#scene.tweens.add({
+      targets: this.#middleCap,
+      displayWidth: width,
+      duration: options?.duration || 1000,
+      ease: Phaser.Math.Easing.Sine.Out,
+      onUpdate: () => {
+        this.#rightCap.x = this.#middleCap.x + this.#middleCap.displayWidth;
+        const isVisible = this.#middleCap.displayWidth > 0;
+        this.#leftCap.visible = isVisible;
+        this.#middleCap.visible = isVisible;
+        this.#rightCap.visible = isVisible;
+      },
+      onComplete: options?.callback,
+    });
   }
 
   /**
    * Function to handle hearts animation
    */
-  handleLoseHearts() {
+  public handleLoseHearts() {
     const heartIndex = Math.round(this.health / 2) - 1;
     const isHalfHeart = this.health % 2 === 1;
     if (isHalfHeart) {
@@ -259,7 +326,7 @@ export class HealthBar {
     this.health -= 1;
   }
 
-  handleWinHearts() {
+  public handleWinHearts() {
     this.health += 1;
     const heartIndex = Math.round(this.health / 2) - 1;
     const isHalfHeart = this.health % 2 === 1;
@@ -275,7 +342,7 @@ export class HealthBar {
    * Function to update the score value
    * @param {number} score score value
    */
-  updateScoreValue(score: number) {
+  public updateScoreValue(score: number) {
     this.#score += score;
     this.#scoreValueText.setText(`${this.#score}`);
   }
@@ -283,7 +350,7 @@ export class HealthBar {
   /**
    * Function to update the level value
    */
-  updateLevelValue(reset: boolean = false) {
+  public updateLevelValue(reset: boolean = false) {
     if (this.health < 6) {
       this.handleWinHearts();
     }
