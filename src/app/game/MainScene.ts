@@ -126,9 +126,7 @@ export class MainScene extends Scene {
       (object1: any, object2: any) => {
         const star = object1.key === 'player' ? object1 : object2;
         star.destroy();
-
         this.#healthBar.updateScoreValue(50);
-        this.#monkey.increaseMonkeyScale(0.1);
         this.updateLevel();
       },
       undefined,
@@ -154,29 +152,18 @@ export class MainScene extends Scene {
   }
 
   updateLevel() {
-    // Arredonda o número para a casa decimal mais próxima
-    const roundedScale = Math.round(this.#monkey.monkey.scale * 10) / 10;
-    console.log(`MSA 🔊 this.#monkey.monkey.scale:`, this.#monkey.monkey.scale);
-
-    // Verifica se a parte decimal é aproximadamente igual a 0.9 ou 0.99
-    const isSpecificType =
-      Math.abs((roundedScale % 1) - 0.9) < Number.EPSILON ||
-      Math.abs((roundedScale % 1) - 0.99) < Number.EPSILON;
-
-    if (isSpecificType) {
-      this.#healthBar.handledScaleMeter({
-        duration: 1500,
-        callback: () => {
-          console.log('entrei');
-
-          if (Number(this.#monkey.monkey.scale.toFixed(1)) === 5.9) {
-            this.#background.updateBackground();
-            this.#healthBar.updateLevelValue();
-            this.#monkey.monkey.scale = 1;
-          }
-        },
-      });
-    }
+    this.#healthBar.handledScaleMeter({
+      duration: 1500,
+      callback: (res: any) => {
+        const roundedScale = Math.round(res * 10) / 10;
+        if (roundedScale >= 148.1 && roundedScale <= 150.1) {
+          this.#monkey.monkey.scale = 1;
+          this.#healthBar.updateLevelValue();
+          this.#background.updateBackground();
+          this.#healthBar.resetScaleMeter();
+        }
+      },
+    });
   }
 
   playerAndBooms() {

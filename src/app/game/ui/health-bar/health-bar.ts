@@ -1,5 +1,10 @@
 import { HEALTH_ANIMATION, HEALTH_BAR_ASSET_KEYS } from 'src/app/constants';
 
+interface Meter {
+  duration?: number;
+  callback?: any | undefined;
+}
+
 export class HealthBar {
   health!: number;
   #scene: Phaser.Scene;
@@ -22,8 +27,7 @@ export class HealthBar {
   #leftCapShadow!: Phaser.GameObjects.Image;
   #middleCapShadow!: Phaser.GameObjects.Image;
   #rightCapShadow!: Phaser.GameObjects.Image;
-
-  #scaleMeter: number = 0;
+  meter: number = 0;
 
   constructor(scene: Phaser.Scene) {
     this.#scene = scene;
@@ -280,7 +284,7 @@ export class HealthBar {
    * @param {number} [percentage=1]
    */
   private initScaleMeterPercentage() {
-    const width = this.#fullWidth * this.#scaleMeter;
+    const width = this.#fullWidth * this.meter;
 
     this.#middleCap.displayWidth = width;
 
@@ -293,9 +297,13 @@ export class HealthBar {
    * @param {number} percentage
    * @param {*} options
    */
-  public handledScaleMeter(options: any) {
-    this.#scaleMeter += 0.2;
-    const width = this.#fullWidth * this.#scaleMeter;
+  public handledScaleMeter(options: Meter) {
+    this.meter += 0.02;
+    const width = this.#fullWidth * this.meter;
+
+    // if (width >= 148.1 && width <= 150.1) {
+    //   this.resetScaleMeter();
+    // }
 
     this.#scene.tweens.add({
       targets: this.#middleCap,
@@ -304,12 +312,25 @@ export class HealthBar {
       ease: Phaser.Math.Easing.Sine.Out,
       onUpdate: () => {
         this.#rightCap.x = this.#middleCap.x + this.#middleCap.displayWidth;
-        const isVisible = this.#middleCap.displayWidth > 0;
-        this.#leftCap.visible = isVisible;
-        this.#middleCap.visible = isVisible;
-        this.#rightCap.visible = isVisible;
       },
-      onComplete: options?.callback,
+      onComplete: options?.callback(this.#middleCap.displayWidth),
+    });
+  }
+
+  public resetScaleMeter() {
+    this.meter = 0;
+    const width = this.#fullWidth * this.meter;
+
+    this.#scene.tweens.add({
+      targets: this.#middleCap,
+      displayWidth: width,
+      duration: 0,
+      ease: Phaser.Math.Easing.Sine.Out,
+      onUpdate: () => {
+        this.#rightCap.x = this.#middleCap.x + this.#middleCap.displayWidth;
+      },
+      onComplete: () =>
+        this.handledScaleMeter({ duration: 1500, callback: () => {} }),
     });
   }
 
