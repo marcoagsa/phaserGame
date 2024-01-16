@@ -62,7 +62,7 @@ https://github.com/marcoagsa/phaserGame/assets/14275804/198bf352-0b85-46ac-932d-
 ## [`Bugs`]
 
 > - [x] The Game don't update more then level 3
-> - [ ] Fix update scale meter
+> - [x] Fix update scale meter
 
 ## [`Feactures`]
 
