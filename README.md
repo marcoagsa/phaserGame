@@ -72,7 +72,7 @@ https://github.com/marcoagsa/phaserGame/assets/14275804/198bf352-0b85-46ac-932d-
 > - [ ] Try to fix the reduce scale of the monkey on change levels [ use tweens ]
 > - [ ] Add new object to give or remove life
 > - [ ] Add new object to add more points
-> - [ ] Create a class for all object that monkey can collider
+> - [x] Create a class for all drop items
 > - [ ] Create a class for all colliders
 > - [ ] Refactor main scene to improve the code
 > - [ ] Start layout for the about page
