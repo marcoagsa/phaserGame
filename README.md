@@ -1,4 +1,4 @@
-# phaserGame
+# PhaserGame
 
 Welcome to the phaserGame game project! This project utilizes Ionic 7, Phaser 3 and Angular 17 with standalone components and incorporates the latest features from Angular 17. Additionally, it employs Capacitor iOS and Android version 5 for cross-platform functionality.
 
