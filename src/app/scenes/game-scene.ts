@@ -1,12 +1,13 @@
 import { Scene } from 'phaser';
 import { GAME_PAD_DIRECTIONS, SCENE_KEYS } from '../constants';
-import { Background, GamePad, HealthBar, Monkey } from '../game';
+import { Background, DropItems, GamePad, HealthBar, Monkey } from '../game';
 
 export class GameScene extends Scene {
   #background!: Background;
   #gamePad!: GamePad;
   #healthBar!: HealthBar;
   #monkey!: Monkey;
+  #dropItems!: DropItems;
 
   constructor() {
     super({
@@ -20,9 +21,12 @@ export class GameScene extends Scene {
 
     this.#healthBar = new HealthBar(this);
 
+    this.#monkey = new Monkey(this);
+
     this.#gamePad = new GamePad(this);
 
-    this.#monkey = new Monkey(this);
+    this.#dropItems = new DropItems(this);
+    this.#dropItems.createDropItems();
   }
 
   override update() {
