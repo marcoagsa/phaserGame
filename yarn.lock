@@ -1915,12 +1915,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@capacitor/app@npm:5.0.6":
-  version: 5.0.6
-  resolution: "@capacitor/app@npm:5.0.6"
+"@capacitor/app@npm:5.0.7":
+  version: 5.0.7
+  resolution: "@capacitor/app@npm:5.0.7"
   peerDependencies:
     "@capacitor/core": ^5.0.0
-  checksum: 10/85a6a8ff9d47069a0daec9ce9e929b4906862b65389477d68ed35cdcf80261ca6a86dcc9ce32219c9f4272a302cf7f62d2e757dee65a940bc6ce0e80f00b09fc
+  checksum: 10/2be4085dc5dd83ee62f48503c99133c3eb6ed5c67ff0d161a9354e57c96bb3f945840db7466f9350fdaa3a39af6c5cd80bdf263e0ff2bf3dd9b19e170dc9c022
   languageName: node
   linkType: hard
 
@@ -1961,12 +1961,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@capacitor/haptics@npm:5.0.6":
-  version: 5.0.6
-  resolution: "@capacitor/haptics@npm:5.0.6"
+"@capacitor/haptics@npm:5.0.7":
+  version: 5.0.7
+  resolution: "@capacitor/haptics@npm:5.0.7"
   peerDependencies:
     "@capacitor/core": ^5.0.0
-  checksum: 10/da2a21e29db120dc8d90119c1e761163020e85cd8d3977ab842384e44cabb887d095454462e3a2360645a9b9c34919bd029c79c6ef177700e8d6708b2c56aa1e
+  checksum: 10/7081dd975a6ff4f570e40a5ef69949f71f8f213061ea12777a28101613f6bc425910c92a86133e64e55502953c8e237f027c7a623006bb948a47955bfecde79f
   languageName: node
   linkType: hard
 
@@ -1979,21 +1979,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@capacitor/keyboard@npm:5.0.7":
-  version: 5.0.7
-  resolution: "@capacitor/keyboard@npm:5.0.7"
+"@capacitor/keyboard@npm:5.0.8":
+  version: 5.0.8
+  resolution: "@capacitor/keyboard@npm:5.0.8"
   peerDependencies:
     "@capacitor/core": ^5.0.0
-  checksum: 10/4bf172b2702dddb79c5e496986ca1e3ed5cdf57c39ea1dda78fc46e8f8f9969d240dfc364fe7393db18e38406d0334c42ee20e31773bebfb83fef51dd8ca62b1
+  checksum: 10/78c7a1a3f596f07af2f67123bda8c2cdce5ad0d17adf4696c6d8828679b182742b0688240e7bdee8bc527b9433e87dfede9cb9cecc3d0b191dee5abf8f652025
   languageName: node
   linkType: hard
 
-"@capacitor/status-bar@npm:5.0.6":
-  version: 5.0.6
-  resolution: "@capacitor/status-bar@npm:5.0.6"
+"@capacitor/status-bar@npm:5.0.7":
+  version: 5.0.7
+  resolution: "@capacitor/status-bar@npm:5.0.7"
   peerDependencies:
     "@capacitor/core": ^5.0.0
-  checksum: 10/d5c11be2350a58e14853b3d7db1dcbf88826be7b344555a6b40746be66a0b702648dd6b818c2e7d55b7be4f864b6ef9a4c948bcf9eb48354a82262f762ecaeb0
+  checksum: 10/590cbce18d7c12ccfcca0d4ebe61597c01ad062856ec1acbe81068fd1ff86b6bb1ff3403c8de6db83e21f96170ec61ae640f30b816e514f99ac76eff1d37618a
   languageName: node
   linkType: hard
 
@@ -9607,13 +9607,13 @@ __metadata:
     "@angular/platform-browser-dynamic": "npm:17.1.3"
     "@angular/router": "npm:17.1.3"
     "@capacitor/android": "npm:5.7.0"
-    "@capacitor/app": "npm:5.0.6"
+    "@capacitor/app": "npm:5.0.7"
     "@capacitor/cli": "npm:5.7.0"
     "@capacitor/core": "npm:5.7.0"
-    "@capacitor/haptics": "npm:5.0.6"
+    "@capacitor/haptics": "npm:5.0.7"
     "@capacitor/ios": "npm:5.7.0"
-    "@capacitor/keyboard": "npm:5.0.7"
-    "@capacitor/status-bar": "npm:5.0.6"
+    "@capacitor/keyboard": "npm:5.0.8"
+    "@capacitor/status-bar": "npm:5.0.7"
     "@ionic/angular": "npm:7.7.1"
     "@ionic/angular-toolkit": "npm:11.0.1"
     "@ionic/cli": "npm:^7.2.0"
