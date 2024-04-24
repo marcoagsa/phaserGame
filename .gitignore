@@ -68,6 +68,7 @@ testem.log
 Thumbs.db
 
 # Yarn
+/.nx
 .pnp.*
 .yarn/*
 !.yarn/patches
