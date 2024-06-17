@@ -14,36 +14,38 @@ import { MainScene } from 'src/app/game/MainScene';
 import { GameScene } from 'src/app/scenes/game-scene';
 import { PreloadScene } from 'src/app/scenes/preload-scene';
 
+const imports = [IonContent, IonCard, IonButton, IonImg, IonIcon];
+
+const styles = [
+  `ion-card {
+    margin-top: 30vh;
+    display: grid;
+    gap: 10px;
+    padding: 20px;
+  }
+
+  ion-button {
+    margin-top: 20px;
+  }
+
+  ion-img {
+    height: 100px;
+  }`,
+];
+
 @Component({
   selector: 'app-play',
   standalone: true,
-  imports: [IonContent, IonCard, IonButton, IonImg, IonIcon],
+  imports,
+  styles,
   template: `
     <ion-content [fullscreen]="true">
       <div id="phaser-main"></div>
     </ion-content>
   `,
-  styles: [
-    `
-      ion-card {
-        margin-top: 30vh;
-        display: grid;
-        gap: 10px;
-        padding: 20px;
-      }
-
-      ion-button {
-        margin-top: 20px;
-      }
-
-      ion-img {
-        height: 100px;
-      }
-    `,
-  ],
 })
 export class PlayPage implements OnInit, OnDestroy {
-  private platform = inject(Platform);
+  private readonly platform = inject(Platform);
 
   config: Phaser.Types.Core.GameConfig = {
     type: Phaser.AUTO,

@@ -15,10 +15,32 @@ import {
   trophyOutline,
 } from 'ionicons/icons';
 
+const imports = [IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, NgClass];
+const styles = [
+  `
+      ion-tabs {
+        background: var(--ion-toolbar-background);
+        display: block;
+        margin-top: 20px;
+        ion-tab-bar {
+          background: var(--ion-toolbar-background);
+        }
+        ion-tab-button {
+          background: var(--ion-toolbar-background);
+          --color-focused: red;
+        }
+      }
+      .active {
+        color: var(--ion-color-primary);
+      }
+    `,
+];
+
 @Component({
   selector: 'app-tabs',
   standalone: true,
-  imports: [IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, NgClass],
+  imports,
+  styles,
   template: `
     <ion-tabs>
       <ion-tab-bar>
@@ -45,28 +67,9 @@ import {
       </ion-tab-bar>
     </ion-tabs>
   `,
-  styles: [
-    `
-      ion-tabs {
-        background: var(--ion-toolbar-background);
-        display: block;
-        margin-top: 20px;
-        ion-tab-bar {
-          background: var(--ion-toolbar-background);
-        }
-        ion-tab-button {
-          background: var(--ion-toolbar-background);
-          --color-focused: red;
-        }
-      }
-      .active {
-        color: var(--ion-color-primary);
-      }
-    `,
-  ],
 })
 export class TabsComponent {
-  private route = inject(Router);
+  private readonly route = inject(Router);
   constructor() {
     addIcons({
       informationCircleOutline,
