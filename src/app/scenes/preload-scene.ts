@@ -1,5 +1,5 @@
 import * as Phaser from 'phaser';
-import { ASSETS_PATH, FONT_ASSET_KEYS, SCENE_KEYS } from '../constants';
+import { ASSETS_PATH, FONT_ASSET_KEYS, SCENE_KEYS } from 'src/app/constants';
 
 export class PreloadScene extends Phaser.Scene {
   constructor() {
