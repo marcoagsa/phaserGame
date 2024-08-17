@@ -1,0 +1,134 @@
+[
+  {
+    "path": "/assets/items",
+    "files": [
+      {
+        "type": "image",
+        "key": "BASE",
+        "url": "platform.png"
+      },
+      {
+        "type": "image",
+        "key": "LEFT",
+        "url": "leftarrow.png"
+      },
+      {
+        "type": "image",
+        "key": "RIGHT",
+        "url": "rightarrow.png"
+      },
+      {
+        "type": "image",
+        "key": "star",
+        "url": "star.png"
+      },
+      {
+        "type": "image",
+        "key": "mushroomRed",
+        "url": "mushroomred.webp"
+      },
+      {
+        "type": "image",
+        "key": "bomb",
+        "url": "bomb.png"
+      }
+    ]
+  },
+  {
+    "path": "/assets/ui",
+    "files": [
+      {
+        "type": "image",
+        "key": "HEALTH_BACKGROUND",
+        "url": "custom-ui.png"
+      },
+      {
+        "type": "image",
+        "key": "LEFT_CAP",
+        "url": "barHorizontal_green_left.png"
+      },
+      {
+        "type": "image",
+        "key": "MIDDLE_CAP",
+        "url": "barHorizontal_green_mid.png"
+      },
+      {
+        "type": "image",
+        "key": "RIGHT_CAP",
+        "url": "barHorizontal_green_right.png"
+      },
+      {
+        "type": "image",
+        "key": "LEFT_CAP_SHADOW",
+        "url": "barHorizontal_shadow_left.png"
+      },
+      {
+        "type": "image",
+        "key": "MIDDLE_CAP_SHADOW",
+        "url": "barHorizontal_shadow_mid.png"
+      },
+      {
+        "type": "image",
+        "key": "RIGHT_CAP_SHADOW",
+        "url": "barHorizontal_shadow_right.png"
+      }
+    ]
+  },
+  {
+    "path": "/assets/backgrounds",
+    "files": [
+      {
+        "type": "image",
+        "key": "BG0",
+        "url": "bg0.png"
+      },
+      {
+        "type": "image",
+        "key": "BG1",
+        "url": "bg1.png"
+      },
+      {
+        "type": "image",
+        "key": "BG2",
+        "url": "bg2.png"
+      },
+      {
+        "type": "image",
+        "key": "BG3",
+        "url": "bg3.png"
+      },
+      {
+        "type": "image",
+        "key": "BG4",
+        "url": "bg4.png"
+      },
+      {
+        "type": "image",
+        "key": "BG5",
+        "url": "bg5.png"
+      },
+      {
+        "type": "image",
+        "key": "monkey",
+        "url": "monkey.png"
+      }
+    ]
+  },
+  {
+    "path": "assets/sprites",
+    "files": [
+      {
+        "type": "spritesheet",
+        "key": "heart",
+        "url": "heart.png",
+        "frameConfig": { "frameWidth": 7, "frameHeight": 7 }
+      },
+      {
+        "type": "spritesheet",
+        "key": "MONKEY",
+        "url": "player.png",
+        "frameConfig": { "frameWidth": 32, "frameHeight": 48 }
+      }
+    ]
+  }
+]
