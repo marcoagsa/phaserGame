@@ -23,7 +23,7 @@ export class MainScene extends Scene {
 
   initValues() {
     this.#background = new Background(this);
-    this.#background.showBackground();
+    // this.#background.showBackground();
 
     this.#healthBar = new HealthBar(this);
 
@@ -73,7 +73,7 @@ export class MainScene extends Scene {
       duration: 1500,
       callback: (res: any) => {
         const roundedScale = Math.round(res * 10) / 10;
-        if (roundedScale >= 148.1 && roundedScale <= 150.1) {
+        if (roundedScale >= 148 && roundedScale <= 153) {
           this.#monkey.monkey.scale = 1;
           this.#healthBar.updateLevelValue();
           this.#background.updateBackground();

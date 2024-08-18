@@ -1,4 +1,8 @@
-import { BACKGROUND_ASSET_KEYS, PLATFORM_ASSET_KEYS } from 'src/app/constants';
+import {
+  BACKGROUND_ASSET_KEYS,
+  BACKGROUND_MUSIC_ASSET_KEYS,
+  PLATFORM_ASSET_KEYS,
+} from 'src/app/constants';
 
 export class Background {
   platform!: Phaser.Types.Physics.Arcade.ImageWithStaticBody;
@@ -34,6 +38,8 @@ export class Background {
     this.#background.displayHeight = this.#scene.scale.height * 2;
     this.#background.displayWidth = this.#scene.scale.width * 2;
     this.#background.x = 200;
+
+    this.playBackgroundSound(BACKGROUND_MUSIC_ASSET_KEYS.BG0);
   }
 
   /**
@@ -53,6 +59,7 @@ export class Background {
   public showBackground() {
     const bg = `BG${this.#index}`;
     this.#background.setTexture(bg).setAlpha(1);
+    this.playBackgroundSound(bg);
   }
 
   /**
@@ -66,5 +73,13 @@ export class Background {
       this.#index = 0;
     }
     this.showBackground();
+  }
+
+  playBackgroundSound(background: string) {
+    this.#scene.sound.stopAll();
+    this.#scene.sound.play(background, {
+      volume: 0.4,
+      loop: true,
+    });
   }
 }
