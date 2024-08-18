@@ -172,17 +172,27 @@
       {
         "type": "audio",
         "key": "bomb",
-        "url": "bomb.mp3"
+        "url": "bomb.wav"
       },
       {
         "type": "audio",
-        "key": "start",
-        "url": "star.mp3"
+        "key": "star",
+        "url": "star.wav"
       },
       {
         "type": "audio",
         "key": "mushroomred",
-        "url": "mushroomred.mp3"
+        "url": "mushroomred.wav"
+      },
+      {
+        "type": "audio",
+        "key": "gameover",
+        "url": "gameover.wav"
+      },
+      {
+        "type": "audio",
+        "key": "winheart",
+        "url": "winheart.wav"
       }
     ]
   }

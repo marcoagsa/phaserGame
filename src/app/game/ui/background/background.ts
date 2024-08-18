@@ -75,8 +75,14 @@ export class Background {
     this.showBackground();
   }
 
+  stopBackgroundSound() {
+    const bgActual = `BG${this.#index - 1}`;
+
+    this.#scene.sound.stopByKey(bgActual);
+  }
+
   playBackgroundSound(background: string) {
-    this.#scene.sound.stopAll();
+    this.showBackground();
     this.#scene.sound.play(background, {
       volume: 0.4,
       loop: true,
