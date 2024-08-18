@@ -301,10 +301,6 @@ export class HealthBar {
     this.meter += 0.02;
     const width = this.#fullWidth * this.meter;
 
-    // if (width >= 148.1 && width <= 150.1) {
-    //   this.resetScaleMeter();
-    // }
-
     this.#scene.tweens.add({
       targets: this.#middleCap,
       displayWidth: width,
@@ -358,6 +354,7 @@ export class HealthBar {
     } else {
       this.#hearts[heartIndex].play(HEALTH_ANIMATION.WIN_FIRST_HALF);
     }
+    this.#scene.sound.play('winheart', { volume: 1 });
   }
 
   /**
@@ -365,6 +362,7 @@ export class HealthBar {
    * @param {number} score score value
    */
   public updateScoreValue(score: number) {
+    this.playSound(score);
     this.#score += score;
     this.#scoreValueText.setText(`${this.#score}`);
   }
@@ -380,5 +378,11 @@ export class HealthBar {
     this.#levelValueText.setText(
       `${reset ? (this.#level = 0) : (this.#level += 1)}`
     );
+  }
+
+  playSound(score: number) {
+    this.#scene.sound.play(score === 10 ? 'mushroomred' : 'star', {
+      volume: 1,
+    });
   }
 }

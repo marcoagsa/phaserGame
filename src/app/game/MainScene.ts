@@ -92,6 +92,7 @@ export class MainScene extends Scene {
         const bomb =
           object1.key === MONKEY_ASSET_KEYS.MONKEY ? object1 : object2;
         bomb.destroy();
+        this.sound.play('bomb', { volume: 1 });
 
         if (this.#healthBar.health !== 0) {
           this.#healthBar.handleLoseHearts();
@@ -100,6 +101,8 @@ export class MainScene extends Scene {
           return;
         }
 
+        this.sound.stopAll();
+        this.sound.play('gameover', { volume: 1 });
         this.time.removeAllEvents();
         this.physics.pause();
 
