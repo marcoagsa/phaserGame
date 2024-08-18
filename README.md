@@ -21,7 +21,7 @@ This project uses angular standalone components
 
 # Game Video
 
-https://github.com/marcoagsa/phaserGame/assets/14275804/6440a0cb-56be-4dc7-8708-6b5d66a4e59b
+https://github.com/user-attachments/assets/46361a78-681a-485d-b993-5ff145601aa9
 
 # Development Setup 💻
 
