@@ -54,6 +54,34 @@ export class Background {
   }
 
   /**
+   * Function to stop playing the
+   * current background
+   * sound and star playing
+   * the actual background sound
+   *
+   * @private
+   * @param {string} background
+   */
+  private playBackgroundSound(background: string) {
+    this.stopBackgroundSound();
+    this.#scene.sound.play(background, {
+      volume: 0.4,
+      loop: true,
+    });
+  }
+
+  /**
+   * Function to stop background sound
+   *
+   * @private
+   */
+  private stopBackgroundSound() {
+    const bgActual = `BG${this.#index - 1}`;
+
+    this.#scene.sound.stopByKey(bgActual);
+  }
+
+  /**
    * Function to show background by index
    */
   public showBackground() {
@@ -73,19 +101,5 @@ export class Background {
       this.#index = 0;
     }
     this.showBackground();
-  }
-
-  stopBackgroundSound() {
-    const bgActual = `BG${this.#index - 1}`;
-
-    this.#scene.sound.stopByKey(bgActual);
-  }
-
-  playBackgroundSound(background: string) {
-    this.showBackground();
-    this.#scene.sound.play(background, {
-      volume: 0.4,
-      loop: true,
-    });
   }
 }
