@@ -6,7 +6,7 @@ Welcome to the phaserGame game project! This project utilizes Ionic 7, Phaser 3 
 
 #### Feel free to adjust the wording or details as needed for your project's specifics!
 
-This is a Tic-Tac-Toe game, build with:
+This is a platform game, build with:
 
 - Ionic framework V7
 - Phaser 3
