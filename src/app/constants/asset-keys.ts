@@ -11,6 +11,15 @@ export const BACKGROUND_ASSET_KEYS = {
   BG5: 'BG5',
 };
 
+export const BACKGROUND_MUSIC_ASSET_KEYS = {
+  BG0: 'BG0',
+  BG1: 'BG1',
+  BG2: 'BG2',
+  BG3: 'BG3',
+  BG4: 'BG4',
+  BG5: 'BG5',
+};
+
 export const HEALTH_BAR_ASSET_KEYS = {
   HEALTH_BACKGROUND: 'HEALTH_BACKGROUND',
   HEART: 'heart',
