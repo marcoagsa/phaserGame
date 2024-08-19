@@ -10,7 +10,6 @@ import {
 import { addIcons } from 'ionicons';
 import { caretBackOutline, playOutline } from 'ionicons/icons';
 import { SCENE_KEYS } from 'src/app/constants';
-import { MainScene } from 'src/app/game/MainScene';
 import { GameScene } from 'src/app/scenes/game-scene';
 import { PreloadScene } from 'src/app/scenes/preload-scene';
 
@@ -85,8 +84,7 @@ export class PlayPage implements OnInit, OnDestroy {
   init() {
     this.game = new Phaser.Game(this.config);
     this.game?.scene.add(SCENE_KEYS.PRELOAD_SCENE, PreloadScene);
-    // this.game?.scene.add(SCENE_KEYS.GAME_SCENE, GameScene);
-    this.game?.scene.add(SCENE_KEYS.MAIN_SCENE, MainScene);
+    this.game?.scene.add(SCENE_KEYS.GAME_SCENE, GameScene);
     this.game?.scene.start(SCENE_KEYS.PRELOAD_SCENE);
   }
 }
