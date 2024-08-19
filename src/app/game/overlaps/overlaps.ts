@@ -8,6 +8,7 @@ export class Overlaps {
   #healthBar!: HealthBar;
   #dropItems: DropItems;
   gameOverText!: Phaser.GameObjects.BitmapText;
+
   constructor(
     scene: Phaser.Scene,
     background: Background,
@@ -94,35 +95,37 @@ export class Overlaps {
           return;
         }
 
-        this.#scene.sound.stopAll();
-        this.#scene.sound.play('gameover', { volume: 1 });
-        this.#scene.time.removeAllEvents();
-        this.#scene.physics.pause();
-
-        this.gameOverText = this.#scene.add
-          .bitmapText(
-            50,
-            this.#scene.scale.height / 2,
-            FONT_ASSET_KEYS.GOTHIC,
-            `GAME OVER`,
-            45
-          )
-          .setOrigin(0)
-          .setCenterAlign()
-          .setLetterSpacing(10)
-          .setLineSpacing(20)
-          .setTint(0xff0000)
-          .setDropShadow(2, 4, 0xffffff)
-          .setDepth(1);
-
-        this.#scene.input.on('pointerup', () => {
-          this.#healthBar.updateScoreValue(0);
-          this.#healthBar.updateLevelValue(true);
-          this.#scene.game.destroy(true, false);
-        });
+        this.gameOver();
       },
       undefined,
       this
     );
+  }
+
+  gameOver() {
+    this.#scene.sound.stopAll();
+    this.#scene.sound.play('gameover', { volume: 1 });
+    this.#scene.time.removeAllEvents();
+    this.#scene.physics.pause();
+
+    this.gameOverText = this.#scene.add
+      .bitmapText(
+        50,
+        this.#scene.scale.height / 2,
+        FONT_ASSET_KEYS.GOTHIC,
+        `GAME OVER`,
+        45
+      )
+      .setOrigin(0)
+      .setCenterAlign()
+      .setLetterSpacing(10)
+      .setLineSpacing(20)
+      .setTint(0xff0000)
+      .setDropShadow(2, 4, 0xffffff)
+      .setDepth(1);
+
+    this.#scene.input.on('pointerup', () => {
+      window.location.reload();
+    });
   }
 }

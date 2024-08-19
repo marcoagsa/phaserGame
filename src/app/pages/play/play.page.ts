@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject, signal } from '@angular/core';
 import { Platform } from '@ionic/angular/standalone';
 import {
   IonButton,
@@ -16,20 +16,20 @@ import { PreloadScene } from 'src/app/scenes/preload-scene';
 const imports = [IonContent, IonCard, IonButton, IonImg, IonIcon];
 
 const styles = [
-  `ion-card {
-    margin-top: 30vh;
-    display: grid;
-    gap: 10px;
-    padding: 20px;
-  }
-
-  ion-button {
-    margin-top: 20px;
-  }
-
-  ion-img {
-    height: 100px;
-  }`,
+  `#startGame {
+  position: absolute;
+  top: 55%;
+  left: 35%;
+  z-index: 100;
+}
+ion-img {
+ position: absolute;
+   top: 38vh;
+  left: 46vw;
+  scale: 5;
+z-index: 100;
+}
+`,
 ];
 
 @Component({
@@ -40,6 +40,16 @@ const styles = [
   template: `
     <ion-content [fullscreen]="true">
       <div id="phaser-main"></div>
+      @if (starButton()) {
+      <ion-img [src]="'/assets/backgrounds/monkey.png'" />
+      <ion-button
+        id="startGame"
+        expand="block"
+        color="tertiary"
+        (click)="startGame()"
+        >Star Game</ion-button
+      >
+      }
     </ion-content>
   `,
 })
@@ -67,7 +77,9 @@ export class PlayPage implements OnInit, OnDestroy {
       default: 'arcade',
     },
   };
-  game: Phaser.Game | undefined;
+  game = signal<Phaser.Game | undefined>(undefined);
+
+  starButton = signal(true);
 
   constructor() {
     addIcons({ playOutline, caretBackOutline });
@@ -78,13 +90,22 @@ export class PlayPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.game?.destroy(true, false);
+    this.game()?.destroy(true, false);
   }
 
   init() {
-    this.game = new Phaser.Game(this.config);
-    this.game?.scene.add(SCENE_KEYS.PRELOAD_SCENE, PreloadScene);
-    this.game?.scene.add(SCENE_KEYS.GAME_SCENE, GameScene);
-    this.game?.scene.start(SCENE_KEYS.PRELOAD_SCENE);
+    this.game.set(new Phaser.Game(this.config));
+    this.game()?.scene.add(SCENE_KEYS.PRELOAD_SCENE, PreloadScene);
+    this.game()?.scene.add(SCENE_KEYS.GAME_SCENE, GameScene);
+  }
+
+  startGame() {
+    this.starButton.update((v) => !v);
+    this.game()?.scene.start(SCENE_KEYS.PRELOAD_SCENE);
+  }
+
+  gameOver() {
+    this.game()?.destroy(true, false);
+    this.starButton.update((v) => !v);
   }
 }
