@@ -67,7 +67,7 @@ export class Overlaps {
       callback: (res: any) => {
         const roundedScale = Math.round(res * 10) / 10;
         if (roundedScale >= 148 && roundedScale <= 153) {
-          this.#monkey.monkey.scale = 1;
+          this.#monkey.reset();
           this.#healthBar.updateLevelValue();
           this.#background.updateBackground();
           this.#healthBar.resetScaleMeter();
