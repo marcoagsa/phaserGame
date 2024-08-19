@@ -2,7 +2,7 @@ import { GAME_PAD_DIRECTIONS, MONKEY_ASSET_KEYS } from 'src/app/constants';
 
 export class Monkey {
   #scene: Phaser.Scene;
-  monkey!: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
+  #monkey!: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
   #controlsAreaHeight: number;
   #sceneHeight: number;
   #gameAreaHeight: number;
@@ -16,12 +16,16 @@ export class Monkey {
     this.animation();
   }
 
+  get monkey() {
+    return this.#monkey;
+  }
+
   /**
    * Function to init monkey
    * @private
    */
   private init() {
-    this.monkey = this.#scene.physics.add
+    this.#monkey = this.#scene.physics.add
       .sprite(
         this.#scene.scale.width / 2,
         this.#gameAreaHeight - 24,
@@ -90,8 +94,8 @@ export class Monkey {
     keypress: string,
     ignoreIfPlaying: boolean | undefined
   ) {
-    this.monkey.setVelocityX(velocityX);
-    this.monkey.anims.play(keypress, ignoreIfPlaying);
+    this.#monkey.setVelocityX(velocityX);
+    this.#monkey.anims.play(keypress, ignoreIfPlaying);
   }
 
   /**
@@ -99,7 +103,7 @@ export class Monkey {
    * @param {number} scale a number between 0 and 1
    */
   increaseMonkeyScale(scale: number) {
-    this.monkey.scale += scale;
+    this.#monkey.scale += scale;
   }
 
   /**
@@ -107,9 +111,20 @@ export class Monkey {
    * @param {number} scale a number between 0 and 1
    */
   reduceMonkeyScale(scale: number) {
-    if (this.monkey.scale < 1) {
+    if (this.#monkey.scale < 1) {
       return;
     }
-    this.monkey.scale -= scale;
+    this.#monkey.scale -= scale;
+  }
+
+  reset() {
+    this.#scene.tweens.add({
+      targets: this.#monkey,
+      scaleX: 1.0,
+      scaleY: 1.0,
+      ease: 'Elastic',
+      duration: 500,
+      onComplete: () => {},
+    });
   }
 }
