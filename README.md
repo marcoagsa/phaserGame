@@ -69,7 +69,7 @@ https://github.com/user-attachments/assets/46361a78-681a-485d-b993-5ff145601aa9
 > - [x] Add more background's images for the game
 > - [x] Improve background changes
 > - [x] Improve score panel to have a health bar using the monkey scale
-> - [ ] Try to fix the reduce scale of the monkey on change levels [ use tweens ]
+> - [x] Try to fix the reduce scale of the monkey on change levels [ use tweens ]
 > - [ ] Add new object to give or remove life
 > - [ ] Add new object to add more points
 > - [x] Create a class for all drop items
