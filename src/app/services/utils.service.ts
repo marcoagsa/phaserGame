@@ -21,7 +21,7 @@ export class UtilsService {
       breakpoints: [0, 0.1],
       backdropBreakpoint: 0.1,
       backdropDismiss: false,
-      canDismiss: false,
+      canDismiss: true,
       cssClass: 'tabsModal',
     });
 
@@ -29,7 +29,10 @@ export class UtilsService {
   }
 
   async dismissTabs() {
-    await this.modalCtrl.dismiss();
+    if (await this.modal?.getCurrentBreakpoint()) {
+      await this.modalCtrl.dismiss();
+    }
+    return;
   }
 
   async tabsBreakPoint(breakpoint: number) {

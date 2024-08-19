@@ -12,6 +12,7 @@ import { caretBackOutline, playOutline } from 'ionicons/icons';
 import { SCENE_KEYS } from 'src/app/constants';
 import { GameScene } from 'src/app/scenes/game-scene';
 import { PreloadScene } from 'src/app/scenes/preload-scene';
+import { UtilsService } from 'src/app/services';
 
 const imports = [IonContent, IonCard, IonButton, IonImg, IonIcon];
 
@@ -55,6 +56,7 @@ z-index: 100;
 })
 export class PlayPage implements OnInit, OnDestroy {
   private readonly platform = inject(Platform);
+  private readonly utils = inject(UtilsService);
 
   config: Phaser.Types.Core.GameConfig = {
     type: Phaser.AUTO,
@@ -72,7 +74,7 @@ export class PlayPage implements OnInit, OnDestroy {
     render: {
       transparent: false,
     },
-    backgroundColor: '#201726',
+    backgroundColor: '#000000',
     physics: {
       default: 'arcade',
     },
@@ -93,13 +95,15 @@ export class PlayPage implements OnInit, OnDestroy {
     this.game()?.destroy(true, false);
   }
 
-  init() {
+  async init() {
     this.game.set(new Phaser.Game(this.config));
     this.game()?.scene.add(SCENE_KEYS.PRELOAD_SCENE, PreloadScene);
     this.game()?.scene.add(SCENE_KEYS.GAME_SCENE, GameScene);
+    await this.utils.openTabs();
   }
 
-  startGame() {
+  async startGame() {
+    await this.utils.dismissTabs();
     this.starButton.update((v) => !v);
     this.game()?.scene.start(SCENE_KEYS.PRELOAD_SCENE);
   }

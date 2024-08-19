@@ -12,7 +12,7 @@ import { UtilsService } from 'src/app/services';
   styles: [],
 })
 export class ScoresPage implements OnInit {
-  private utils = inject(UtilsService);
+  private readonly utils = inject(UtilsService);
 
   ngOnInit(): void {
     this.init();
