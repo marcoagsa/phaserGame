@@ -78,3 +78,4 @@ https://github.com/user-attachments/assets/46361a78-681a-485d-b993-5ff145601aa9
 > - [ ] Start layout for the about page
 > - [ ] Start layout for the scores page
 > - [x] Add sound to the game
+> - [x] Add button start game
