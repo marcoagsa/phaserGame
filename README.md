@@ -73,7 +73,8 @@ https://github.com/user-attachments/assets/46361a78-681a-485d-b993-5ff145601aa9
 > - [ ] Add new object to give or remove life
 > - [ ] Add new object to add more points
 > - [x] Create a class for all drop items
-> - [ ] Create a class for all colliders
-> - [ ] Refactor main scene to improve the code
+> - [x] Create a class for all colliders
+> - [x] Refactor main scene to improve the code
 > - [ ] Start layout for the about page
 > - [ ] Start layout for the scores page
+> - [x] Add sound to the game
