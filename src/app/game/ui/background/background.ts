@@ -63,7 +63,6 @@ export class Background {
    * @param {string} background
    */
   private playBackgroundSound(background: string) {
-    this.stopBackgroundSound();
     this.#scene.sound.play(background, {
       volume: 0.4,
       loop: true,
@@ -72,13 +71,9 @@ export class Background {
 
   /**
    * Function to stop background sound
-   *
-   * @private
    */
-  private stopBackgroundSound() {
-    const bgActual = `BG${this.#index - 1}`;
-
-    this.#scene.sound.stopByKey(bgActual);
+  private stopActualBackgroundSound() {
+    this.#scene.sound.stopByKey(`BG${this.#index}`);
   }
 
   /**
@@ -95,6 +90,8 @@ export class Background {
    * show the new background
    */
   public updateBackground() {
+    this.stopActualBackgroundSound();
+
     this.#index += 1;
 
     if (this.#index > 5) {
