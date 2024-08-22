@@ -24,7 +24,7 @@ export class Colliders {
     this.stars();
     this.mushRoom();
     this.bombs();
-    this.rareItem();
+    this.extraLife();
   }
 
   platform() {
@@ -72,14 +72,14 @@ export class Colliders {
     );
   }
 
-  rareItem() {
+  extraLife() {
     this.#scene.physics.add.collider(
-      this.#dropItems.rareItem,
+      this.#dropItems.extraLife,
       this.#background.platform,
       (object1: any, object2: any) => {
-        const rareItem =
+        const extraLife =
           object1.key === OBJECTS_ASSET_KEYS.RARE_ITEM ? object1 : object2;
-        rareItem.destroy();
+        extraLife.destroy();
       }
     );
   }

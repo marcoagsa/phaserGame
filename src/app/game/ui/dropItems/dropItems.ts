@@ -5,14 +5,14 @@ export class DropItems {
   #bombCalc = this.getRandomDelay(0, 100);
   #bombsDelay = this.getRandomDelay(4500, 5000) - this.#bombCalc;
 
-  private rareItemChance: number = 0.05;
-  private rareItemMinDelay: number = 10000;
-  private rareItemMaxDelay: number = 30000;
+  private extraLifeChance: number = 0.05;
+  private extraLifeMinDelay: number = 10000;
+  private extraLifeMaxDelay: number = 30000;
 
   mushroomRed!: Phaser.Physics.Arcade.Group;
   stars!: Phaser.Physics.Arcade.Group;
   bombs!: Phaser.Physics.Arcade.Group;
-  rareItem!: Phaser.Physics.Arcade.Group;
+  extraLife!: Phaser.Physics.Arcade.Group;
 
   constructor(scene: Phaser.Scene) {
     this.#scene = scene;
@@ -22,7 +22,7 @@ export class DropItems {
     this.addMushroomRed();
     this.addStar();
     this.addBomb();
-    this.addRareItem();
+    this.addExtraLife();
   }
 
   private getRandomDelay(min: number, max: number): number {
@@ -74,32 +74,32 @@ export class DropItems {
     });
   }
 
-  private createRareItem() {
+  private createExtraLife() {
     const x = Math.random() * this.#scene.scale.width;
-    this.rareItem.create(x, 0, 'heart').setOrigin(0).setScale(4);
+    this.extraLife.create(x, 0, 'heart').setOrigin(0).setScale(4);
   }
 
-  private addRareItem() {
-    this.rareItem = this.#scene.physics.add.group({
+  private addExtraLife() {
+    this.extraLife = this.#scene.physics.add.group({
       gravityY: 200,
     });
 
-    this.createRareItemLoop();
+    this.createExtraLifeLoop();
   }
 
-  private createRareItemLoop() {
+  private createExtraLifeLoop() {
     const delay = Phaser.Math.Between(
-      this.rareItemMinDelay,
-      this.rareItemMaxDelay
+      this.extraLifeMinDelay,
+      this.extraLifeMaxDelay
     );
 
     this.#scene.time.addEvent({
       delay: delay,
       callback: () => {
-        if (Math.random() < this.rareItemChance) {
-          this.createRareItem();
+        if (Math.random() < this.extraLifeChance) {
+          this.createExtraLife();
         }
-        this.createRareItemLoop();
+        this.createExtraLifeLoop();
       },
       callbackScope: this,
       loop: false,
