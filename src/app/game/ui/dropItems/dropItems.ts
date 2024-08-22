@@ -1,13 +1,11 @@
 export class DropItems {
   #scene: Phaser.Scene;
-  #mushroomRedDelay = Math.floor(Math.random() * (1300 - 1000 + 1)) + 1000;
-  #starsDelay = Math.floor(Math.random() * (5000 - 4500 + 1)) + 4500;
-  #bombCalc = 4500 - Math.floor(Math.random()) * 100;
-  #bombsDelay = Math.floor(Math.random() * (5000 - 4500 + 1)) + this.#bombCalc;
+  #mushroomRedDelay = this.getRandomDelay(1000, 1300);
+  #starsDelay = this.getRandomDelay(4500, 5000);
+  #bombCalc = this.getRandomDelay(0, 100);
+  #bombsDelay = this.getRandomDelay(4500, 5000) - this.#bombCalc;
 
   mushroomRed!: Phaser.Physics.Arcade.Group;
-  mushroomGreen!: Phaser.Physics.Arcade.Group;
-  mushroomBlue!: Phaser.Physics.Arcade.Group;
   stars!: Phaser.Physics.Arcade.Group;
   bombs!: Phaser.Physics.Arcade.Group;
 
@@ -18,85 +16,53 @@ export class DropItems {
   createDropItems() {
     this.addMushroomRed();
     this.addStar();
-    this.addBoom();
+    this.addBomb();
   }
 
-  /**
-   * Function to create red mushroom
-   * @private
-   */
+  private getRandomDelay(min: number, max: number): number {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
   private createMushroomRed() {
     const x = Math.random() * this.#scene.scale.width;
     this.mushroomRed.create(x, 0, 'mushroomRed').setScale(0.1);
   }
 
-  /**
-   * Function to add red mushroom on
-   * the scene
-   * @private
-   */
   private addMushroomRed() {
     this.mushroomRed = this.#scene.physics.add.group({
       gravityY: 200,
     });
-
-    this.createLoop(this.#mushroomRedDelay, this.createMushroomRed);
+    this.createLoop(this.#mushroomRedDelay, () => this.createMushroomRed());
   }
 
-  /**
-   * Function to create star
-   * @private
-   */
   private createStar() {
     const x = Math.random() * this.#scene.scale.width;
     this.stars.create(x, 0, 'star');
   }
 
-  /**
-   * Function to add star on
-   * the scene
-   * @private
-   */
   private addStar() {
     this.stars = this.#scene.physics.add.group({
       gravityY: 300,
     });
-    this.createLoop(this.#starsDelay, this.createStar);
+    this.createLoop(this.#starsDelay, () => this.createStar());
   }
 
-  /**
-   * Function to create bomb
-   * @private
-   */
   private createBomb() {
     const x = Math.random() * this.#scene.scale.width;
     this.bombs.create(x, 0, 'bomb').setScale(2).refreshBody();
   }
 
-  /**
-   * Function to add bomb on
-   * the scene
-   * @private
-   */
-  private addBoom() {
+  private addBomb() {
     this.bombs = this.#scene.physics.add.group({
       gravityY: 900,
     });
-
-    this.createLoop(this.#bombsDelay, this.createBomb);
+    this.createLoop(this.#bombsDelay, () => this.createBomb());
   }
 
-  /**
-   * Function to create loops of
-   * scene item
-   * @private
-   * @param {number} delay
-   * @param {*} item
-   */
-  private createLoop(delay: number, item: any) {
+  private createLoop(delay: number, createItemFn: () => void) {
     this.#scene.time.addEvent({
       delay: delay,
-      callback: item,
+      callback: createItemFn,
       callbackScope: this,
       loop: true,
     });
