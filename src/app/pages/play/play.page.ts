@@ -96,15 +96,15 @@ export class PlayPage implements OnInit, OnDestroy {
   }
 
   async init() {
-    this.game.set(new Phaser.Game(this.config));
-    this.game()?.scene.add(SCENE_KEYS.PRELOAD_SCENE, PreloadScene);
-    this.game()?.scene.add(SCENE_KEYS.GAME_SCENE, GameScene);
     await this.utils.openTabs();
   }
 
   async startGame() {
     await this.utils.dismissTabs();
     this.startButton.update((v) => !v);
+    this.game.set(new Phaser.Game(this.config));
+    this.game()?.scene.add(SCENE_KEYS.PRELOAD_SCENE, PreloadScene);
+    this.game()?.scene.add(SCENE_KEYS.GAME_SCENE, GameScene);
     this.game()?.scene.start(SCENE_KEYS.PRELOAD_SCENE);
   }
 
