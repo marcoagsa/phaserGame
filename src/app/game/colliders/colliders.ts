@@ -24,6 +24,7 @@ export class Colliders {
     this.stars();
     this.mushRoom();
     this.bombs();
+    this.rareItem();
   }
 
   platform() {
@@ -67,6 +68,18 @@ export class Colliders {
         const bomb =
           object1.key === OBJECTS_ASSET_KEYS.BOMB ? object1 : object2;
         bomb.destroy();
+      }
+    );
+  }
+
+  rareItem() {
+    this.#scene.physics.add.collider(
+      this.#dropItems.rareItem,
+      this.#background.platform,
+      (object1: any, object2: any) => {
+        const rareItem =
+          object1.key === OBJECTS_ASSET_KEYS.RARE_ITEM ? object1 : object2;
+        rareItem.destroy();
       }
     );
   }

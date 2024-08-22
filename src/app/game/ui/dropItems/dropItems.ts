@@ -5,9 +5,14 @@ export class DropItems {
   #bombCalc = this.getRandomDelay(0, 100);
   #bombsDelay = this.getRandomDelay(4500, 5000) - this.#bombCalc;
 
+  private rareItemChance: number = 0.05;
+  private rareItemMinDelay: number = 10000;
+  private rareItemMaxDelay: number = 30000;
+
   mushroomRed!: Phaser.Physics.Arcade.Group;
   stars!: Phaser.Physics.Arcade.Group;
   bombs!: Phaser.Physics.Arcade.Group;
+  rareItem!: Phaser.Physics.Arcade.Group;
 
   constructor(scene: Phaser.Scene) {
     this.#scene = scene;
@@ -17,6 +22,7 @@ export class DropItems {
     this.addMushroomRed();
     this.addStar();
     this.addBomb();
+    this.addRareItem();
   }
 
   private getRandomDelay(min: number, max: number): number {
@@ -65,6 +71,38 @@ export class DropItems {
       callback: createItemFn,
       callbackScope: this,
       loop: true,
+    });
+  }
+
+  private createRareItem() {
+    const x = Math.random() * this.#scene.scale.width;
+    this.rareItem.create(x, 0, 'heart').setOrigin(0).setScale(4);
+  }
+
+  private addRareItem() {
+    this.rareItem = this.#scene.physics.add.group({
+      gravityY: 200,
+    });
+
+    this.createRareItemLoop();
+  }
+
+  private createRareItemLoop() {
+    const delay = Phaser.Math.Between(
+      this.rareItemMinDelay,
+      this.rareItemMaxDelay
+    );
+
+    this.#scene.time.addEvent({
+      delay: delay,
+      callback: () => {
+        if (Math.random() < this.rareItemChance) {
+          this.createRareItem();
+        }
+        this.createRareItemLoop();
+      },
+      callbackScope: this,
+      loop: false,
     });
   }
 }

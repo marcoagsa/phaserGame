@@ -43,6 +43,7 @@ export const OBJECTS_ASSET_KEYS = {
   STAR: 'star',
   MUSHROOM_RED: 'mushroomRed',
   BOMB: 'bomb',
+  RARE_ITEM: 'heart',
 };
 
 export const GAME_PAD_DIRECTIONS = {

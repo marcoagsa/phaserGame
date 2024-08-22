@@ -27,6 +27,7 @@ export class Overlaps {
     this.playerAndMushroomRed();
     this.playerAndStars();
     this.playerAndBooms();
+    this.playerAndRareItem();
   }
 
   playerAndStars() {
@@ -96,6 +97,21 @@ export class Overlaps {
         }
 
         this.gameOver();
+      },
+      undefined,
+      this
+    );
+  }
+
+  playerAndRareItem() {
+    // Adds overlap between player and bombs
+    this.#scene.physics.add.overlap(
+      this.#monkey.monkey,
+      this.#dropItems.rareItem,
+      (object1: any, object2: any) => {
+        const rareItem = object1.key === 'heart' ? object1 : object2;
+        rareItem.destroy();
+        this.#healthBar.handleWinHearts();
       },
       undefined,
       this
