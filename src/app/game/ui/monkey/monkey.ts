@@ -31,16 +31,9 @@ export class Monkey {
         this.#gameAreaHeight - 24,
         MONKEY_ASSET_KEYS.MONKEY
       )
+      .setCollideWorldBounds(true)
+      .setBounce(0)
       .setDepth(3);
-
-    this.#monkey.body.setSize(
-      this.#monkey.width * 0.8,
-      this.#monkey.height * 0.9
-    );
-    this.#monkey.body.setOffset(
-      this.#monkey.width * 0.1,
-      this.#monkey.height * 0.1
-    );
   }
 
   /**
@@ -108,8 +101,6 @@ export class Monkey {
     this.#monkey.body.setDragX(500);
 
     this.#monkey.anims.play(keypress, ignoreIfPlaying);
-    console.log(`Monkey Position: x=${this.#monkey.x}, y=${this.#monkey.y}`);
-    console.log(`Monkey Velocity: x=${this.#monkey.body.velocity.x}`);
   }
 
   /**
