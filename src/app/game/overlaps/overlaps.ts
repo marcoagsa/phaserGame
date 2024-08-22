@@ -27,7 +27,7 @@ export class Overlaps {
     this.playerAndMushroomRed();
     this.playerAndStars();
     this.playerAndBooms();
-    this.playerAndRareItem();
+    this.playerAndExtraLife();
   }
 
   playerAndStars() {
@@ -103,14 +103,14 @@ export class Overlaps {
     );
   }
 
-  playerAndRareItem() {
+  playerAndExtraLife() {
     // Adds overlap between player and bombs
     this.#scene.physics.add.overlap(
       this.#monkey.monkey,
-      this.#dropItems.rareItem,
+      this.#dropItems.extraLife,
       (object1: any, object2: any) => {
-        const rareItem = object1.key === 'heart' ? object1 : object2;
-        rareItem.destroy();
+        const extraLife = object1.key === 'heart' ? object1 : object2;
+        extraLife.destroy();
         this.#healthBar.handleWinHearts();
       },
       undefined,
