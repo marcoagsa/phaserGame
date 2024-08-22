@@ -41,7 +41,7 @@ z-index: 100;
   template: `
     <ion-content [fullscreen]="true">
       <div id="phaser-main"></div>
-      @if (starButton()) {
+      @if (startButton()) {
       <ion-img [src]="'/assets/backgrounds/monkey.png'" />
       <ion-button
         id="startGame"
@@ -81,7 +81,7 @@ export class PlayPage implements OnInit, OnDestroy {
   };
   game = signal<Phaser.Game | undefined>(undefined);
 
-  starButton = signal(true);
+  startButton = signal(true);
 
   constructor() {
     addIcons({ playOutline, caretBackOutline });
@@ -104,12 +104,12 @@ export class PlayPage implements OnInit, OnDestroy {
 
   async startGame() {
     await this.utils.dismissTabs();
-    this.starButton.update((v) => !v);
+    this.startButton.update((v) => !v);
     this.game()?.scene.start(SCENE_KEYS.PRELOAD_SCENE);
   }
 
   gameOver() {
     this.game()?.destroy(true, false);
-    this.starButton.update((v) => !v);
+    this.startButton.update((v) => !v);
   }
 }
