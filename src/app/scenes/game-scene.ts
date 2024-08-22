@@ -53,8 +53,10 @@ export class GameScene extends Scene {
   }
 
   override update() {
+    this.#monkey.monkey.setVelocityX(0);
+
     if (this.#gamePad.moveLeft && !this.#gamePad.moveRight) {
-      this.#monkey.move(0 - 200, GAME_PAD_DIRECTIONS.LEFT, true);
+      this.#monkey.move(-200, GAME_PAD_DIRECTIONS.LEFT, true);
     } else if (this.#gamePad.moveRight && !this.#gamePad.moveLeft) {
       this.#monkey.move(200, GAME_PAD_DIRECTIONS.RIGHT, true);
     } else {
