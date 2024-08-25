@@ -5,7 +5,7 @@ export class DropItems {
   #bombCalc = this.getRandomDelay(0, 100);
   #bombsDelay = this.getRandomDelay(4500, 5000) - this.#bombCalc;
 
-  private extraLifeChance: number = 1;
+  private extraLifeChance: number = 0.05;
   private extraLifeMinDelay: number = 10000;
   private extraLifeMaxDelay: number = 30000;
 
@@ -56,7 +56,7 @@ export class DropItems {
 
   private createBomb() {
     const x = Math.random() * this.#scene.scale.width;
-    this.bombs.create(x, 0, 'bomb').setScale(2.5).refreshBody();
+    this.bombs.create(x, 0, 'bomb').setOrigin(0).setScale(0.4).refreshBody();
   }
 
   private addBomb() {
