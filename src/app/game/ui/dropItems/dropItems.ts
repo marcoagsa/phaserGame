@@ -5,7 +5,7 @@ export class DropItems {
   #bombCalc = this.getRandomDelay(0, 100);
   #bombsDelay = this.getRandomDelay(4500, 5000) - this.#bombCalc;
 
-  private extraLifeChance: number = 0.05;
+  private extraLifeChance: number = 1;
   private extraLifeMinDelay: number = 10000;
   private extraLifeMaxDelay: number = 30000;
 
@@ -44,7 +44,7 @@ export class DropItems {
   private createStar() {
     const x = Math.random() * this.#scene.scale.width;
     const star = this.star.create(x, 0, 'star').setScale(1.7).refreshBody();
-    this.blinkImage(star, 1.3);
+    this.blinkImage(star, 1.1);
   }
 
   private addStar() {
@@ -80,9 +80,9 @@ export class DropItems {
     const extraLife = this.extraLife
       .create(x, 0, 'heart')
       .setOrigin(0)
-      .setScale(4);
+      .setScale(5);
 
-    this.blinkImage(extraLife, 4.5);
+    this.blinkImage(extraLife, 4);
   }
 
   private addExtraLife() {
