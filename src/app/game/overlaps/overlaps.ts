@@ -111,7 +111,9 @@ export class Overlaps {
       (object1: any, object2: any) => {
         const extraLife = object1.key === 'heart' ? object1 : object2;
         extraLife.destroy();
-        this.#healthBar.handleWinHearts();
+        if (this.#healthBar.health !== 6) {
+          this.#healthBar.handleWinHearts();
+        }
       },
       undefined,
       this

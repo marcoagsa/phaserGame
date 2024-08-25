@@ -336,6 +336,7 @@ export class HealthBar {
   public handleLoseHearts() {
     const heartIndex = Math.round(this.health / 2) - 1;
     const isHalfHeart = this.health % 2 === 1;
+
     if (isHalfHeart) {
       this.#hearts[heartIndex].play(HEALTH_ANIMATION.LOSE_SECOND_HALF);
     } else {
