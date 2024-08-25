@@ -10,7 +10,7 @@ export class DropItems {
   private extraLifeMaxDelay: number = 30000;
 
   mushroomRed!: Phaser.Physics.Arcade.Group;
-  stars!: Phaser.Physics.Arcade.Group;
+  star!: Phaser.Physics.Arcade.Group;
   bombs!: Phaser.Physics.Arcade.Group;
   extraLife!: Phaser.Physics.Arcade.Group;
 
@@ -43,11 +43,12 @@ export class DropItems {
 
   private createStar() {
     const x = Math.random() * this.#scene.scale.width;
-    this.stars.create(x, 0, 'star');
+    const star = this.star.create(x, 0, 'star').setScale(1.7).refreshBody();
+    this.blinkImage(star, 1.3);
   }
 
   private addStar() {
-    this.stars = this.#scene.physics.add.group({
+    this.star = this.#scene.physics.add.group({
       gravityY: 300,
     });
     this.createLoop(this.#starsDelay, () => this.createStar());
@@ -55,7 +56,7 @@ export class DropItems {
 
   private createBomb() {
     const x = Math.random() * this.#scene.scale.width;
-    this.bombs.create(x, 0, 'bomb').setScale(2).refreshBody();
+    this.bombs.create(x, 0, 'bomb').setScale(2.5).refreshBody();
   }
 
   private addBomb() {
@@ -76,7 +77,12 @@ export class DropItems {
 
   private createExtraLife() {
     const x = Math.random() * this.#scene.scale.width;
-    this.extraLife.create(x, 0, 'heart').setOrigin(0).setScale(4);
+    const extraLife = this.extraLife
+      .create(x, 0, 'heart')
+      .setOrigin(0)
+      .setScale(4);
+
+    this.blinkImage(extraLife, 4.5);
   }
 
   private addExtraLife() {
@@ -103,6 +109,26 @@ export class DropItems {
       },
       callbackScope: this,
       loop: false,
+    });
+  }
+
+  /**
+   * Function to add blink animation
+   * to the image
+   *
+   * @param {Phaser.Physics.Arcade.Group} image
+   * @param {number} [scale]
+   */
+  blinkImage(image: Phaser.Physics.Arcade.Group, scale?: number) {
+    this.#scene.tweens.add({
+      targets: image,
+      ...(scale && { scaleX: scale }),
+      ...(scale && { scaleY: scale }),
+      alpha: 0.6,
+      yoyo: true,
+      repeat: -1,
+      duration: 300,
+      ease: 'Sine.easeInOut',
     });
   }
 }

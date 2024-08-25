@@ -36,7 +36,7 @@ export class Colliders {
 
   stars() {
     this.#scene.physics.add.collider(
-      this.#dropItems.stars,
+      this.#dropItems.star,
       this.#background.platform,
       (object1: any, object2: any) => {
         const star =
