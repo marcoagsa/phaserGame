@@ -82,7 +82,7 @@ export class Monkey {
 
     // sets player physics
     this.monkey.body.setGravityY(300);
-    this.monkey.setCollideWorldBounds(true);
+    this.monkey.setCollideWorldBounds(true).refreshBody();
   }
 
   /**
@@ -109,6 +109,7 @@ export class Monkey {
    */
   increaseMonkeyScale(scale: number) {
     this.#monkey.scale += scale;
+    this.#monkey.refreshBody();
   }
 
   /**
@@ -120,6 +121,7 @@ export class Monkey {
       return;
     }
     this.#monkey.scale -= scale;
+    this.#monkey.refreshBody();
   }
 
   reset() {

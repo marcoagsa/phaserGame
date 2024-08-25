@@ -30,8 +30,15 @@ export class DropItems {
   }
 
   private createMushroomRed() {
-    const x = Math.random() * this.#scene.scale.width;
-    this.mushroomRed.create(x, 0, 'mushroomRed').setScale(0.1);
+    const textureKey = 'mushroomRed';
+    const textureWidth = this.#scene.textures
+      .get(textureKey)
+      .getSourceImage().width;
+    const x = Phaser.Math.Between(
+      0,
+      this.#scene.scale.width - textureWidth * 0.1
+    );
+    this.mushroomRed.create(x, 0, textureKey).setScale(0.1).refreshBody();
   }
 
   private addMushroomRed() {
@@ -42,8 +49,15 @@ export class DropItems {
   }
 
   private createStar() {
-    const x = Math.random() * this.#scene.scale.width;
-    const star = this.star.create(x, 0, 'star').setScale(1.7).refreshBody();
+    const textureKey = 'star';
+    const textureWidth = this.#scene.textures
+      .get(textureKey)
+      .getSourceImage().width;
+    const x = Phaser.Math.Between(
+      0,
+      this.#scene.scale.width - textureWidth * 1.7
+    );
+    const star = this.star.create(x, 0, textureKey).setScale(1.7).refreshBody();
     this.blinkImage(star, 1.1);
   }
 
@@ -55,8 +69,19 @@ export class DropItems {
   }
 
   private createBomb() {
-    const x = Math.random() * this.#scene.scale.width;
-    this.bombs.create(x, 0, 'bomb').setOrigin(0).setScale(0.4).refreshBody();
+    const textureKey = 'bomb';
+    const textureWidth = this.#scene.textures
+      .get(textureKey)
+      .getSourceImage().width;
+    const x = Phaser.Math.Between(
+      0,
+      this.#scene.scale.width - textureWidth * 0.4
+    );
+    this.bombs
+      .create(x, 0, textureKey)
+      .setOrigin(0)
+      .setScale(0.4)
+      .refreshBody();
   }
 
   private addBomb() {
@@ -66,21 +91,20 @@ export class DropItems {
     this.createLoop(this.#bombsDelay, () => this.createBomb());
   }
 
-  private createLoop(delay: number, createItemFn: () => void) {
-    this.#scene.time.addEvent({
-      delay: delay,
-      callback: createItemFn,
-      callbackScope: this,
-      loop: true,
-    });
-  }
-
   private createExtraLife() {
-    const x = Math.random() * this.#scene.scale.width;
+    const textureKey = 'heart';
+    const textureWidth = this.#scene.textures
+      .get(textureKey)
+      .getSourceImage().width;
+    const x = Phaser.Math.Between(
+      0,
+      this.#scene.scale.width - textureWidth * 5
+    );
     const extraLife = this.extraLife
-      .create(x, 0, 'heart')
+      .create(x, 0, textureKey)
       .setOrigin(0)
-      .setScale(5);
+      .setScale(5)
+      .refreshBody();
 
     this.blinkImage(extraLife, 4);
   }
@@ -109,6 +133,15 @@ export class DropItems {
       },
       callbackScope: this,
       loop: false,
+    });
+  }
+
+  private createLoop(delay: number, createItemFn: () => void) {
+    this.#scene.time.addEvent({
+      delay: delay,
+      callback: createItemFn,
+      callbackScope: this,
+      loop: true,
     });
   }
 
