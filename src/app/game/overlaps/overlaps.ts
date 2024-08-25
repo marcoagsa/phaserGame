@@ -34,7 +34,7 @@ export class Overlaps {
     // Adds overlap between player and stars
     this.#scene.physics.add.overlap(
       this.#monkey.monkey,
-      this.#dropItems.stars,
+      this.#dropItems.star,
       (object1: any, object2: any) => {
         const star = object1.key === 'player' ? object1 : object2;
         star.destroy();
