@@ -63,6 +63,7 @@ https://github.com/user-attachments/assets/46361a78-681a-485d-b993-5ff145601aa9
 
 > - [x] The Game don't update more then level 3
 > - [x] Fix update scale meter
+> - [ ] The player still gets stuck, sometimes in the left and right corner
 
 ## [`Feactures`]
 
@@ -72,12 +73,14 @@ https://github.com/user-attachments/assets/46361a78-681a-485d-b993-5ff145601aa9
 > - [x] Try to fix the reduce scale of the monkey on change levels [ use tweens ]
 > - [x] Add new object to give extra life
 > - [x] Add blink image animation for extra life and star
-> - [ ] Add new object remove life
-> - [ ] Add new object to add more points
 > - [x] Create a class for all drop items
 > - [x] Create a class for all colliders
 > - [x] Refactor main scene to improve the code
-> - [ ] Start layout for the about page
-> - [ ] Start layout for the scores page
 > - [x] Add sound to the game
 > - [x] Add button start game
+> - [ ] Add new object remove life
+> - [ ] Add new object to win more points
+> - [ ] Start layout for the about page
+> - [ ] Start layout for the scores page
+> - [ ] Add even more background to have more different levels of the game
+> - [ ] improve game difficulty
