@@ -32,6 +32,7 @@ export class Monkey {
         MONKEY_ASSET_KEYS.MONKEY
       )
       .setCollideWorldBounds(true)
+      .setVelocityX(0)
       .setBounce(0)
       .setDepth(3);
   }
