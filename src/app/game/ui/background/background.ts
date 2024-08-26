@@ -16,7 +16,7 @@ export class Background {
   constructor(scene: Phaser.Scene) {
     this.#scene = scene;
     this.#sceneHeight = this.#scene.scale.height;
-    this.#controlsAreaHeight = this.#sceneHeight * 0.2;
+    this.#controlsAreaHeight = this.#sceneHeight * 0.2 + 50;
     this.#gameAreaHeight = this.#sceneHeight - this.#controlsAreaHeight;
     this.initBackground();
     this.initPlatform();
