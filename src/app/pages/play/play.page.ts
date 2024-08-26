@@ -6,6 +6,7 @@ import {
   IonContent,
   IonIcon,
   IonImg,
+  IonGrid,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { caretBackOutline, playOutline } from 'ionicons/icons';
@@ -14,22 +15,17 @@ import { GameScene } from 'src/app/scenes/game-scene';
 import { PreloadScene } from 'src/app/scenes/preload-scene';
 import { UtilsService } from 'src/app/services';
 
-const imports = [IonContent, IonCard, IonButton, IonImg, IonIcon];
+const imports = [IonContent, IonCard, IonButton, IonImg, IonIcon, IonGrid];
 
 const styles = [
-  `#startGame {
-  position: absolute;
-  top: 55%;
-  left: 35%;
-  z-index: 100;
-}
+  `
+ion-grid {
+  padding: 24px;
+};
+
 ion-img {
- position: absolute;
-   top: 38vh;
-  left: 46vw;
-  scale: 5;
-z-index: 100;
-}
+  scale: 0.3;
+};
 `,
 ];
 
@@ -39,17 +35,21 @@ z-index: 100;
   imports,
   styles,
   template: `
-    <ion-content [fullscreen]="true">
+    <ion-content>
       <div id="phaser-main"></div>
       @if (startButton()) {
-      <ion-img [src]="'/assets/backgrounds/monkey.png'" />
-      <ion-button
-        id="startGame"
-        expand="block"
-        color="tertiary"
-        (click)="startGame()"
-        >Star Game</ion-button
-      >
+
+      <ion-grid>
+        <ion-img [src]="'/assets/backgrounds/monkey.png'" />
+
+        <ion-button
+          id="startGame"
+          expand="block"
+          color="tertiary"
+          (click)="startGame()"
+          >Star Game</ion-button
+        >
+      </ion-grid>
       }
     </ion-content>
   `,
