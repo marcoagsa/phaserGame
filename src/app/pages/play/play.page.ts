@@ -62,6 +62,8 @@ export class PlayPage implements OnInit, OnDestroy {
     type: Phaser.AUTO,
     pixelArt: false,
     parent: 'phaser-main',
+    width: this.platform.width(),
+    height: this.platform.height(),
     scale: {
       width: this.platform.width(),
       height: this.platform.height(),
@@ -77,10 +79,13 @@ export class PlayPage implements OnInit, OnDestroy {
     backgroundColor: '#000000',
     physics: {
       default: 'arcade',
+      arcade: {
+        debug: true,
+      },
     },
   };
-  game = signal<Phaser.Game | undefined>(undefined);
 
+  game = signal<Phaser.Game | undefined>(undefined);
   startButton = signal(true);
 
   constructor() {
