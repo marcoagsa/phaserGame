@@ -1,10 +1,5 @@
 import { GAME_PAD_DIRECTIONS } from 'src/app/constants';
 
-enum Direction {
-  LEFT,
-  RIGHT,
-}
-
 export class GamePad {
   moveLeft!: boolean;
   moveRight!: boolean;
@@ -61,23 +56,20 @@ export class GamePad {
     this.moveRight = isMoving;
   }
 
-  private addPointerEvents(
-    arrow: Phaser.GameObjects.Image,
-    direction: Direction
-  ) {
+  private addPointerEvents(arrow: Phaser.GameObjects.Image, direction: string) {
     arrow.on('pointerdown', () => {
-      if (direction === Direction.LEFT) this.setMoveLeft(true);
+      if (direction === GAME_PAD_DIRECTIONS.LEFT) this.setMoveLeft(true);
       else this.setMoveRight(true);
     });
 
     arrow.on('pointerup', () => {
-      if (direction === Direction.LEFT) this.setMoveLeft(false);
+      if (direction === GAME_PAD_DIRECTIONS.LEFT) this.setMoveLeft(false);
       else this.setMoveRight(false);
     });
   }
 
   private gamePadMoves() {
-    this.addPointerEvents(this.leftArrow, Direction.LEFT);
-    this.addPointerEvents(this.rightArrow, Direction.RIGHT);
+    this.addPointerEvents(this.leftArrow, GAME_PAD_DIRECTIONS.LEFT);
+    this.addPointerEvents(this.rightArrow, GAME_PAD_DIRECTIONS.RIGHT);
   }
 }
