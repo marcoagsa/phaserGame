@@ -1,5 +1,5 @@
 {
-  "name": "phaserGame",
+  "name": "phaser-game",
   "version": "0.0.1",
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
@@ -10,7 +10,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "game": "ionic serve"
+    "game": "ionic serve",
+    "vitest": "vitest"
   },
   "private": true,
   "dependencies": {
@@ -70,7 +71,8 @@
     "karma-jasmine": "5.1.0",
     "karma-jasmine-html-reporter": "2.1.0",
     "ts-node": "10.9.2",
-    "typescript": "5.5.4"
+    "typescript": "5.5.4",
+    "vitest": "^2.1.4"
   },
   "description": "An Ionic project",
   "browserslist": [
