@@ -2,9 +2,7 @@ import { Component, OnDestroy, OnInit, inject, signal } from '@angular/core';
 import { Platform } from '@ionic/angular/standalone';
 import {
   IonButton,
-  IonCard,
   IonContent,
-  IonIcon,
   IonImg,
   IonGrid,
 } from '@ionic/angular/standalone';
@@ -15,7 +13,7 @@ import { GameScene } from 'src/app/scenes/game-scene';
 import { PreloadScene } from 'src/app/scenes/preload-scene';
 import { UtilsService } from 'src/app/services';
 
-const imports = [IonContent, IonCard, IonButton, IonImg, IonIcon, IonGrid];
+const imports = [IonContent, IonButton, IonImg, IonGrid];
 
 const styles = [
   `
