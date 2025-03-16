@@ -84,3 +84,6 @@ https://github.com/user-attachments/assets/46361a78-681a-485d-b993-5ff145601aa9
 > - [ ] Start layout for the scores page
 > - [ ] Add even more background to have more different levels of the game
 > - [ ] improve game difficulty
+> - [ ] add mute button
+> - [ ] add pause button
+> - [ ] find the way to pause the game if the app on background
