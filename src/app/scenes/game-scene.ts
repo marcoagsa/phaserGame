@@ -10,7 +10,6 @@ import {
   Overlaps,
 } from 'src/app/game';
 import { App } from '@capacitor/app';
-import { UtilsService } from 'src/app/services';
 
 export class GameScene extends Scene {
   #background!: Background;
@@ -21,7 +20,7 @@ export class GameScene extends Scene {
   #colliders!: Colliders;
   #overlaps!: Overlaps;
 
-  constructor(private readonly utils: UtilsService) {
+  constructor() {
     super({
       key: SCENE_KEYS.GAME_SCENE,
     });
