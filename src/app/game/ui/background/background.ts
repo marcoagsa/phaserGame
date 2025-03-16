@@ -54,10 +54,8 @@ export class Background {
   }
 
   /**
-   * Function to stop playing the
-   * current background
-   * sound and star playing
-   * the actual background sound
+   * Function to stop playing the current background
+   * sound and star playing the actual background sound
    *
    * @private
    * @param {string} background
@@ -77,6 +75,13 @@ export class Background {
   }
 
   /**
+   * Function to pause the all sound
+   */
+  public pauseActualBackgroundSound(pauseMusic = false) {
+    pauseMusic ? this.#scene.sound.pauseAll() : this.#scene.sound.resumeAll();
+  }
+
+  /**
    * Function to show background by index
    */
   public showBackground() {
@@ -86,8 +91,8 @@ export class Background {
   }
 
   /**
-   * Function to update background index and
-   * show the new background
+   * Function to update background index and show the
+   * new background
    */
   public updateBackground() {
     this.stopActualBackgroundSound();

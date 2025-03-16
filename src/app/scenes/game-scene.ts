@@ -1,5 +1,5 @@
 import { Scene } from 'phaser';
-import { GAME_PAD_DIRECTIONS, SCENE_KEYS } from '../constants';
+import { GAME_PAD_DIRECTIONS, SCENE_KEYS } from 'src/app/constants';
 import {
   Background,
   Colliders,
@@ -9,6 +9,8 @@ import {
   Monkey,
   Overlaps,
 } from 'src/app/game';
+import { App } from '@capacitor/app';
+import { UtilsService } from 'src/app/services';
 
 export class GameScene extends Scene {
   #background!: Background;
@@ -19,13 +21,14 @@ export class GameScene extends Scene {
   #colliders!: Colliders;
   #overlaps!: Overlaps;
 
-  constructor() {
+  constructor(private readonly utils: UtilsService) {
     super({
       key: SCENE_KEYS.GAME_SCENE,
     });
   }
 
   create() {
+    this.handleAppState();
     this.#background = new Background(this);
     this.#healthBar = new HealthBar(this);
     this.#monkey = new Monkey(this);
@@ -60,5 +63,17 @@ export class GameScene extends Scene {
     } else {
       this.#monkey.move(0, GAME_PAD_DIRECTIONS.TURN, undefined);
     }
+  }
+
+  private handleAppState() {
+    App.addListener('appStateChange', (state) => {
+      if (!state.isActive) {
+        this.scene.pause();
+        this.#background.pauseActualBackgroundSound(true);
+      } else {
+        this.scene.resume();
+        this.#background.pauseActualBackgroundSound();
+      }
+    });
   }
 }
