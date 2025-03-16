@@ -1,4 +1,8 @@
-import { HEALTH_ANIMATION, HEALTH_BAR_ASSET_KEYS } from 'src/app/constants';
+import {
+  AUDIO_STATE,
+  HEALTH_ANIMATION,
+  HEALTH_BAR_ASSET_KEYS,
+} from 'src/app/constants';
 
 interface Meter {
   duration?: number;
@@ -28,6 +32,8 @@ export class HealthBar {
   #middleCapShadow!: Phaser.GameObjects.Image;
   #rightCapShadow!: Phaser.GameObjects.Image;
   meter: number = 0;
+  audioIcon!: Phaser.GameObjects.Image;
+  isAudioOn: boolean = true;
 
   constructor(scene: Phaser.Scene) {
     this.#scene = scene;
@@ -37,6 +43,7 @@ export class HealthBar {
     this.initHeartsBar();
     this.heartsAnimation();
     this.initScaleMeterPercentage();
+    this.toggleAudio();
   }
 
   /**
@@ -49,9 +56,16 @@ export class HealthBar {
     this.#scoreText = this.addText(30, 50, 'Score:');
     this.#levelText = this.addText(200, 15, 'Level:');
 
+    this.audioIcon = this.#scene.add
+      .image(320, 10, AUDIO_STATE.AUDIO_ON)
+      .setOrigin(0)
+      .setScale(0.8, 0.7)
+      .setInteractive();
+
     this.#scoreContainer = this.createContainer(0, 0, [
       this.#scoreValueText,
       this.#scoreText,
+      this.audioIcon,
     ]);
 
     this.#scaleContainer = this.createContainer(0, 0, [
@@ -292,6 +306,37 @@ export class HealthBar {
   }
 
   /**
+   * Function to playSound base on score
+   */
+  private playSound(score: number) {
+    if (!this.isAudioOn) {
+      return;
+    }
+    this.#scene.sound.play(score === 10 ? 'mushroomred' : 'star', {
+      volume: 1,
+    });
+  }
+
+  /**
+   * Function to toggle audio music
+   */
+  private toggleAudio() {
+    this.audioIcon.on('pointerdown', () => {
+      this.isAudioOn = !this.isAudioOn;
+
+      this.audioIcon.setTexture(
+        this.isAudioOn ? AUDIO_STATE.AUDIO_ON : AUDIO_STATE.AUDIO_OFF
+      );
+
+      if (this.isAudioOn) {
+        this.#scene.sound.resumeAll();
+      } else {
+        this.#scene.sound.pauseAll();
+      }
+    });
+  }
+
+  /**
    * Function to update scale meter
    *
    * @param {number} percentage
@@ -379,11 +424,5 @@ export class HealthBar {
     this.#levelValueText.setText(
       `${reset ? (this.#level = 0) : (this.#level += 1)}`
     );
-  }
-
-  playSound(score: number) {
-    this.#scene.sound.play(score === 10 ? 'mushroomred' : 'star', {
-      volume: 1,
-    });
   }
 }

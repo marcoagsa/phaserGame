@@ -87,7 +87,9 @@ export class Overlaps {
         const bomb =
           object1.key === MONKEY_ASSET_KEYS.MONKEY ? object1 : object2;
         bomb.destroy();
-        this.#scene.sound.play('bomb', { volume: 1 });
+        if (this.#healthBar.isAudioOn) {
+          this.#scene.sound.play('bomb', { volume: 1 });
+        }
 
         if (this.#healthBar.health !== 0) {
           this.#healthBar.handleLoseHearts();
