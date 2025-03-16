@@ -42,6 +42,7 @@ export class GameScene extends Scene {
       this.#monkey,
       this.#dropItems
     );
+
     this.#colliders.initColliders();
 
     this.#overlaps = new Overlaps(
