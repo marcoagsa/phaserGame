@@ -71,6 +71,16 @@
         "type": "image",
         "key": "RIGHT_CAP_SHADOW",
         "url": "barHorizontal_shadow_right.png"
+      },
+      {
+        "type": "image",
+        "key": "AUDIO_ON",
+        "url": "audioOn.png"
+      },
+      {
+        "type": "image",
+        "key": "AUDIO_OFF",
+        "url": "audioOff.png"
       }
     ]
   },
