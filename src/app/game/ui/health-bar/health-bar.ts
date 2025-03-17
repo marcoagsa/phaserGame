@@ -33,7 +33,6 @@ export class HealthBar {
   #rightCapShadow!: Phaser.GameObjects.Image;
   meter: number = 0;
   audioIcon!: Phaser.GameObjects.Image;
-  isAudioOn: boolean = true;
 
   constructor(scene: Phaser.Scene) {
     this.#scene = scene;
@@ -308,9 +307,6 @@ export class HealthBar {
    * Function to playSound base on score
    */
   private playSound(score: number) {
-    if (!this.isAudioOn) {
-      return;
-    }
     this.#scene.sound.play(score === 10 ? 'mushroomred' : 'star', {
       volume: 1,
     });
@@ -380,9 +376,8 @@ export class HealthBar {
     } else {
       this.#hearts[heartIndex].play(HEALTH_ANIMATION.WIN_FIRST_HALF);
     }
-    if (this.isAudioOn) {
-      this.#scene.sound.play('winheart', { volume: 1 });
-    }
+
+    this.#scene.sound.play('winheart', { volume: 1 });
   }
 
   /**
