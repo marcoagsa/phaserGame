@@ -87,9 +87,8 @@ export class Overlaps {
         const bomb =
           object1.key === MONKEY_ASSET_KEYS.MONKEY ? object1 : object2;
         bomb.destroy();
-        if (this.#healthBar.isAudioOn) {
-          this.#scene.sound.play('bomb', { volume: 1 });
-        }
+
+        this.#scene.sound.play('bomb', { volume: 1 });
 
         if (this.#healthBar.health !== 0) {
           this.#healthBar.handleLoseHearts();
@@ -124,10 +123,7 @@ export class Overlaps {
 
   gameOver() {
     this.#scene.sound.stopAll();
-
-    if (this.#healthBar.isAudioOn) {
-      this.#scene.sound.play('gameover', { volume: 1 });
-    }
+    this.#scene.sound.play('gameover', { volume: 1 });
     this.#scene.time.removeAllEvents();
     this.#scene.physics.pause();
 

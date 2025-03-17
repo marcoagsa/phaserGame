@@ -32,7 +32,7 @@ export class GameScene extends Scene {
 
   create() {
     this.#healthBar = new HealthBar(this);
-    this.#background = new Background(this, this.#healthBar);
+    this.#background = new Background(this);
     this.#monkey = new Monkey(this);
     this.#gamePad = new GamePad(this);
     this.#dropItems = new DropItems(this);
@@ -78,11 +78,11 @@ export class GameScene extends Scene {
   private handleAppState() {
     App.addListener('appStateChange', (state) => {
       if (!state.isActive) {
+        this.scene.scene.sound.mute = true;
         this.scene.pause();
-        this.#background.pauseActualBackgroundSound(true);
       } else {
+        this.scene.scene.sound.mute = false;
         this.scene.resume();
-        this.#background.pauseActualBackgroundSound();
       }
     });
   }
@@ -92,18 +92,12 @@ export class GameScene extends Scene {
    */
   private toggleAudio() {
     this.#healthBar.audioIcon.on('pointerdown', () => {
-      this.#healthBar.isAudioOn = !this.#healthBar.isAudioOn;
-
+      this.scene.scene.sound.mute = !this.scene.scene.sound.mute;
       this.#healthBar.audioIcon.setTexture(
-        this.#healthBar.isAudioOn ? AUDIO_STATE.AUDIO_ON : AUDIO_STATE.AUDIO_OFF
+        this.scene.scene.sound.mute === true
+          ? AUDIO_STATE.AUDIO_ON
+          : AUDIO_STATE.AUDIO_OFF
       );
-
-      if (this.#healthBar.isAudioOn) {
-        this.#background.playBackgroundSound();
-        this.scene.scene.sound.resumeAll();
-      } else {
-        this.scene.scene.sound.pauseAll();
-      }
     });
   }
 }

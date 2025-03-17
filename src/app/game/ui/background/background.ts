@@ -1,9 +1,4 @@
-import {
-  BACKGROUND_ASSET_KEYS,
-  BACKGROUND_MUSIC_ASSET_KEYS,
-  PLATFORM_ASSET_KEYS,
-} from 'src/app/constants';
-import { HealthBar } from '../health-bar/health-bar';
+import { BACKGROUND_ASSET_KEYS, PLATFORM_ASSET_KEYS } from 'src/app/constants';
 
 export class Background {
   platform!: Phaser.Types.Physics.Arcade.ImageWithStaticBody;
@@ -13,14 +8,12 @@ export class Background {
   #sceneHeight: number;
   #gameAreaHeight: number;
   #index: number = 0;
-  #healthBar!: HealthBar;
 
-  constructor(scene: Phaser.Scene, healthBar: HealthBar) {
+  constructor(scene: Phaser.Scene) {
     this.#scene = scene;
     this.#sceneHeight = this.#scene.scale.height;
     this.#controlsAreaHeight = this.#sceneHeight * 0.2 + 50;
     this.#gameAreaHeight = this.#sceneHeight - this.#controlsAreaHeight;
-    this.#healthBar = healthBar;
     this.initBackground();
     this.initPlatform();
   }
@@ -64,23 +57,14 @@ export class Background {
   }
 
   /**
-   * Function to pause the all sound
-   */
-  public pauseActualBackgroundSound(pauseMusic = false) {
-    pauseMusic ? this.#scene.sound.pauseAll() : this.#scene.sound.resumeAll();
-  }
-
-  /**
    * Function to stop playing the current background
    * sound and star playing the actual background sound
    *
    * @private
    * @param {string} background
    */
-  public playBackgroundSound() {
-    const callMethod = this.#healthBar.isAudioOn ? 'play' : 'add';
-
-    this.#scene.sound[callMethod](`BG${this.#index}`, {
+  private playBackgroundSound() {
+    this.#scene.sound.play(`BG${this.#index}`, {
       volume: 0.4,
       loop: true,
     });
