@@ -3,6 +3,7 @@ import {
   BACKGROUND_MUSIC_ASSET_KEYS,
   PLATFORM_ASSET_KEYS,
 } from 'src/app/constants';
+import { HealthBar } from '../health-bar/health-bar';
 
 export class Background {
   platform!: Phaser.Types.Physics.Arcade.ImageWithStaticBody;
@@ -12,12 +13,14 @@ export class Background {
   #sceneHeight: number;
   #gameAreaHeight: number;
   #index: number = 0;
+  #healthBar!: HealthBar;
 
-  constructor(scene: Phaser.Scene) {
+  constructor(scene: Phaser.Scene, healthBar: HealthBar) {
     this.#scene = scene;
     this.#sceneHeight = this.#scene.scale.height;
     this.#controlsAreaHeight = this.#sceneHeight * 0.2 + 50;
     this.#gameAreaHeight = this.#sceneHeight - this.#controlsAreaHeight;
+    this.#healthBar = healthBar;
     this.initBackground();
     this.initPlatform();
   }
@@ -39,7 +42,7 @@ export class Background {
     this.#background.displayWidth = this.#scene.scale.width * 2;
     this.#background.x = 200;
 
-    this.playBackgroundSound(BACKGROUND_MUSIC_ASSET_KEYS.BG0);
+    this.playBackgroundSound();
   }
 
   /**
@@ -51,20 +54,6 @@ export class Background {
       .setOrigin(0, 0)
       .setDepth(3)
       .refreshBody();
-  }
-
-  /**
-   * Function to stop playing the current background
-   * sound and star playing the actual background sound
-   *
-   * @private
-   * @param {string} background
-   */
-  private playBackgroundSound(background: string) {
-    this.#scene.sound.play(background, {
-      volume: 0.4,
-      loop: true,
-    });
   }
 
   /**
@@ -82,12 +71,28 @@ export class Background {
   }
 
   /**
+   * Function to stop playing the current background
+   * sound and star playing the actual background sound
+   *
+   * @private
+   * @param {string} background
+   */
+  public playBackgroundSound() {
+    const callMethod = this.#healthBar.isAudioOn ? 'play' : 'add';
+
+    this.#scene.sound[callMethod](`BG${this.#index}`, {
+      volume: 0.4,
+      loop: true,
+    });
+  }
+
+  /**
    * Function to show background by index
    */
   public showBackground() {
     const bg = `BG${this.#index}`;
     this.#background.setTexture(bg).setAlpha(1);
-    this.playBackgroundSound(bg);
+    this.playBackgroundSound();
   }
 
   /**

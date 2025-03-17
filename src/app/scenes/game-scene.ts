@@ -1,5 +1,9 @@
 import { Scene } from 'phaser';
-import { GAME_PAD_DIRECTIONS, SCENE_KEYS } from 'src/app/constants';
+import {
+  AUDIO_STATE,
+  GAME_PAD_DIRECTIONS,
+  SCENE_KEYS,
+} from 'src/app/constants';
 import {
   Background,
   Colliders,
@@ -27,9 +31,8 @@ export class GameScene extends Scene {
   }
 
   create() {
-    this.handleAppState();
-    this.#background = new Background(this);
     this.#healthBar = new HealthBar(this);
+    this.#background = new Background(this, this.#healthBar);
     this.#monkey = new Monkey(this);
     this.#gamePad = new GamePad(this);
     this.#dropItems = new DropItems(this);
@@ -53,6 +56,8 @@ export class GameScene extends Scene {
     );
 
     this.#overlaps.initOverlaps();
+    this.toggleAudio();
+    this.handleAppState();
   }
 
   override update() {
@@ -65,6 +70,11 @@ export class GameScene extends Scene {
     }
   }
 
+  /**
+   * Function to handle the app state and pause or resume scene
+   *
+   * @private
+   */
   private handleAppState() {
     App.addListener('appStateChange', (state) => {
       if (!state.isActive) {
@@ -73,6 +83,26 @@ export class GameScene extends Scene {
       } else {
         this.scene.resume();
         this.#background.pauseActualBackgroundSound();
+      }
+    });
+  }
+
+  /**
+   * Function to toggle audio music
+   */
+  private toggleAudio() {
+    this.#healthBar.audioIcon.on('pointerdown', () => {
+      this.#healthBar.isAudioOn = !this.#healthBar.isAudioOn;
+
+      this.#healthBar.audioIcon.setTexture(
+        this.#healthBar.isAudioOn ? AUDIO_STATE.AUDIO_ON : AUDIO_STATE.AUDIO_OFF
+      );
+
+      if (this.#healthBar.isAudioOn) {
+        this.#background.playBackgroundSound();
+        this.scene.scene.sound.resumeAll();
+      } else {
+        this.scene.scene.sound.pauseAll();
       }
     });
   }

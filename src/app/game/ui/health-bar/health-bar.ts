@@ -43,7 +43,6 @@ export class HealthBar {
     this.initHeartsBar();
     this.heartsAnimation();
     this.initScaleMeterPercentage();
-    this.toggleAudio();
   }
 
   /**
@@ -318,25 +317,6 @@ export class HealthBar {
   }
 
   /**
-   * Function to toggle audio music
-   */
-  private toggleAudio() {
-    this.audioIcon.on('pointerdown', () => {
-      this.isAudioOn = !this.isAudioOn;
-
-      this.audioIcon.setTexture(
-        this.isAudioOn ? AUDIO_STATE.AUDIO_ON : AUDIO_STATE.AUDIO_OFF
-      );
-
-      if (this.isAudioOn) {
-        this.#scene.sound.resumeAll();
-      } else {
-        this.#scene.sound.pauseAll();
-      }
-    });
-  }
-
-  /**
    * Function to update scale meter
    *
    * @param {number} percentage
@@ -400,7 +380,9 @@ export class HealthBar {
     } else {
       this.#hearts[heartIndex].play(HEALTH_ANIMATION.WIN_FIRST_HALF);
     }
-    this.#scene.sound.play('winheart', { volume: 1 });
+    if (this.isAudioOn) {
+      this.#scene.sound.play('winheart', { volume: 1 });
+    }
   }
 
   /**
