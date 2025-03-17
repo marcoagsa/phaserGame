@@ -124,7 +124,10 @@ export class Overlaps {
 
   gameOver() {
     this.#scene.sound.stopAll();
-    this.#scene.sound.play('gameover', { volume: 1 });
+
+    if (this.#healthBar.isAudioOn) {
+      this.#scene.sound.play('gameover', { volume: 1 });
+    }
     this.#scene.time.removeAllEvents();
     this.#scene.physics.pause();
 
