@@ -13,25 +13,21 @@ import { GameScene } from 'src/app/scenes/game-scene';
 import { PreloadScene } from 'src/app/scenes/preload-scene';
 import { UtilsService } from 'src/app/services';
 
-const imports = [IonContent, IonButton, IonImg, IonGrid];
-
-const styles = [
-  `
-ion-grid {
-  padding: 24px;
-};
-
-ion-img {
-  scale: 0.3;
-};
-`,
-];
-
 @Component({
   selector: 'app-play',
   standalone: true,
-  imports,
-  styles,
+  imports: [IonContent, IonButton, IonImg, IonGrid],
+  styles: [
+    `
+      ion-grid {
+        padding: 24px;
+      }
+
+      ion-img {
+        scale: 0.3;
+      }
+    `,
+  ],
   template: `
     <ion-content>
       <div id="phaser-main"></div>
