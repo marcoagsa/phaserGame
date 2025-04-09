@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, inject, signal } from '@angular/core';
+import { Component, OnDestroy, inject, signal } from '@angular/core';
 import { Platform } from '@ionic/angular/standalone';
 import {
   IonButton,
@@ -52,7 +52,7 @@ ion-img {
     </ion-content>
   `,
 })
-export class PlayPage implements OnInit, OnDestroy {
+export class PlayPage implements OnDestroy {
   private readonly platform = inject(Platform);
   private readonly utils = inject(UtilsService);
 
@@ -90,16 +90,8 @@ export class PlayPage implements OnInit, OnDestroy {
     addIcons({ playOutline, caretBackOutline });
   }
 
-  ngOnInit(): void {
-    this.init();
-  }
-
   ngOnDestroy(): void {
     this.game()?.destroy(true, false);
-  }
-
-  async init() {
-    await this.utils.openTabs();
   }
 
   async startGame() {

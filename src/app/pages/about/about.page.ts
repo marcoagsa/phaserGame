@@ -1,6 +1,5 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonContent, IonTitle } from '@ionic/angular/standalone';
-import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-about',
@@ -11,14 +10,4 @@ import { UtilsService } from 'src/app/services/utils.service';
   </ion-content>`,
   styles: [``],
 })
-export class AboutPage implements OnInit {
-  public readonly utils = inject(UtilsService);
-
-  ngOnInit(): void {
-    this.init();
-  }
-
-  async init() {
-    await this.utils.openTabs();
-  }
-}
+export class AboutPage {}
