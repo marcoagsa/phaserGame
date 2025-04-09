@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
+import { UtilsService } from './services';
 
 @Component({
   selector: 'app-phaser-root',
@@ -8,6 +9,15 @@ import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
   template: `<ion-app>
     <ion-router-outlet />
   </ion-app> `,
-  styles: [],
 })
-export class AppComponent {}
+export class AppComponent implements OnInit {
+  public readonly utils = inject(UtilsService);
+
+  ngOnInit(): void {
+    this.init();
+  }
+
+  async init() {
+    await this.utils.openTabs();
+  }
+}

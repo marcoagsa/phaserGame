@@ -7,6 +7,7 @@ import {
   IonTabBar,
   IonTabButton,
   IonTabs,
+  IonTab,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
@@ -15,7 +16,15 @@ import {
   trophyOutline,
 } from 'ionicons/icons';
 
-const imports = [IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, NgClass];
+const imports = [
+  IonTabs,
+  IonTabBar,
+  IonTabButton,
+  IonIcon,
+  IonLabel,
+  NgClass,
+  IonTab,
+];
 const styles = [
   `
       ion-tabs {
@@ -43,22 +52,27 @@ const styles = [
   styles,
   template: `
     <ion-tabs>
+      <ion-tab> </ion-tab>
+
       <ion-tab-bar>
         <ion-tab-button
-          [href]="'about'"
+          (click)="navigateTo('about')"
           [ngClass]="{ active: active('about') }"
         >
           <ion-icon aria-hidden="true" name="information-circle-outline" />
           <ion-label>About</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button [href]="'play'" [ngClass]="{ active: active('play') }">
+        <ion-tab-button
+          (click)="navigateTo('play')"
+          [ngClass]="{ active: active('play') }"
+        >
           <ion-icon aria-hidden="true" name="game-controller-outline" />
           <ion-label>Play</ion-label>
         </ion-tab-button>
 
         <ion-tab-button
-          [href]="'scores'"
+          (click)="navigateTo('scores')"
           [ngClass]="{ active: active('scores') }"
         >
           <ion-icon aria-hidden="true" name="trophy-outline" />
@@ -78,8 +92,11 @@ export class TabsComponent {
     });
   }
 
+  navigateTo(route: string) {
+    this.route.navigate([route]);
+  }
+
   active(page: string): boolean {
-    const url = this.route.url.slice(1, this.route.url.length);
-    return url === page;
+    return this.route.url.includes(page);
   }
 }
