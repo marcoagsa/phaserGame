@@ -16,17 +16,20 @@ import {
   trophyOutline,
 } from 'ionicons/icons';
 
-const imports = [
-  IonTabs,
-  IonTabBar,
-  IonTabButton,
-  IonIcon,
-  IonLabel,
-  NgClass,
-  IonTab,
-];
-const styles = [
-  `
+@Component({
+  selector: 'app-tabs',
+  standalone: true,
+  imports: [
+    IonTabs,
+    IonTabBar,
+    IonTabButton,
+    IonIcon,
+    IonLabel,
+    NgClass,
+    IonTab,
+  ],
+  styles: [
+    `
       ion-tabs {
         background: var(--ion-toolbar-background);
         display: block;
@@ -43,13 +46,7 @@ const styles = [
         color: var(--ion-color-primary);
       }
     `,
-];
-
-@Component({
-  selector: 'app-tabs',
-  standalone: true,
-  imports,
-  styles,
+  ],
   template: `
     <ion-tabs>
       <ion-tab> </ion-tab>
