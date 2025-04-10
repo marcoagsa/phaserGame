@@ -1,4 +1,4 @@
-package com.msa.phaserGame;
+package com.msa.boomelo;
 
 import com.getcapacitor.BridgeActivity;
 
