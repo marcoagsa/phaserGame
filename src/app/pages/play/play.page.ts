@@ -2,7 +2,6 @@ import { Component, OnDestroy, inject, signal } from '@angular/core';
 import {
   IonButton,
   IonContent,
-  IonImg,
   IonCard,
   Platform,
 } from '@ionic/angular/standalone';
@@ -16,7 +15,7 @@ import { UtilsService } from 'src/app/services';
 @Component({
   selector: 'app-play',
   standalone: true,
-  imports: [IonContent, IonButton, IonImg, IonCard],
+  imports: [IonContent, IonButton, IonCard],
   styles: [
     `
       ion-card {
@@ -25,24 +24,23 @@ import { UtilsService } from 'src/app/services';
         align-content: center;
         padding: 24px;
         margin: 20vh 24px 0 24px;
+        background-image: url('/assets/icon/boomelo.png');
+        background-repeat: no-repeat;
+        background-size: contain;
       }
 
-      ion-img {
-        width: 10vh;
-        display: flex;
-        justify-self: center;
-        padding-bottom: 5vh;
+      ion-button {
+        margin-top: 40vh;
       }
     `,
   ],
   template: `
     <ion-content fullscreen="true">
       <div id="phaser-main"></div>
+
       @if (startButton()) {
 
       <ion-card>
-        <ion-img [src]="'assets/backgrounds/monkey.png'" alt="monkey" />
-
         <ion-button
           id="startGame"
           expand="block"
