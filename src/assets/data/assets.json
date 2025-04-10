@@ -1,6 +1,6 @@
 [
   {
-    "path": "/assets/items",
+    "path": "assets/items",
     "files": [
       {
         "type": "image",
@@ -35,7 +35,7 @@
     ]
   },
   {
-    "path": "/assets/ui",
+    "path": "assets/ui",
     "files": [
       {
         "type": "image",
@@ -85,7 +85,7 @@
     ]
   },
   {
-    "path": "/assets/backgrounds",
+    "path": "assets/backgrounds",
     "files": [
       {
         "type": "image",
