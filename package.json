@@ -11,7 +11,12 @@
     "test": "ng test",
     "lint": "ng lint",
     "game": "ionic serve",
-    "vitest": "vitest"
+    "vitest": "vitest",
+    "build:electron": "tsc -p electron/tsconfig.json",
+    "start:electron": "electron electron/dist/main.js",
+    "build:app": "ionic build",
+    "electron:dev": "bun run build:app && bun run build:electron && bun run start:electron",
+    "electron:build": "electron-builder"
   },
   "private": true,
   "dependencies": {
@@ -52,12 +57,15 @@
     "@angular/language-service": "19.2.5",
     "@capacitor/cli": "7.2.0",
     "@ionic/angular-toolkit": "12.1.1",
+    "@types/electron": "^1.6.12",
     "@types/jasmine": "5.1.7",
-    "@types/node": "22.14.0",
+    "@types/node": "^22.14.0",
     "@typescript-eslint/eslint-plugin": "8.29.1",
     "@typescript-eslint/parser": "8.29.1",
     "@typescript-eslint/types": "^8.29.1",
     "@typescript-eslint/utils": "8.29.1",
+    "electron": "^35.1.4",
+    "electron-builder": "^26.0.12",
     "eslint": "9.24.0",
     "eslint-plugin-import": "2.31.0",
     "eslint-plugin-jsdoc": "50.6.9",
@@ -71,7 +79,7 @@
     "karma-jasmine": "5.1.0",
     "karma-jasmine-html-reporter": "2.1.0",
     "ts-node": "10.9.2",
-    "typescript": "5.8.3",
+    "typescript": "^5.8.3",
     "vitest": "^3.1.1"
   },
   "description": "An Ionic project",
@@ -83,5 +91,30 @@
     "Safari >=14",
     "iOS >=14"
   ],
-  "packageManager": "yarn@4.5.1"
+  "main": "electron/dist/main.js",
+  "build": {
+    "appId": "com.msa.boomelo",
+    "productName": "Boomelo",
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "assets/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icons/win/icon.ico"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "assets/icons/mac/icon.icns",
+      "category": "public.app-category.games"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "assets/icons/linux"
+    }
+  }
 }
