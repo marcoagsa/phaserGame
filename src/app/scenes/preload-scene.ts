@@ -16,7 +16,7 @@ export class PreloadScene extends Phaser.Scene {
     );
 
     // Load Json file with all assets we need for the game
-    this.load.pack('assets_pack', '/assets/data/assets.json');
+    this.load.pack('assets_pack', 'assets/data/assets.json');
   }
 
   create() {

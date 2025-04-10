@@ -24,9 +24,6 @@ import { UtilsService } from 'src/app/services';
         align-content: center;
         padding: 24px;
         margin: 20vh 24px 0 24px;
-        background-image: url('/assets/icon/boomelo.png');
-        background-repeat: no-repeat;
-        background-size: contain;
       }
 
       ion-button {
@@ -40,7 +37,13 @@ import { UtilsService } from 'src/app/services';
 
       @if (startButton()) {
 
-      <ion-card>
+      <ion-card
+        [style]="{
+          'background-image': 'url(' + backgroundImage + ')',
+          'background-size': 'contain',
+          'background-repeat': 'no-repeat'
+        }"
+      >
         <ion-button
           id="startGame"
           expand="block"
@@ -87,6 +90,7 @@ export class PlayPage implements OnDestroy {
 
   game = signal<Phaser.Game | undefined>(undefined);
   startButton = signal(true);
+  backgroundImage = 'assets/icon/boomelo.png';
 
   constructor() {
     addIcons({ playOutline, caretBackOutline });
