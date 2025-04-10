@@ -1,10 +1,10 @@
 import { Component, OnDestroy, inject, signal } from '@angular/core';
-import { Platform } from '@ionic/angular/standalone';
 import {
   IonButton,
   IonContent,
   IonImg,
-  IonGrid,
+  IonCard,
+  Platform,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { caretBackOutline, playOutline } from 'ionicons/icons';
@@ -16,34 +16,42 @@ import { UtilsService } from 'src/app/services';
 @Component({
   selector: 'app-play',
   standalone: true,
-  imports: [IonContent, IonButton, IonImg, IonGrid],
+  imports: [IonContent, IonButton, IonImg, IonCard],
   styles: [
     `
-      ion-grid {
+      ion-card {
+        display: grid;
+        height: 50vh;
+        align-content: center;
         padding: 24px;
+        margin: 20vh 24px 0 24px;
       }
 
       ion-img {
-        scale: 0.3;
+        width: 10vh;
+        display: flex;
+        justify-self: center;
+        padding-bottom: 5vh;
       }
     `,
   ],
   template: `
-    <ion-content>
+    <ion-content fullscreen="true">
       <div id="phaser-main"></div>
       @if (startButton()) {
 
-      <ion-grid>
-        <ion-img [src]="'/assets/backgrounds/monkey.png'" />
+      <ion-card>
+        <ion-img [src]="'assets/backgrounds/monkey.png'" alt="monkey" />
 
         <ion-button
           id="startGame"
           expand="block"
           color="tertiary"
           (click)="startGame()"
-          >Star Game</ion-button
         >
-      </ion-grid>
+          Star Game
+        </ion-button>
+      </ion-card>
       }
     </ion-content>
   `,
