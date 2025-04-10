@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">phaserGame</string>
-    <string name="title_activity_main">phaserGame</string>
-    <string name="package_name">com.msa.phaserGame</string>
-    <string name="custom_url_scheme">com.msa.phaserGame</string>
+    <string name="app_name">Boomelo</string>
+    <string name="title_activity_main">Boomelo</string>
+    <string name="package_name">com.msa.boomelo</string>
+    <string name="custom_url_scheme">com.msa.boomelo</string>
 </resources>
