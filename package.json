@@ -12,11 +12,21 @@
     "lint": "ng lint",
     "game": "ionic serve",
     "vitest": "vitest",
+    "clean": "rimraf electron/dist www/ dist/",
     "build:electron": "tsc -p electron/tsconfig.json",
     "start:electron": "electron electron/dist/main.js",
     "build:app": "ionic build",
     "electron:dev": "bun run build:app && bun run build:electron && bun run start:electron",
-    "electron:build": "electron-builder"
+    "electron:build": "electron-builder",
+    "build:app:prod": "ionic build --prod",
+    "build:electron:prod": "tsc -p electron/tsconfig.prod.json",
+    "prestart:prod": "bun run clean && bun run build:app:prod && bun run build:electron:prod",
+    "start:prod": "NODE_ENV=production electron electron/dist-prod/main.js",
+    "electron:prod": "bun run prestart:prod && bun run start:prod",
+    "package:prod": "bun run prestart:prod && electron-builder --publish never",
+    "package:win": "bun run prestart:prod && electron-builder --win --x64",
+    "package:win-portable": "bun run prestart:prod && electron-builder --win --x64 --config.win.target=portable",
+    "package:win-all": "bun run prestart:prod && electron-builder --win --x64 --ia32"
   },
   "private": true,
   "dependencies": {
@@ -91,30 +101,42 @@
     "Safari >=14",
     "iOS >=14"
   ],
-  "main": "electron/dist/main.js",
+  "main": "electron/dist-prod/main.js",
   "build": {
     "appId": "com.msa.boomelo",
     "productName": "Boomelo",
     "files": [
-      "dist/**/*",
-      "electron/**/*",
+      "electron/dist-prod/**/*",
+      "www/browser/**/*",
       "assets/**/*"
     ],
     "directories": {
       "buildResources": "assets"
     },
     "win": {
-      "target": "nsis",
-      "icon": "assets/icons/win/icon.ico"
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "requestedExecutionLevel": "asInvoker"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
     },
     "mac": {
       "target": "dmg",
-      "icon": "assets/icons/mac/icon.icns",
-      "category": "public.app-category.games"
-    },
-    "linux": {
-      "target": "AppImage",
-      "icon": "assets/icons/linux"
+      "icon": "assets/icon/icon.ico"
     }
   }
 }
