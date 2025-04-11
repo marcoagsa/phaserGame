@@ -80,3 +80,6 @@ electron/main.js
 electron/main.js.map
 electron/dist/main.js
 electron/dist-prod/main.js
+
+resources/ios/**/*
+resources/android/**/*
