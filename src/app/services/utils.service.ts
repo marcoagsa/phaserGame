@@ -18,7 +18,7 @@ export class UtilsService {
     this.modal = await this.modalCtrl.create({
       component: TabsComponent,
       initialBreakpoint: 0.1,
-      breakpoints: [0, 0.1],
+      breakpoints: [0.1],
       backdropBreakpoint: 0.1,
       backdropDismiss: false,
       canDismiss: true,
