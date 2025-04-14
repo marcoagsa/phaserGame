@@ -23,6 +23,7 @@ export class GameScene extends Scene {
   #dropItems!: DropItems;
   #colliders!: Colliders;
   #overlaps!: Overlaps;
+  #isMobile!: boolean;
 
   constructor() {
     super({
@@ -31,6 +32,9 @@ export class GameScene extends Scene {
   }
 
   create() {
+    this.#isMobile =
+      this.sys.game.device.os.android || this.sys.game.device.os.iOS;
+
     this.#healthBar = new HealthBar(this);
     this.#background = new Background(this);
     this.#monkey = new Monkey(this);
@@ -61,6 +65,26 @@ export class GameScene extends Scene {
   }
 
   override update() {
+    if (!this.#isMobile) {
+      const cursors = this.input.keyboard?.createCursorKeys();
+
+      this.input.keyboard?.on('keydown', (event: KeyboardEvent) => {
+        if (event.code === 'ArrowLeft') {
+          this.#gamePad.moveLeft = true;
+        } else if (event.code === 'ArrowRight') {
+          this.#gamePad.moveRight = true;
+        }
+      });
+
+      this.input.keyboard?.on('keyup', (event: KeyboardEvent) => {
+        if (event.code === 'ArrowLeft') {
+          this.#gamePad.moveLeft = false;
+        } else if (event.code === 'ArrowRight') {
+          this.#gamePad.moveRight = false;
+        }
+      });
+    }
+
     if (this.#gamePad.moveLeft && !this.#gamePad.moveRight) {
       this.#monkey.move(-200, GAME_PAD_DIRECTIONS.LEFT, true);
     } else if (this.#gamePad.moveRight && !this.#gamePad.moveLeft) {
