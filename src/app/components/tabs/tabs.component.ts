@@ -43,7 +43,7 @@ import {
         }
       }
       .active {
-        color: var(--ion-color-primary);
+        color: var(--ion-color-warning);
       }
     `,
   ],
