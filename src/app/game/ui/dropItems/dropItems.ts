@@ -48,26 +48,13 @@ export class DropItems {
     this.createLoop(this.#mushroomRedDelay, () => this.createMushroomRed());
   }
 
-  // private createStar() {
-  //   const textureKey = 'star';
-  //   const textureWidth = this.#scene.textures
-  //     .get(textureKey)
-  //     .getSourceImage().width;
-  //   const x = Phaser.Math.Between(
-  //     0,
-  //     this.#scene.scale.width - textureWidth * 1.7
-  //   );
-  //   const star = this.star.create(x, 0, textureKey).setScale(1.7).refreshBody();
-  //   this.blinkImage(star, 1.1);
-  // }
-
   private createStar() {
     const textureKey = 'star';
     const textureWidth = this.#scene.textures
       .get(textureKey)
       .getSourceImage().width;
 
-    const scale = 0.05; // Ajustado para nova imagem
+    const scale = 0.05;
 
     const x = Phaser.Math.Between(
       0,
@@ -94,14 +81,18 @@ export class DropItems {
     const textureWidth = this.#scene.textures
       .get(textureKey)
       .getSourceImage().width;
+
+    const scale = 0.05;
+
     const x = Phaser.Math.Between(
       0,
-      this.#scene.scale.width - textureWidth * 0.4
+      this.#scene.scale.width - textureWidth * scale
     );
+
     this.bombs
       .create(x, 0, textureKey)
       .setOrigin(0)
-      .setScale(0.4)
+      .setScale(scale)
       .refreshBody();
   }
 
