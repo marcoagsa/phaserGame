@@ -70,7 +70,7 @@ export class AboutPage {
   listAboutItems = signal<AboutItemsList>([
     {
       name: 'Player',
-      image: 'assets/sprites/player.png',
+      image: 'assets/backgrounds/monkey.png',
       description: '',
       value: 10,
     },
