@@ -48,17 +48,38 @@ export class DropItems {
     this.createLoop(this.#mushroomRedDelay, () => this.createMushroomRed());
   }
 
+  // private createStar() {
+  //   const textureKey = 'star';
+  //   const textureWidth = this.#scene.textures
+  //     .get(textureKey)
+  //     .getSourceImage().width;
+  //   const x = Phaser.Math.Between(
+  //     0,
+  //     this.#scene.scale.width - textureWidth * 1.7
+  //   );
+  //   const star = this.star.create(x, 0, textureKey).setScale(1.7).refreshBody();
+  //   this.blinkImage(star, 1.1);
+  // }
+
   private createStar() {
     const textureKey = 'star';
     const textureWidth = this.#scene.textures
       .get(textureKey)
       .getSourceImage().width;
+
+    const scale = 0.05; // Ajustado para nova imagem
+
     const x = Phaser.Math.Between(
       0,
-      this.#scene.scale.width - textureWidth * 1.7
+      this.#scene.scale.width - textureWidth * scale
     );
-    const star = this.star.create(x, 0, textureKey).setScale(1.7).refreshBody();
-    this.blinkImage(star, 1.1);
+
+    const star = this.star
+      .create(x, 0, textureKey)
+      .setScale(scale)
+      .refreshBody();
+
+    this.blinkImage(star, 0.03);
   }
 
   private addStar() {
@@ -160,7 +181,7 @@ export class DropItems {
       alpha: 0.6,
       yoyo: true,
       repeat: -1,
-      duration: 300,
+      duration: 500,
       ease: 'Sine.easeInOut',
     });
   }
