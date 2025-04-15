@@ -24,6 +24,10 @@ import { UtilsService } from 'src/app/services';
         align-content: center;
         padding: 24px;
         margin: 20vh 24px 0 24px;
+        border: solid 2px var(--ion-color-warning);
+        border-radius: 5%;
+        margin-bottom: 5vh;
+        box-shadow: rgba(var(--ion-color-dark-rgb), 0.35) 0px 5px 15px;
       }
 
       ion-button {
@@ -47,7 +51,7 @@ import { UtilsService } from 'src/app/services';
         <ion-button
           id="startGame"
           expand="block"
-          color="tertiary"
+          color="warning"
           (click)="startGame()"
         >
           Star Game
