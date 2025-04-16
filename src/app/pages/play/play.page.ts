@@ -54,7 +54,7 @@ import { UtilsService } from 'src/app/services';
           color="warning"
           (click)="startGame()"
         >
-          Star Game
+          Iniciar Jogo
         </ion-button>
       </ion-card>
       }
