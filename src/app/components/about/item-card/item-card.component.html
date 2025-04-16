@@ -1,10 +1,22 @@
 <ion-card>
-  <ion-item>
-    <ion-thumbnail slot="start">
-      <ion-img [src]="aboutItem().image" />
-    </ion-thumbnail>
-    <ion-label>
-      {{aboutItem().name}}
-    </ion-label>
-  </ion-item>
+  <ion-row>
+
+    <ion-col size="2.5">
+
+      <ion-thumbnail>
+        <ion-img [src]="aboutItem().image" />
+      </ion-thumbnail>
+
+      <ion-label>
+        {{aboutItem().name}}
+      </ion-label>
+    </ion-col>
+
+    <ion-col size="9.5">
+      <ion-note>
+        {{aboutItem().description}}
+      </ion-note>
+    </ion-col>
+
+  </ion-row>
 </ion-card>

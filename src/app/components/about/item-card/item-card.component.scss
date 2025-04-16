@@ -2,17 +2,35 @@ Ion-card {
   border: solid 2px var(--ion-color-warning);
   border-radius: 15px;
   box-shadow: rgba(var(--ion-color-dark-rgb), 0.35) 0px 5px 15px;
-}
 
-Ion-thumbnail {
-  border: solid 5px var(--ion-color-warning);
-  border-radius: 15px;
-  box-shadow: rgba(var(--ion-color-dark-rgb), 0.35) 0px 5px 15px;
-  --background: #ffff;
+  Ion-row {
+    padding: 2vh;
 
-  Ion-img {
-    object-fit: scale-down;
-    background: #ffff;
-    border-radius: 10px;
+    Ion-col {
+      justify-items: center;
+    }
+
+    Ion-thumbnail {
+      border: solid 5px var(--ion-color-warning);
+      border-radius: 15px;
+      box-shadow: rgba(var(--ion-color-dark-rgb), 0.35) 0px 5px 15px;
+      --background: var(--ion-color-dark-rgb);
+
+      Ion-img {
+        object-fit: scale-down;
+        background: #ffff;
+        border-radius: 10px;
+      }
+    }
+
+    Ion-label {
+      color: var(--ion-color-warning);
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    Ion-note {
+      color: var(--ion-color-dark-rgb);
+    }
   }
 }
