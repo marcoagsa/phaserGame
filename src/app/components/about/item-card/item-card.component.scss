@@ -8,6 +8,8 @@ Ion-card {
 
     Ion-col {
       justify-items: center;
+      padding: 0;
+      display: grid;
     }
 
     Ion-thumbnail {
@@ -15,6 +17,7 @@ Ion-card {
       border-radius: 15px;
       box-shadow: rgba(var(--ion-color-dark-rgb), 0.35) 0px 5px 15px;
       --background: var(--ion-color-dark-rgb);
+      margin-bottom: 1vh;
 
       Ion-img {
         object-fit: scale-down;
