@@ -24,7 +24,7 @@ import { AboutItemsList } from 'src/app/interfaces/about-item';
   ],
   template: ` <ion-header>
       <ion-toolbar>
-        <ion-title> About </ion-title>
+        <ion-title color="warning"> Sobre </ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -76,7 +76,7 @@ export class AboutPage {
     },
     {
       name: '',
-      image: 'assets/sprites/heart.png',
+      image: 'assets/items/heart.png',
       description: '',
       value: 0,
     },

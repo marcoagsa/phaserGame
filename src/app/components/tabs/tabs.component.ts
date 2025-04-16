@@ -57,7 +57,7 @@ import {
           [ngClass]="{ active: active('about') }"
         >
           <ion-icon aria-hidden="true" name="information-circle-outline" />
-          <ion-label>About</ion-label>
+          <ion-label>Sobre</ion-label>
         </ion-tab-button>
 
         <ion-tab-button
@@ -65,7 +65,7 @@ import {
           [ngClass]="{ active: active('play') }"
         >
           <ion-icon aria-hidden="true" name="game-controller-outline" />
-          <ion-label>Play</ion-label>
+          <ion-label>Jogar</ion-label>
         </ion-tab-button>
 
         <ion-tab-button
@@ -73,7 +73,7 @@ import {
           [ngClass]="{ active: active('scores') }"
         >
           <ion-icon aria-hidden="true" name="trophy-outline" />
-          <ion-label>Scores</ion-label>
+          <ion-label> Pontuações </ion-label>
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
