@@ -67,13 +67,12 @@ import { AboutItemsList } from 'src/app/interfaces/about-item';
 
       ion-card.about {
         border: solid 2px var(--ion-color-warning);
-        margin: 0 0 5vh 0;
+        margin: 0 0 2vh 0;
         box-shadow: rgba(var(--ion-color-dark-rgb), 0.35) 0px 5px 15px;
         padding: 3vw;
         text-align: justify;
 
         ion-label {
-          color: rgba(var(--ion-color-warning-rgb), 0.5);
           letter-spacing: 2px;
           white-space: normal;
           font-family: monospace;
