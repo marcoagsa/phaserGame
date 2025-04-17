@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import {
   IonHeader,
   IonToolbar,
@@ -41,7 +41,7 @@ import { ScoreItemsList } from 'src/app/interfaces/score-item';
     `,
   ],
 })
-export class ScoresPage {
+export class ScoresPage implements OnInit {
   listScoreItems = signal<ScoreItemsList>([
     {
       name: 'MSA',
@@ -81,7 +81,7 @@ export class ScoresPage {
     },
     {
       name: 'MSA',
-      level: 3,
+      level: 4,
       scale: 0.1,
       points: 1000,
     },
@@ -98,4 +98,20 @@ export class ScoresPage {
       points: 200,
     },
   ]);
+
+  ngOnInit(): void {
+    this.listScoreItems.update((items) =>
+      [...items].sort((a, b) => {
+        if (b.points !== a.points) {
+          return b.points - a.points;
+        }
+
+        if (b.level !== a.level) {
+          return b.level - a.level;
+        }
+
+        return b.scale - a.scale;
+      })
+    );
+  }
 }
