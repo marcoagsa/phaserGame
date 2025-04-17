@@ -9,7 +9,7 @@
 
 <ion-item lines="full">
   <ion-icon [name]="trophyIcon(index())" slot="start" [color]="trophyColor(index())" />
-  <ion-label class="name">{{ scoreItem().name }}</ion-label>
+  <ion-label class="name">{{ scoreItem().name  | titlecase }}</ion-label>
   <ion-label>{{ scoreItem().level }}</ion-label>
   <ion-label>{{ scoreItem().points }}</ion-label>
 </ion-item>
