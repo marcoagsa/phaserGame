@@ -45,3 +45,34 @@ ion-modal::part(handle) {
   --ion-color-shade: var(--ion-color-bronze-shade);
   --ion-color-tint: var(--ion-color-bronze-tint);
 }
+
+ion-alert.custom-alert {
+}
+
+.custom-alert .alert-button-group {
+}
+
+.custom-alert .alert-head .alert-title {
+  color: var(--ion-color-warning);
+}
+
+.custom-alert .alert-input-group .alert-input-wrapper .alert-input {
+  border-color: var(--ion-color-warning);
+}
+
+button.alert-button.alert-button-confirm {
+}
+
+.md button.alert-button.alert-button-confirm {
+  color: var(--ion-color-warning);
+}
+
+.ios .custom-alert button.alert-button {
+  color: var(--ion-color-warning);
+}
+
+.ios button.alert-button.alert-button-cancel {
+}
+
+.ios button.alert-button.alert-button-confirm {
+}
