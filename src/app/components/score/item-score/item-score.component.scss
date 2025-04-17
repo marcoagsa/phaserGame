@@ -1,0 +1,21 @@
+Ion-item {
+  text-align: center;
+
+  Ion-label.head {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--ion-color-warning);
+  }
+
+  Ion-label {
+    font-size: 14px;
+    letter-spacing: 2px;
+    white-space: normal;
+    font-family: monospace;
+    color: var(--ion-color-secondary);
+  }
+
+  .name {
+    color: var(--ion-color-dark);
+  }
+}

@@ -1,0 +1,15 @@
+@if (!index()) {
+  <ion-item lines="full">
+    <ion-icon name="analytics-outline" slot="start" color="success" />
+    <ion-label class="head"> Nome </ion-label>
+    <ion-label class="head"> Nível </ion-label>
+    <ion-label class="head"> Pontos </ion-label>
+  </ion-item>
+}
+
+<ion-item lines="full">
+  <ion-icon [name]="trophyIcon(index())" slot="start" [color]="trophyColor(index())" />
+  <ion-label class="name">{{ scoreItem().name }}</ion-label>
+  <ion-label>{{ scoreItem().level }}</ion-label>
+  <ion-label>{{ scoreItem().points }}</ion-label>
+</ion-item>
