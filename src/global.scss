@@ -64,10 +64,13 @@ button.alert-button.alert-button-confirm {
 }
 
 .md button.alert-button.alert-button-confirm {
-  color: var(--ion-color-warning);
 }
 
 .ios .custom-alert button.alert-button {
+  color: var(--ion-color-warning);
+}
+
+.md .custom-alert button.alert-button {
   color: var(--ion-color-warning);
 }
 
