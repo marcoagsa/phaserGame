@@ -6,7 +6,7 @@ import {
   IonTitle,
   IonList,
 } from '@ionic/angular/standalone';
-import { ItemScoreComponent } from '../../components/score/item-score/item-score.component';
+import { ItemScoreComponent } from 'src/app/components/score/item-score/item-score.component';
 import { ScoreItemsList } from 'src/app/interfaces/score-item';
 
 @Component({
@@ -42,62 +42,9 @@ import { ScoreItemsList } from 'src/app/interfaces/score-item';
   ],
 })
 export class ScoresPage implements OnInit {
-  listScoreItems = signal<ScoreItemsList>([
-    {
-      name: 'MSA',
-      level: 3,
-      scale: 0.1,
-      points: 1000,
-    },
-    {
-      name: 'Marco Sá',
-      level: 1,
-      scale: 0.1,
-      points: 300,
-    },
-    {
-      name: 'MSA',
-      level: 1,
-      scale: 0.1,
-      points: 200,
-    },
-    {
-      name: 'MSA',
-      level: 3,
-      scale: 0.1,
-      points: 1000,
-    },
-    {
-      name: 'Ana Rosário',
-      level: 1,
-      scale: 0.1,
-      points: 300,
-    },
-    {
-      name: 'MSA',
-      level: 1,
-      scale: 0.1,
-      points: 200,
-    },
-    {
-      name: 'MSA',
-      level: 4,
-      scale: 0.1,
-      points: 1000,
-    },
-    {
-      name: 'Alexandre',
-      level: 1,
-      scale: 0.1,
-      points: 300,
-    },
-    {
-      name: 'MSA',
-      level: 1,
-      scale: 0.1,
-      points: 200,
-    },
-  ]);
+  listScoreItems = signal<ScoreItemsList>(
+    JSON.parse(localStorage.getItem('scores') || '[]')
+  );
 
   ngOnInit(): void {
     this.listScoreItems.update((items) =>
