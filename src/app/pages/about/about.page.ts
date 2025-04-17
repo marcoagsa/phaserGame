@@ -69,8 +69,8 @@ import { AboutItemsList } from 'src/app/interfaces/about-item';
         border: solid 2px var(--ion-color-warning);
         margin: 0 0 2vh 0;
         box-shadow: rgba(var(--ion-color-dark-rgb), 0.35) 0px 5px 15px;
-        padding: 3vw;
-        text-align: justify;
+        padding: 4vw;
+        text-align: center;
 
         ion-label {
           letter-spacing: 2px;
@@ -91,43 +91,46 @@ export class AboutPage {
   backgroundImage = 'assets/icon/boomelo.png';
 
   aboutTheGame = signal(
-    `Prepara-te para a aventura do Koko, o macaquinho mais rápido da selva digital! <br> <br> Corre de um lado para o outro a apanhar Melos 🍄 e Zings ⭐ que caem do céu. <br> <br> Cada Melo dá-te 10 pontos e cada Zing 50 pontos — e ambos fazem o Koko crescer! <br> <br> Mas cuidado com as perigosas Boomz 💣! Se apanhares uma, perdes meia ♥ Vita. Começas com 3 Vitas completas (ou seja, 6 metades) <br> <br> — se perderes todas… game over! <br> <br> À medida que apanhas itens, vais enchendo uma barra de progresso. <br> <br> Quando fica cheia, sobes de nível: o Koko volta ao tamanho inicial e ganha meia ♥ Vita extra para continuar mais forte do que nunca! <br> <br> Será que consegues manter o Koko vivo, crescer sem explodir, e subir o máximo de níveis possível? 🎮🐵`
+    `Larga tudo e entra na selva do **Boomelo** com o Zozo, o macaquinho mais traquinas! <br><br>
+     🍄 **Melo** = 10 pontos <br> ⭐ **Brilha** = 50 pontos (e fazem-te crescer!) <br><br>
+     💣 **Boomba** = Perdes meia - **Bida**! Começas com 3 Bidões (corações). <br><br>
+     🚀 Enche a barra de progresso para subir de nível: o Zozo fica mais resistente com **Bida extra**! <br><br>
+     Consegues sobreviver às Boombas, apanhar Brilhas e tornar-te o maior macaco digital? **Vamos a isso!** 🐵💥`
   );
 
   listAboutItems = signal<AboutItemsList>([
     {
-      name: 'Koko',
+      name: 'Zozo', // ou Koko / Bambo
       image: 'assets/backgrounds/monkey.png',
       description:
-        'O macaquinho saltitão que és tu! Apanha itens, cresce e sobe de nível!',
+        'O macaquinho mais rápido da selva! Apanha Melos e Brilhas para cresceres!',
       value: 10,
     },
     {
-      name: 'Vita',
+      name: 'Bida',
       image: 'assets/items/heart.png',
       description:
-        'Representa a tua vida. Começas com 3 e podes ganhar ou perder aos bocadinhos.',
+        'A tua força vital! Começas com 3 Bidões (6 metades). Cuidado com as Boombas!',
       value: 0,
     },
     {
-      name: 'Boomz',
+      name: 'Boomba', // ou Bumelo / Kabum
       image: 'assets/items/bomb.png',
-      description:
-        'Explosiva e traiçoeira! Se a apanhares, perdes meia vida. Fujaaa!',
+      description: 'Isto é para fugir! Se a apanhares, perdes meia-Bida. 💣',
       value: 0,
     },
     {
-      name: 'Zing',
+      name: 'Brilha',
       image: 'assets/items/star.png',
       description:
-        'Brilhante e poderosa! Dá 50 pontos e faz-te crescer num instante.',
+        'Cintilante e preciosa! Dá 50 pontos e faz o Zozo crescer num instante! ✨',
       value: 50,
     },
     {
       name: 'Melo',
       image: 'assets/items/mushroomred.webp',
       description:
-        'Delicioso e pontuador! Dá 10 pontos e aumenta o teu tamanho.',
+        'O rei dos cogumelos! Dá 10 pontos e um mini-crescimento ao Zozo.',
       value: 10,
     },
   ]);
