@@ -1,4 +1,5 @@
 import { Component, input } from '@angular/core';
+import { TitleCasePipe } from '@angular/common';
 import { addIcons } from 'ionicons';
 import {
   analyticsOutline,
@@ -14,7 +15,7 @@ import { ScoreItem } from 'src/app/interfaces/score-item';
   templateUrl: './item-score.component.html',
   styleUrls: ['./item-score.component.scss'],
   standalone: true,
-  imports: [IonLabel, IonItem, IonIcon],
+  imports: [IonLabel, IonItem, IonIcon, TitleCasePipe],
 })
 export class ItemScoreComponent {
   index = input.required<number>();
