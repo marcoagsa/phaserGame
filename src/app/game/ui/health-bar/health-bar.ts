@@ -49,38 +49,61 @@ export class HealthBar {
    * @private
    */
   private init() {
-    this.#scoreValueText = this.addText(110, 52, '0', 0x201726);
-    this.#levelValueText = this.addText(280, 17, '1', 0x201726);
-    this.#scoreText = this.addText(30, 50, 'Score:');
-    this.#levelText = this.addText(200, 15, 'Level:');
+    const sceneWidth = this.#scene.scale.width;
+
+    this.#scoreText = this.addText(20, 50, 'Score:', 0xffffff, 15);
+    this.#scoreValueText = this.addText(
+      this.#scoreText.x + 60,
+      52,
+      '0',
+      0x201726,
+      15
+    );
+
+    this.#levelText = this.addText(
+      sceneWidth - 180,
+      15,
+      'Level:',
+      0xffffff,
+      15
+    );
+    this.#levelValueText = this.addText(
+      this.#levelText.x + 70,
+      17,
+      '1',
+      0x201726,
+      15
+    );
 
     this.audioIcon = this.#scene.add
-      .image(320, 10, AUDIO_STATE.AUDIO_ON)
+      .image(this.#levelValueText.x + 40, 10, AUDIO_STATE.AUDIO_ON)
       .setOrigin(0)
       .setScale(0.8, 0.7)
       .setInteractive();
 
-    this.#scoreContainer = this.createContainer(0, 0, [
-      this.#scoreValueText,
+    this.#scoreContainer = this.createContainer(10, 0, [
       this.#scoreText,
-      this.audioIcon,
+      this.#scoreValueText,
     ]);
 
     this.#scaleContainer = this.createContainer(0, 0, [
-      this.#levelValueText,
       this.#levelText,
+      this.#levelValueText,
     ]);
 
+    const background = this.#scene.add
+      .image(0, 0, HEALTH_BAR_ASSET_KEYS.HEALTH_BACKGROUND)
+      .setOrigin(0)
+      .setScale(sceneWidth / 470, 0.7);
+
     this.#healthBarContainer = this.#scene.add
-      .container(10, 80, [
-        this.#scene.add
-          .image(0, 0, HEALTH_BAR_ASSET_KEYS.HEALTH_BACKGROUND)
-          .setOrigin(0)
-          .setScale(0.8, 0.7),
+      .container(0, 40, [
+        background,
         this.#scoreContainer,
         this.#scaleContainer,
-        this.scaleMeterShadow(100, 30),
-        this.scaleMeter(100, 30),
+        this.scaleMeterShadow(90, 30),
+        this.scaleMeter(90, 30),
+        this.audioIcon,
       ])
       .setDepth(2);
   }
@@ -184,10 +207,11 @@ export class HealthBar {
     x: number,
     y: number,
     text: string,
-    color: number = 0xffffff
+    color: number = 0xffffff,
+    fontSize: number
   ): Phaser.GameObjects.BitmapText {
     return this.#scene.add
-      .bitmapText(x, y, 'gothic', `${text}`, 20)
+      .bitmapText(x, y, 'gothic', `${text}`, fontSize)
       .setOrigin(0)
       .setLetterSpacing(10)
       .setLineSpacing(20)
