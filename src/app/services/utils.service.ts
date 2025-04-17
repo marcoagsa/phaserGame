@@ -45,6 +45,7 @@ export class UtilsService {
     const alert = await this.alertController.create({
       header: 'Novo Recorde!',
       message: 'Escreve o teu nome para guardar o score:',
+      cssClass: 'custom-alert',
       inputs: [
         {
           name: 'playerName',
@@ -58,7 +59,6 @@ export class UtilsService {
       buttons: [
         {
           text: 'Guardar',
-          cssClass: 'warning',
         },
       ],
     });
