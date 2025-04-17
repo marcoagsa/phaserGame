@@ -12,8 +12,8 @@ interface Meter {
 export class HealthBar {
   health!: number;
   #scene: Phaser.Scene;
-  #score: number = 0;
-  #level: number = 1;
+  score: number = 0;
+  level: number = 1;
   #heart!: Phaser.GameObjects.Sprite;
   #hearts: Phaser.GameObjects.Sprite[] = [];
   #scoreText!: Phaser.GameObjects.BitmapText;
@@ -386,8 +386,8 @@ export class HealthBar {
    */
   public updateScoreValue(score: number) {
     this.playSound(score);
-    this.#score += score;
-    this.#scoreValueText.setText(`${this.#score}`);
+    this.score += score;
+    this.#scoreValueText.setText(`${this.score}`);
   }
 
   /**
@@ -399,7 +399,7 @@ export class HealthBar {
     }
 
     this.#levelValueText.setText(
-      `${reset ? (this.#level = 0) : (this.#level += 1)}`
+      `${reset ? (this.level = 0) : (this.level += 1)}`
     );
   }
 }
