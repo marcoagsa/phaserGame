@@ -14,6 +14,7 @@ import {
   Overlaps,
 } from 'src/app/game';
 import { App } from '@capacitor/app';
+import { UtilsService } from 'src/app/services';
 
 export class GameScene extends Scene {
   #background!: Background;
@@ -31,7 +32,8 @@ export class GameScene extends Scene {
     });
   }
 
-  create() {
+  create(data: { utils: UtilsService }) {
+    const utils = data.utils;
     this.#isMobile =
       this.sys.game.device.os.android || this.sys.game.device.os.iOS;
 
@@ -56,7 +58,8 @@ export class GameScene extends Scene {
       this.#background,
       this.#monkey,
       this.#healthBar,
-      this.#dropItems
+      this.#dropItems,
+      utils
     );
 
     this.#overlaps.initOverlaps();
