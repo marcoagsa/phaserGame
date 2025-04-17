@@ -46,6 +46,7 @@ export class UtilsService {
       header: 'Novo Recorde!',
       message: 'Escreve o teu nome para guardar o score:',
       cssClass: 'custom-alert',
+      backdropDismiss: false,
       inputs: [
         {
           name: 'playerName',
