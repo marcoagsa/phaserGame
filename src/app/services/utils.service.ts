@@ -1,5 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { ModalController } from '@ionic/angular/standalone';
+import { ModalController, AlertController } from '@ionic/angular/standalone';
+import { ScoreItem } from 'src/app/interfaces/score-item';
 import { TabsComponent } from 'src/app/components';
 
 @Injectable({
@@ -7,6 +8,7 @@ import { TabsComponent } from 'src/app/components';
 })
 export class UtilsService {
   private modalCtrl = inject(ModalController);
+  private alertController = inject(AlertController);
 
   modal: HTMLIonModalElement | undefined;
 
@@ -37,5 +39,38 @@ export class UtilsService {
 
   async tabsBreakPoint(breakpoint: number) {
     await this.modal?.setCurrentBreakpoint(breakpoint);
+  }
+
+  async getUserName() {
+    const alert = await this.alertController.create({
+      header: 'Novo Recorde!',
+      message: 'Escreve o teu nome para guardar o score:',
+      inputs: [
+        {
+          name: 'playerName',
+          type: 'text',
+          placeholder: 'Nome (max 8 characters)',
+          attributes: {
+            maxlength: 8,
+          },
+        },
+      ],
+      buttons: [
+        {
+          text: 'Guardar',
+          cssClass: 'warning',
+        },
+      ],
+    });
+
+    await alert.present();
+
+    return await alert.onDidDismiss();
+  }
+
+  saveScore(score: ScoreItem) {
+    const existing = JSON.parse(localStorage.getItem('scores') || '[]');
+    existing.push(score);
+    localStorage.setItem('scores', JSON.stringify(existing));
   }
 }
