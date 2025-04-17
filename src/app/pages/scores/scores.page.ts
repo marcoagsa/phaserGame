@@ -30,6 +30,8 @@ import { ScoreItemsList } from 'src/app/interfaces/score-item';
       <ion-list>
         @for (item of listScoreItems(); track $index) {
         <score-item-score [scoreItem]="item" [index]="$index" />
+        }@empty {
+        <score-item-score [scoreItem]="scoreItemExample" [index]="0" />
         }
       </ion-list>
     </ion-content>`,
@@ -42,6 +44,8 @@ import { ScoreItemsList } from 'src/app/interfaces/score-item';
   ],
 })
 export class ScoresPage implements OnInit {
+  scoreItemExample = { name: '--', level: 0, points: 0, scale: 0 };
+
   listScoreItems = signal<ScoreItemsList>(
     JSON.parse(localStorage.getItem('scores') || '[]')
   );
