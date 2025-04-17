@@ -1,5 +1,6 @@
 import { FONT_ASSET_KEYS, MONKEY_ASSET_KEYS } from 'src/app/constants';
 import { Background, DropItems, HealthBar, Monkey } from 'src/app/game/ui';
+import { UtilsService } from 'src/app/services';
 
 export class Overlaps {
   #scene: Phaser.Scene;
@@ -8,19 +9,22 @@ export class Overlaps {
   #healthBar!: HealthBar;
   #dropItems: DropItems;
   gameOverText!: Phaser.GameObjects.BitmapText;
+  #utils: UtilsService;
 
   constructor(
     scene: Phaser.Scene,
     background: Background,
     monkey: Monkey,
     healthBar: HealthBar,
-    dropItems: DropItems
+    dropItems: DropItems,
+    utils: UtilsService
   ) {
     this.#scene = scene;
     this.#background = background;
     this.#monkey = monkey;
     this.#healthBar = healthBar;
     this.#dropItems = dropItems;
+    this.#utils = utils;
   }
 
   initOverlaps() {
@@ -121,7 +125,7 @@ export class Overlaps {
     );
   }
 
-  gameOver() {
+  async gameOver() {
     this.#scene.sound.stopAll();
     this.#scene.sound.play('gameover', { volume: 1 });
     this.#scene.time.removeAllEvents();
@@ -143,8 +147,17 @@ export class Overlaps {
       .setDropShadow(2, 4, 0xffffff)
       .setDepth(1);
 
-    this.#scene.input.on('pointerup', () => {
-      window.location.reload();
-    });
+    const { data } = await this.#utils.getUserName();
+
+    if (data) {
+      this.#utils.saveScore({
+        name: data?.values?.playerName,
+        level: this.#healthBar.level,
+        points: this.#healthBar.score,
+        scale: this.#monkey.monkey.scale,
+      });
+
+      (window as any).gameOver?.();
+    }
   }
 }
