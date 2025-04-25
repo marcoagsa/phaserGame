@@ -1,9 +1,9 @@
 import { enableProdMode } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { RouteReuseStrategy, provideRouter } from '@angular/router';
-import { environment } from './environments/environment';
-import { ROUTES } from './app/constants';
-import { AppComponent } from './app/app.component';
+import { environment } from 'src/environments/environment';
+import { ROUTES } from 'src/app/constants';
+import { AppComponent } from 'src/app/app.component';
 import {
   IonicRouteStrategy,
   provideIonicAngular,
