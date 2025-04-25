@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
-import { UtilsService } from './services';
-import { AuthService } from './services/authservice.service';
+import { UtilsService } from 'src/app/services';
+import { AuthService } from 'src/app/services/authservice.service';
 
 @Component({
   selector: 'app-phaser-root',
