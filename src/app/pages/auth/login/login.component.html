@@ -1,0 +1,22 @@
+<ion-content fullscreen class="ion-padding">
+
+  <form [formGroup]="loginForm" (submit)="login()">
+    <ion-grid>
+
+      <ion-input mode="md" type="email" label="Email" labelPlacement="floating" fill="outline"
+        placeholder="Digite o email" color="warning" formControlName="email" />
+
+      <ion-input mode="md" type="password" label="Palavra Passe" labelPlacement="floating" fill="outline"
+        placeholder="Digite a palavra passe " color="warning" formControlName="password">
+
+        <ion-input-password-toggle slot="end" color="warning" />
+
+      </ion-input>
+
+      <ion-button id="submit" type="submit" expand="block" color="warning" [disabled]="loginForm.invalid">
+        {{ 'Registar' }}
+      </ion-button>
+    </ion-grid>
+  </form>
+
+</ion-content>
