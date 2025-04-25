@@ -10,8 +10,14 @@ ion-grid {
   padding: 20px;
   display: grid;
   row-gap: 5vh;
-  margin-top: 20vh;
+  margin-top: 15vh;
   box-shadow: rgba(var(--ion-color-dark-rgb), 0.35) 0px 5px 15px;
   border: solid 2px var(--ion-color-warning);
   border-radius: 16px;
+}
+
+ion-item {
+  --background: transparent;
+  text-align: end;
+  color: var(--ion-color-secondary);
 }

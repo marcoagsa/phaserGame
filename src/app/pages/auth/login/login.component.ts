@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import {
   IonButton,
   IonInput,
   IonInputPasswordToggle,
   IonContent,
   IonGrid,
+  IonLabel,
+  IonItem,
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -14,6 +17,8 @@ import {
   styleUrls: ['./login.component.scss'],
   standalone: true,
   imports: [
+    IonItem,
+    IonLabel,
     IonGrid,
     IonContent,
     IonButton,
@@ -23,6 +28,8 @@ import {
   ],
 })
 export class LoginComponent implements OnInit {
+  private readonly router = inject(Router);
+
   loginForm = new FormBuilder().group({
     email: [
       '',
@@ -49,5 +56,9 @@ export class LoginComponent implements OnInit {
 
   login() {
     console.log('Login form submitted:', this.loginForm.value);
+  }
+
+  goTo() {
+    this.router.navigate(['/resetpassword']);
   }
 }
