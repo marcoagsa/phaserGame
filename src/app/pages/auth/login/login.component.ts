@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
@@ -10,6 +10,8 @@ import {
   IonLabel,
   IonItem,
 } from '@ionic/angular/standalone';
+import { Login } from 'src/app/interfaces';
+import { AuthService, UtilsService } from 'src/app/services';
 
 @Component({
   selector: 'app-login',
@@ -27,8 +29,10 @@ import {
     ReactiveFormsModule,
   ],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   private readonly router = inject(Router);
+  private readonly authService = inject(AuthService);
+  private readonly utils = inject(UtilsService);
 
   loginForm = new FormBuilder().group({
     email: [
@@ -50,12 +54,15 @@ export class LoginComponent implements OnInit {
     ],
   });
 
-  constructor() {}
-
-  ngOnInit() {}
-
-  login() {
-    console.log('Login form submitted:', this.loginForm.value);
+  async login() {
+    try {
+      const login = await this.authService.login(this.loginForm.value as Login);
+      this.utils.saveLogin(login);
+      this.authService.isLoggedIn.set(true);
+      this.router.navigate(['/']);
+    } catch (error) {
+      console.log(`MSA 🔊 error:`, error);
+    }
   }
 
   goTo() {
