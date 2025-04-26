@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  // boomeloApiUrl: 'https://localhost:3000/v1/',
+  API_URL: 'https://boomeloapi.onrender.com/v1/',
 };
 
 /*
