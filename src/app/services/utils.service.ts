@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { ModalController, AlertController } from '@ionic/angular/standalone';
 import { ScoreItem } from 'src/app/interfaces/score-item';
 import { TabsComponent } from 'src/app/components';
+import { LoginResponse } from 'src/app/interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -73,5 +74,10 @@ export class UtilsService {
     const existing = JSON.parse(localStorage.getItem('scores') || '[]');
     existing.push(score);
     localStorage.setItem('scores', JSON.stringify(existing));
+  }
+
+  saveLogin({ token, user: { id } }: LoginResponse) {
+    localStorage.setItem('boomeloToken', token);
+    localStorage.setItem('boomeloUserId', JSON.stringify(id));
   }
 }
