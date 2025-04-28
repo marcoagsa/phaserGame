@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  // boomeloApiUrl: 'https://localhost:3000/v1/',
-  API_URL: 'https://boomeloapi.onrender.com/v1/',
+  API_URL: 'http://localhost:3000/v1/',
+  // API_URL: 'https://boomeloapi.onrender.com/v1/',
 };
 
 /*
