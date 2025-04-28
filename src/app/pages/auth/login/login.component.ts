@@ -57,9 +57,10 @@ export class LoginComponent {
   async login() {
     try {
       const login = await this.authService.login(this.loginForm.value as Login);
+      this.router.navigate(['/']);
       this.utils.saveLogin(login);
       this.authService.isLoggedIn.set(true);
-      this.router.navigate(['/']);
+      this.utils.openTabs();
     } catch (error) {
       console.log(`MSA 🔊 error:`, error);
     }
