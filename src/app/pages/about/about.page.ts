@@ -1,4 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { AuthService, UtilsService } from 'src/app/services';
+import { User } from './../../interfaces/login';
+import { Component, inject, signal } from '@angular/core';
 import {
   IonHeader,
   IonToolbar,
@@ -7,9 +9,15 @@ import {
   IonTitle,
   IonList,
   IonLabel,
+  IonButtons,
+  IonButton,
+  IonIcon,
 } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { logOutOutline } from 'ionicons/icons';
 import { ItemCardComponent } from 'src/app/components/about';
 import { AboutItemsList } from 'src/app/interfaces/about-item';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-about',
@@ -23,10 +31,18 @@ import { AboutItemsList } from 'src/app/interfaces/about-item';
     IonCard,
     ItemCardComponent,
     IonLabel,
+    IonButtons,
+    IonButton,
+    IonIcon,
   ],
   template: ` <ion-header>
       <ion-toolbar>
         <ion-title color="warning"> Sobre </ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="logout()">
+            <ion-icon slot="icon-only" name="log-out-outline" color="danger" />
+          </ion-button>
+        </ion-buttons>
       </ion-toolbar>
     </ion-header>
 
@@ -88,6 +104,10 @@ import { AboutItemsList } from 'src/app/interfaces/about-item';
   ],
 })
 export class AboutPage {
+  private readonly utils = inject(UtilsService);
+  private readonly router = inject(Router);
+  private readonly auth = inject(AuthService);
+
   backgroundImage = 'assets/icon/boomelo.png';
 
   aboutTheGame = signal(
@@ -134,4 +154,15 @@ export class AboutPage {
       value: 10,
     },
   ]);
+
+  constructor() {
+    addIcons({ logOutOutline });
+  }
+
+  logout() {
+    this.utils.dismissTabs();
+    this.auth.isLoggedIn.set(false);
+    this.router.navigateByUrl('/login');
+    this.utils.clearStorage();
+  }
 }
