@@ -10,7 +10,7 @@ export class AuthService {
   private readonly baseUrl = environment.API_URL;
   private readonly http = inject(HttpClient);
 
-  isLoggedIn = signal(!!localStorage.getItem('boomeloUserId'));
+  isLoggedIn = signal(!!localStorage.getItem('boomeloToken'));
 
   login({ email, password }: Login) {
     return firstValueFrom(
