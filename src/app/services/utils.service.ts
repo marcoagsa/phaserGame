@@ -14,10 +14,6 @@ export class UtilsService {
   modal: HTMLIonModalElement | undefined;
 
   async openTabs() {
-    if (this.modal) {
-      return;
-    }
-
     this.modal = await this.modalCtrl.create({
       component: TabsComponent,
       initialBreakpoint: 0.1,
@@ -79,5 +75,9 @@ export class UtilsService {
   saveLogin({ token, user: { id } }: LoginResponse) {
     localStorage.setItem('boomeloToken', token);
     localStorage.setItem('boomeloUserId', JSON.stringify(id));
+  }
+
+  clearStorage() {
+    localStorage.clear();
   }
 }
