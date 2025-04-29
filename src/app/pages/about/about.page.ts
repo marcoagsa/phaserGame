@@ -1,5 +1,4 @@
 import { AuthService, UtilsService } from 'src/app/services';
-import { User } from './../../interfaces/login';
 import { Component, inject, signal } from '@angular/core';
 import {
   IonHeader,
