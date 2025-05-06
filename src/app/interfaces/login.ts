@@ -3,9 +3,17 @@ export interface Login {
   password: string;
 }
 
-export interface LoginResponse {
+export interface SignInResponse {
+  status: number;
+  message: string;
   token: string;
   user: User;
+}
+
+export interface SignUpResponse {
+  message: string;
+  status: number;
+  userId: string;
 }
 
 export interface User {
