@@ -1,5 +1,9 @@
 import { Injectable, inject } from '@angular/core';
-import { ModalController, AlertController } from '@ionic/angular/standalone';
+import {
+  ModalController,
+  AlertController,
+  AlertOptions,
+} from '@ionic/angular/standalone';
 import { ScoreItem } from 'src/app/interfaces/score-item';
 import { TabsComponent } from 'src/app/components';
 import { LoginResponse } from 'src/app/interfaces';
@@ -38,27 +42,15 @@ export class UtilsService {
     await this.modal?.setCurrentBreakpoint(breakpoint);
   }
 
-  async getUserName() {
+  async showAlert(alertOptions: Partial<AlertOptions>) {
     const alert = await this.alertController.create({
-      header: 'Novo Recorde!',
-      message: 'Escreve o teu nome para guardar o score:',
-      cssClass: 'custom-alert',
-      backdropDismiss: false,
-      inputs: [
-        {
-          name: 'playerName',
-          type: 'text',
-          placeholder: 'Nome (max 8 characters)',
-          attributes: {
-            maxlength: 8,
-          },
-        },
-      ],
-      buttons: [
-        {
-          text: 'Guardar',
-        },
-      ],
+      header: alertOptions.header,
+      subHeader: alertOptions.subHeader ?? undefined,
+      message: alertOptions.message,
+      cssClass: alertOptions.cssClass ?? 'custom-alert',
+      backdropDismiss: alertOptions.backdropDismiss ?? false,
+      buttons: alertOptions.buttons ?? [{ text: 'OK' }],
+      ...(alertOptions?.inputs && { inputs: alertOptions.inputs }),
     });
 
     await alert.present();
@@ -78,6 +70,6 @@ export class UtilsService {
   }
 
   clearStorage() {
-    localStorage.clear();
+    localStorage.removeItem('boomeloToken');
   }
 }
