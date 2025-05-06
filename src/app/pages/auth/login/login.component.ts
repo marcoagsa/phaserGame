@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
@@ -9,6 +9,7 @@ import {
   IonGrid,
   IonLabel,
   IonItem,
+  IonSpinner,
 } from '@ionic/angular/standalone';
 import { Login } from 'src/app/interfaces';
 import { AuthService, UtilsService } from 'src/app/services';
@@ -19,6 +20,7 @@ import { AuthService, UtilsService } from 'src/app/services';
   styleUrls: ['./login.component.scss'],
   standalone: true,
   imports: [
+    IonSpinner,
     IonItem,
     IonLabel,
     IonGrid,
@@ -33,6 +35,14 @@ export class LoginComponent {
   private readonly router = inject(Router);
   private readonly authService = inject(AuthService);
   private readonly utils = inject(UtilsService);
+
+  user = signal<boolean>(!!localStorage.getItem('boomeloUserId'));
+
+  existsUser = computed<boolean>(() => {
+    return this.user();
+  });
+
+  loading = signal<boolean>(false);
 
   loginForm = new FormBuilder().group({
     email: [
@@ -54,15 +64,50 @@ export class LoginComponent {
     ],
   });
 
-  async login() {
+  async signIn() {
+    this.loading.update((v) => !v);
+
     try {
-      const login = await this.authService.login(this.loginForm.value as Login);
-      this.utils.saveLogin(login);
+      const { token } = await this.authService.signIn(
+        this.loginForm.value as Login
+      );
+
+      this.utils.saveToken(token);
+
       this.router.navigate(['/']);
+
       await this.authService.isLoggedIn.set(true);
+
       await this.utils.openTabs();
-    } catch (error) {
-      console.log(`MSA 🔊 error:`, error);
+    } catch (error: any) {
+      await this.utils.showAlert({
+        header: 'Erro no login',
+        message: error.error.message,
+      });
+    } finally {
+      this.loading.update((v) => !v);
+    }
+  }
+
+  async singUp() {
+    this.loading.update((v) => !v);
+
+    try {
+      const { message, userId } = await this.authService.signUp(
+        this.loginForm.value as Login
+      );
+
+      this.utils.saveUser(userId);
+      this.user.set(!!localStorage.getItem('boomeloUserId'));
+
+      this.utils.showAlert({ header: 'Sucesso', message });
+    } catch (error: any) {
+      await this.utils.showAlert({
+        header: 'Erro no login',
+        message: error.error.message,
+      });
+    } finally {
+      this.loading.update((v) => !v);
     }
   }
 

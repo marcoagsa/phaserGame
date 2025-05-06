@@ -1,6 +1,6 @@
 <ion-content fullscreen class="ion-padding">
 
-  <form [formGroup]="loginForm" (submit)="login()">
+  <form [formGroup]="loginForm" (submit)="existsUser() ? signIn() : singUp()">
     <ion-grid>
 
       <ion-input mode="md" type="email" label="Email" labelPlacement="floating" fill="outline" placeholder="Email"
@@ -14,12 +14,19 @@
       </ion-input>
 
       <ion-button id="submit" type="submit" expand="block" color="warning" [disabled]="loginForm.invalid">
-        {{ 'Autenticar' }}
+
+        @if (loading()) {
+          <ion-spinner />
+        } @else {
+          {{ existsUser() ? 'Autenticar' : 'Criar conta' }}
+        }
       </ion-button>
 
-      <ion-item button lines="none" (click)="goTo()">
-        <ion-label>Recuperar Senha</ion-label>
-      </ion-item>
+      @if (existsUser()) {
+        <ion-item button lines="none" (click)="goTo()">
+          <ion-label>Recuperar Senha</ion-label>
+        </ion-item>
+      }
 
     </ion-grid>
   </form>
