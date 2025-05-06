@@ -147,7 +147,25 @@ export class Overlaps {
       .setDropShadow(2, 4, 0xffffff)
       .setDepth(1);
 
-    const { data } = await this.#utils.getUserName();
+    const { data } = await this.#utils.showAlert({
+      header: 'Novo Recorde!',
+      message: 'Escreve o teu nome para guardar o score:',
+      inputs: [
+        {
+          name: 'playerName',
+          type: 'text',
+          placeholder: 'Nome (max 8 characters)',
+          attributes: {
+            maxlength: 8,
+          },
+        },
+      ],
+      buttons: [
+        {
+          text: 'Guardar',
+        },
+      ],
+    });
 
     if (data) {
       this.#utils.saveScore({
