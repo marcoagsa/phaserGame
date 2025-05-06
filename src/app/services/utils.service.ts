@@ -6,7 +6,6 @@ import {
 } from '@ionic/angular/standalone';
 import { ScoreItem } from 'src/app/interfaces/score-item';
 import { TabsComponent } from 'src/app/components';
-import { LoginResponse } from 'src/app/interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -64,9 +63,12 @@ export class UtilsService {
     localStorage.setItem('scores', JSON.stringify(existing));
   }
 
-  saveLogin({ token, user: { id } }: LoginResponse) {
-    localStorage.setItem('boomeloToken', token);
+  saveUser(id: string) {
     localStorage.setItem('boomeloUserId', JSON.stringify(id));
+  }
+
+  saveToken(token: string) {
+    localStorage.setItem('boomeloToken', token);
   }
 
   clearStorage() {
