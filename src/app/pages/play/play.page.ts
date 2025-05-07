@@ -19,19 +19,25 @@ import { UtilsService } from 'src/app/services';
   styles: [
     `
       ion-card {
-        display: grid;
-        height: 50vh;
-        align-content: center;
         padding: 24px;
-        margin: 20vh 24px 0 24px;
         border: solid 2px var(--ion-color-warning);
-        border-radius: 5%;
+        border-radius: 16px;
         margin-bottom: 5vh;
         box-shadow: rgba(var(--ion-color-dark-rgb), 0.35) 0px 5px 15px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        margin-top: 20vh;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 400px;
       }
 
       ion-button {
         margin-top: 40vh;
+        margin-bottom: 2vh;
       }
     `,
   ],
@@ -45,7 +51,8 @@ import { UtilsService } from 'src/app/services';
         [style]="{
           'background-image': 'url(' + backgroundImage + ')',
           'background-size': 'contain',
-          'background-repeat': 'no-repeat'
+          'background-repeat': 'no-repeat',
+          'background-position': 'center',
         }"
       >
         <ion-button
