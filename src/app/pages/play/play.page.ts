@@ -32,11 +32,12 @@ import { UtilsService } from 'src/app/services';
         margin-top: 20vh;
         margin-left: auto;
         margin-right: auto;
-        max-width: 400px;
+        max-width: 380px;
+        height: 391px;
       }
 
       ion-button {
-        margin-top: 40vh;
+        margin-top: 35vh;
         margin-bottom: 2vh;
       }
     `,
