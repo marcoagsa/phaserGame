@@ -95,7 +95,21 @@ import { Router } from '@angular/router';
       }
 
       .item-about {
-        width: 90dvw;
+        width: 90%;
+      }
+
+      /* ----------- Non-Retina Screens ----------- */
+      @media screen and (min-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+        .item-about {
+          width: 45%;
+        }
+      }
+
+      /* ----------- Retina Screens ----------- */
+      @media screen and (min-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
+        .item-about {
+          width: 45%;
+        }
       }
     `,
   ],
