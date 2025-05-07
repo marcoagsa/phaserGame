@@ -46,23 +46,13 @@ import { Router } from '@angular/router';
     </ion-header>
 
     <ion-content [fullscreen]="true" class="ion-padding">
-      <ion-card
-        class="logo"
-        [style]="{
-          'background-image': 'url(' + backgroundImage + ')',
-          'background-size': 'cover',
-          'background-repeat': 'no-repeat'
-        }"
-      >
-      </ion-card>
-
       <ion-card class="about">
         <ion-label [innerHtml]="aboutTheGame()" />
       </ion-card>
 
       <ion-list>
         @for (item of listAboutItems(); track $index) {
-        <about-item-card [aboutItem]="item" />
+        <about-item-card class="item-about" [aboutItem]="item" />
         }
       </ion-list>
     </ion-content>`,
@@ -72,20 +62,19 @@ import { Router } from '@angular/router';
         --opacity: 0.5;
       }
 
-      ion-card.logo {
-        height: 39vh;
-        border: solid 2px var(--ion-color-warning);
-        border-radius: 10%;
-        margin: 0 0 5vh 0;
-        box-shadow: rgba(var(--ion-color-dark-rgb), 0.35) 0px 5px 15px;
-      }
-
       ion-card.about {
         border: solid 2px var(--ion-color-warning);
-        margin: 0 0 2vh 0;
         box-shadow: rgba(var(--ion-color-dark-rgb), 0.35) 0px 5px 15px;
         padding: 4vw;
         text-align: center;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        margin-left: auto;
+        margin-right: auto;
+        width: 90dvw;
 
         ion-label {
           letter-spacing: 2px;
@@ -96,8 +85,17 @@ import { Router } from '@angular/router';
       }
 
       ion-list {
-        margin: 0 0 20vh 0;
         background: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .item-about {
+        width: 90dvw;
       }
     `,
   ],
