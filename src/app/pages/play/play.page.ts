@@ -37,7 +37,7 @@ import { UtilsService } from 'src/app/services';
       }
 
       ion-button {
-        margin-top: 35vh;
+        margin-top: 38vh;
         margin-bottom: 2vh;
       }
     `,
