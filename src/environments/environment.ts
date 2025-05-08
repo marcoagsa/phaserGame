@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  // API_URL: 'http://localhost:3000/v1/',
-  API_URL: 'https://boomelo-api.up.railway.app/v1/',
+  API_URL: 'http://localhost:3000/v1/',
+  // API_URL: 'https://boomelo-api.up.railway.app/v1/',
 };
 
 /*
