@@ -75,7 +75,7 @@
     "@typescript-eslint/parser": "8.32.0",
     "@typescript-eslint/types": "^8.32.0",
     "@typescript-eslint/utils": "8.32.0",
-    "electron": "^36.2.0",
+    "electron": "35.3.0",
     "electron-builder": "^26.0.12",
     "eslint": "9.26.0",
     "eslint-plugin-import": "2.31.0",
