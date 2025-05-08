@@ -20,3 +20,22 @@ export interface User {
   id: string;
   email: string;
 }
+
+export interface RenewPassword {
+  id: string;
+  password: string;
+}
+
+export interface RenewPasswordResponse {
+  status: number;
+  message: string;
+  result: User;
+}
+
+export interface User {
+  _id: string;
+  email: string;
+  password: string;
+  active: boolean;
+  createDate: Date;
+}
