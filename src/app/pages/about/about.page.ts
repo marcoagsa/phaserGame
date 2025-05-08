@@ -46,6 +46,16 @@ import { Router } from '@angular/router';
     </ion-header>
 
     <ion-content [fullscreen]="true" class="ion-padding">
+      <ion-card
+        class="logo"
+        [style]="{
+          'background-image': 'url(' + backgroundImage + ')',
+          'background-size': 'cover',
+          'background-repeat': 'no-repeat',
+          'background-position': 'center'
+        }"
+      ></ion-card>
+
       <ion-card class="about">
         <ion-label [innerHtml]="aboutTheGame()" />
       </ion-card>
@@ -62,19 +72,26 @@ import { Router } from '@angular/router';
         --opacity: 0.5;
       }
 
+      ion-card.logo {
+        border: solid 2px var(--ion-color-warning);
+        border-radius: 16px;
+        margin: 0 0 5vh 0;
+        box-shadow: rgba(var(--ion-color-dark-rgb), 0.35) 0px 5px 15px;
+        display: flex;
+        margin-left: auto;
+        margin-right: auto;
+        height: 40vh;
+      }
+
       ion-card.about {
         border: solid 2px var(--ion-color-warning);
         box-shadow: rgba(var(--ion-color-dark-rgb), 0.35) 0px 5px 15px;
         padding: 4vw;
         text-align: center;
-
         display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
         margin-left: auto;
         margin-right: auto;
-        width: 90dvw;
+        max-width: fit-content;
 
         ion-label {
           letter-spacing: 2px;
@@ -87,28 +104,42 @@ import { Router } from '@angular/router';
       ion-list {
         background: transparent;
         display: flex;
-        align-items: center;
-        justify-content: center;
         flex-direction: column;
         margin-left: auto;
         margin-right: auto;
+        max-width: fit-content;
+        padding-bottom: 20vh;
       }
 
-      .item-about {
-        width: 90%;
+      /* ----------- Non-Retina Screens ----------- */
+      @media screen and (min-device-width: 768px) and (-webkit-min-device-pixel-ratio: 1) {
+        ion-card.logo {
+          height: 45vh;
+          width: 45vw;
+        }
+      }
+
+      /* ----------- Retina Screens ----------- */
+      @media screen and (min-device-width: 768px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
+        ion-card.logo {
+          height: 45vh;
+          width: 45vw;
+        }
       }
 
       /* ----------- Non-Retina Screens ----------- */
       @media screen and (min-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
-        .item-about {
-          width: 45%;
+        ion-card.logo {
+          height: 50vh;
+          width: 30vw;
         }
       }
 
       /* ----------- Retina Screens ----------- */
       @media screen and (min-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
-        .item-about {
-          width: 45%;
+        ion-card.logo {
+          height: 50vh;
+          width: 30vw;
         }
       }
     `,
