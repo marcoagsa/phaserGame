@@ -64,7 +64,7 @@ export class UtilsService {
   }
 
   saveUser(id: string) {
-    localStorage.setItem('boomeloUserId', JSON.stringify(id));
+    localStorage.setItem('boomeloUserId', id);
   }
 
   saveToken(token: string) {
