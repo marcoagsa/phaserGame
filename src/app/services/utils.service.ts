@@ -48,7 +48,7 @@ export class UtilsService {
       message: alertOptions.message,
       cssClass: alertOptions.cssClass ?? 'custom-alert',
       backdropDismiss: alertOptions.backdropDismiss ?? false,
-      buttons: alertOptions.buttons ?? [{ text: 'OK' }],
+      buttons: alertOptions.buttons ?? [{ text: 'OK', role: 'cancel' }],
       ...(alertOptions?.inputs && { inputs: alertOptions.inputs }),
     });
 
