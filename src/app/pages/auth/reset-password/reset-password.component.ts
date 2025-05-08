@@ -17,6 +17,7 @@ import {
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { checkmarkCircleOutline, closeCircleOutline } from 'ionicons/icons';
+import { iif } from 'rxjs';
 import { RenewPassword } from 'src/app/interfaces';
 import { AuthService, UtilsService } from 'src/app/services';
 
@@ -81,7 +82,7 @@ export class ResetPasswordComponent {
     }[type];
   }
 
-  async updatePassword() {
+  async renewPassword() {
     this.loading.update((v) => !v);
 
     try {
@@ -89,8 +90,16 @@ export class ResetPasswordComponent {
         id: localStorage.getItem('boomeloUserId') as string,
         password: this.renewPasswordForm.value.password as string,
       };
-      const response = await this.authService.updatePassword(resetPassword);
-      console.log(`MSA 🔊 response:`, response);
+      const { message } = await this.authService.renewPassword(resetPassword);
+
+      const { role } = await this.utils.showAlert({
+        header: 'Notificação',
+        message: message,
+      });
+
+      if (role === 'cancel') {
+        this.router.navigate(['/']);
+      }
     } catch (error: any) {
       await this.utils.showAlert({
         header: 'Erro ao recuperar senha',
