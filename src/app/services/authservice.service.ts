@@ -1,7 +1,13 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Login, SignInResponse, SignUpResponse } from 'src/app/interfaces';
+import {
+  Login,
+  RenewPassword,
+  RenewPasswordResponse,
+  SignInResponse,
+  SignUpResponse,
+} from 'src/app/interfaces';
 import { firstValueFrom } from 'rxjs';
 
 @Injectable({
@@ -28,6 +34,17 @@ export class AuthService {
         email,
         password,
       })
+    );
+  }
+
+  updatePassword({ id, password }: RenewPassword) {
+    return firstValueFrom(
+      this.http.patch<RenewPasswordResponse>(
+        `${this.baseUrl}${id}/renew-password`,
+        {
+          password,
+        }
+      )
     );
   }
 }
