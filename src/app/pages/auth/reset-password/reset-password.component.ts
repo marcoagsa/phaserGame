@@ -92,6 +92,8 @@ export class ResetPasswordComponent {
       };
       const { message } = await this.authService.renewPassword(resetPassword);
 
+      this.loading.update((v) => !v);
+
       const { role } = await this.utils.showAlert({
         header: 'Notificação',
         message: message,
