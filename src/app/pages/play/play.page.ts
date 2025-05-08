@@ -24,21 +24,64 @@ import { UtilsService } from 'src/app/services';
         border-radius: 16px;
         margin-bottom: 5vh;
         box-shadow: rgba(var(--ion-color-dark-rgb), 0.35) 0px 5px 15px;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
         margin-top: 20vh;
         margin-left: auto;
         margin-right: auto;
-        max-width: 380px;
-        height: 391px;
+        height: 45vh;
+        width: 90vw;
+        align-items: center;
       }
 
       ion-button {
-        margin-top: 38vh;
-        margin-bottom: 2vh;
+        margin-top: 34vh;
+      }
+
+      /* ----------- Non-Retina Screens ----------- */
+      @media screen and (min-device-width: 768px) and (-webkit-min-device-pixel-ratio: 1) {
+        ion-card {
+          height: 55vh;
+          width: 60vw;
+        }
+
+        ion-button {
+          margin-top: 45vh;
+        }
+      }
+
+      /* ----------- Retina Screens ----------- */
+      @media screen and (min-device-width: 768px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
+        ion-card {
+          height: 55vh;
+          width: 60vw;
+        }
+
+        ion-button {
+          margin-top: 45vh;
+        }
+      }
+
+      /* ----------- Non-Retina Screens ----------- */
+      @media screen and (min-device-width: 1440px) and (-webkit-min-device-pixel-ratio: 1) {
+        ion-card {
+          height: 60vh;
+          width: 30vw;
+        }
+
+        ion-button {
+          margin-top: 48vh;
+        }
+      }
+
+      /* ----------- Retina Screens ----------- */
+      @media screen and (min-device-width: 1440px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
+        ion-card {
+          height: 60vh;
+          width: 30vw;
+        }
+
+        ion-button {
+          margin-top: 48vh;
+        }
       }
     `,
   ],
@@ -51,7 +94,7 @@ import { UtilsService } from 'src/app/services';
       <ion-card
         [style]="{
           'background-image': 'url(' + backgroundImage + ')',
-          'background-size': 'contain',
+          'background-size': 'cover',
           'background-repeat': 'no-repeat',
           'background-position': 'center',
         }"
