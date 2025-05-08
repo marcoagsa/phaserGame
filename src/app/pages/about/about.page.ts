@@ -111,32 +111,16 @@ import { Router } from '@angular/router';
         padding-bottom: 20vh;
       }
 
-      /* ----------- Non-Retina Screens ----------- */
-      @media screen and (min-device-width: 768px) and (-webkit-min-device-pixel-ratio: 1) {
+      /* ----------- Telas médias (entre 768px e 1023px) ----------- */
+      @media screen and (min-width: 768px) and (max-width: 1023px) {
         ion-card.logo {
           height: 45vh;
           width: 45vw;
         }
       }
 
-      /* ----------- Retina Screens ----------- */
-      @media screen and (min-device-width: 768px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
-        ion-card.logo {
-          height: 45vh;
-          width: 45vw;
-        }
-      }
-
-      /* ----------- Non-Retina Screens ----------- */
-      @media screen and (min-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
-        ion-card.logo {
-          height: 50vh;
-          width: 30vw;
-        }
-      }
-
-      /* ----------- Retina Screens ----------- */
-      @media screen and (min-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
+      /* ----------- Telas grandes (1024px ou mais) ----------- */
+      @media screen and (min-width: 1024px) {
         ion-card.logo {
           height: 50vh;
           width: 30vw;

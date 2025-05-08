@@ -36,8 +36,8 @@ import { UtilsService } from 'src/app/services';
         margin-top: 34vh;
       }
 
-      /* ----------- Non-Retina Screens ----------- */
-      @media screen and (min-device-width: 768px) and (-webkit-min-device-pixel-ratio: 1) {
+      /* ----------- Telas médias (ex: tablets e telas entre 768px e 1439px) ----------- */
+      @media screen and (min-width: 768px) and (max-width: 1439px) {
         ion-card {
           height: 55vh;
           width: 60vw;
@@ -48,39 +48,15 @@ import { UtilsService } from 'src/app/services';
         }
       }
 
-      /* ----------- Retina Screens ----------- */
-      @media screen and (min-device-width: 768px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
-        ion-card {
-          height: 55vh;
-          width: 60vw;
-        }
-
-        ion-button {
-          margin-top: 45vh;
-        }
-      }
-
-      /* ----------- Non-Retina Screens ----------- */
-      @media screen and (min-device-width: 1440px) and (-webkit-min-device-pixel-ratio: 1) {
+      /* ----------- Telas grandes (ex: desktops ≥1440px) ----------- */
+      @media screen and (min-width: 1440px) {
         ion-card {
           height: 60vh;
           width: 30vw;
         }
 
         ion-button {
-          margin-top: 48vh;
-        }
-      }
-
-      /* ----------- Retina Screens ----------- */
-      @media screen and (min-device-width: 1440px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
-        ion-card {
-          height: 60vh;
-          width: 30vw;
-        }
-
-        ion-button {
-          margin-top: 48vh;
+          margin-top: 50vh;
         }
       }
     `,
