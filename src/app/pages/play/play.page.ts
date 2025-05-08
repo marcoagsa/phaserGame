@@ -1,4 +1,4 @@
-import { Component, OnDestroy, inject, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject, signal } from '@angular/core';
 import {
   IonButton,
   IonContent,
@@ -88,36 +88,11 @@ import { UtilsService } from 'src/app/services';
     </ion-content>
   `,
 })
-export class PlayPage implements OnDestroy {
+export class PlayPage implements OnInit, OnDestroy {
   private readonly platform = inject(Platform);
   private readonly utils = inject(UtilsService);
 
-  config: Phaser.Types.Core.GameConfig = {
-    type: Phaser.AUTO,
-    pixelArt: false,
-    parent: 'phaser-main',
-    width: this.platform.width(),
-    height: this.platform.height(),
-    scale: {
-      width: this.platform.width(),
-      height: this.platform.height(),
-      mode: Phaser.Scale.FIT,
-      autoCenter: Phaser.Scale.CENTER_BOTH,
-    },
-    fps: {
-      forceSetTimeOut: true,
-    },
-    render: {
-      transparent: false,
-    },
-    backgroundColor: '#000000',
-    physics: {
-      default: 'arcade',
-      arcade: {
-        debug: false,
-      },
-    },
-  };
+  config!: Phaser.Types.Core.GameConfig;
 
   game = signal<Phaser.Game | undefined>(undefined);
   startButton = signal(true);
@@ -125,6 +100,36 @@ export class PlayPage implements OnDestroy {
 
   constructor() {
     addIcons({ playOutline, caretBackOutline });
+  }
+
+  ngOnInit(): void {
+    this.config = {
+      type: Phaser.AUTO,
+      pixelArt: false,
+      parent: 'phaser-main',
+      width: this.getAdjustedWidth(),
+      height: this.platform.height(),
+      scale: {
+        width: this.getAdjustedWidth(),
+        height: this.platform.height(),
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+      },
+      fps: {
+        forceSetTimeOut: true,
+      },
+      render: {
+        transparent: false,
+      },
+      backgroundColor: '#000000',
+      physics: {
+        default: 'arcade',
+        arcade: {
+          debug: false,
+        },
+      },
+    };
+    console.log('PlayPage initialized');
   }
 
   ngOnDestroy(): void {
@@ -147,5 +152,15 @@ export class PlayPage implements OnDestroy {
     this.game()?.destroy(true, false);
     window.location.reload();
     this.startButton.update((v) => !v);
+  }
+
+  getAdjustedWidth(): number {
+    const isWeb =
+      this.platform.is('desktop') ||
+      this.platform.is('mobileweb') ||
+      this.platform.is('mobile');
+
+    const fullWidth = this.platform.width();
+    return isWeb ? Math.min(fullWidth, 400) : fullWidth;
   }
 }
