@@ -37,7 +37,7 @@ export class AuthService {
     );
   }
 
-  updatePassword({ id, password }: RenewPassword) {
+  renewPassword({ id, password }: RenewPassword) {
     return firstValueFrom(
       this.http.patch<RenewPasswordResponse>(
         `${this.baseUrl}${id}/renew-password`,
