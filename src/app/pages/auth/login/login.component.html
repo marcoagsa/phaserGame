@@ -3,11 +3,11 @@
   <form [formGroup]="loginForm" (submit)="existsUser() ? signIn() : singUp()">
     <ion-grid>
 
-      <ion-input mode="md" type="email" label="Email" labelPlacement="floating" fill="outline" placeholder="Email"
-        color="warning" formControlName="email" />
+      <ion-input mode="md" type="email" label="Email" labelPlacement="floating" fill="outline" color="warning"
+        formControlName="email" />
 
       <ion-input mode="md" type="password" label="Senha de acesso" labelPlacement="floating" fill="outline"
-        placeholder="Senha de acesso " color="warning" formControlName="password">
+        color="warning" formControlName="password">
 
         <ion-input-password-toggle slot="end" color="warning" />
 

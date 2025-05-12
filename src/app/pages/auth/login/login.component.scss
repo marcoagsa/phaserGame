@@ -33,3 +33,7 @@ ion-item {
   text-align: end;
   color: var(--ion-color-secondary);
 }
+
+ion-input {
+  --color: var(--ion-color-warning);
+}
