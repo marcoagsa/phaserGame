@@ -44,7 +44,14 @@ import { ScoreItemsList } from 'src/app/interfaces/score-item';
   ],
 })
 export class ScoresPage implements OnInit {
-  scoreItemExample = { name: '--', level: 0, points: 0, scale: 0 };
+  scoreItemExample = {
+    _id: '0',
+    name: '--',
+    level: 0,
+    points: 0,
+    scale: 0,
+    date: new Date(),
+  };
 
   listScoreItems = signal<ScoreItemsList>(
     JSON.parse(localStorage.getItem('scores') || '[]')

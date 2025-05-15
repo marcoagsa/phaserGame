@@ -4,15 +4,17 @@ import {
   AlertController,
   AlertOptions,
 } from '@ionic/angular/standalone';
-import { ScoreItem } from 'src/app/interfaces/score-item';
+import { GameScoreInfo, ScoreItem } from 'src/app/interfaces/score-item';
 import { TabsComponent } from 'src/app/components';
+import { ScoresService } from './scores.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UtilsService {
-  private modalCtrl = inject(ModalController);
-  private alertController = inject(AlertController);
+  private readonly modalCtrl = inject(ModalController);
+  private readonly alertController = inject(AlertController);
+  private readonly scoreService = inject(ScoresService);
 
   modal: HTMLIonModalElement | undefined;
 
@@ -57,10 +59,24 @@ export class UtilsService {
     return await alert.onDidDismiss();
   }
 
-  saveScore(score: ScoreItem) {
-    const existing = JSON.parse(localStorage.getItem('scores') || '[]');
-    existing.push(score);
-    localStorage.setItem('scores', JSON.stringify(existing));
+  async saveScore(gameScoreInfo: GameScoreInfo) {
+    // const existing = JSON.parse(localStorage.getItem('scores') || '[]');
+    // existing.push(score);
+    // localStorage.setItem('scores', JSON.stringify(existing));
+
+    try {
+      const body: ScoreItem = {
+        ...gameScoreInfo,
+        _id: localStorage.getItem('boomeloUserId') || 'no user id',
+        date: new Date(),
+      };
+      await this.scoreService.save(body);
+    } catch (error: any) {
+      await this.showAlert({
+        header: 'Erro no guardar score',
+        message: error.error.message,
+      });
+    }
   }
 
   saveUser(id: string) {
