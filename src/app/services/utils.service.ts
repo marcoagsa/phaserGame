@@ -60,16 +60,13 @@ export class UtilsService {
   }
 
   async saveScore(gameScoreInfo: GameScoreInfo) {
-    // const existing = JSON.parse(localStorage.getItem('scores') || '[]');
-    // existing.push(score);
-    // localStorage.setItem('scores', JSON.stringify(existing));
-
     try {
       const body: ScoreItem = {
         ...gameScoreInfo,
-        _id: localStorage.getItem('boomeloUserId') || 'no user id',
+        userId: localStorage.getItem('boomeloUserId') || 'no user id',
         date: new Date(),
       };
+
       await this.scoreService.save(body);
     } catch (error: any) {
       await this.showAlert({
