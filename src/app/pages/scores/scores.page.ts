@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import {
   IonHeader,
   IonToolbar,
@@ -8,6 +8,8 @@ import {
 } from '@ionic/angular/standalone';
 import { ItemScoreComponent } from 'src/app/components/score/item-score/item-score.component';
 import { ScoreItemsList } from 'src/app/interfaces/score-item';
+import { UtilsService } from 'src/app/services';
+import { ScoresService } from 'src/app/services/scores.service';
 
 @Component({
   selector: 'app-scores',
@@ -44,6 +46,10 @@ import { ScoreItemsList } from 'src/app/interfaces/score-item';
   ],
 })
 export class ScoresPage implements OnInit {
+  private readonly scoreService = inject(ScoresService);
+  private readonly utils = inject(UtilsService);
+
+  loading = signal<boolean>(false);
   scoreItemExample = {
     userId: '0',
     name: '--',
@@ -53,23 +59,42 @@ export class ScoresPage implements OnInit {
     date: new Date(),
   };
 
-  listScoreItems = signal<ScoreItemsList>(
-    JSON.parse(localStorage.getItem('scores') || '[]')
-  );
+  listScoreItems = signal<ScoreItemsList>([]);
 
   ngOnInit(): void {
-    this.listScoreItems.update((items) =>
-      [...items].sort((a, b) => {
-        if (b.points !== a.points) {
-          return b.points - a.points;
-        }
+    this.getScores();
+  }
 
-        if (b.level !== a.level) {
-          return b.level - a.level;
-        }
+  async getScores() {
+    this.loading.update((v) => !v);
 
-        return b.scale - a.scale;
-      })
-    );
+    try {
+      const userId = localStorage.getItem('boomeloUserId') ?? '';
+
+      const { result } = await this.scoreService.scores(userId);
+
+      this.listScoreItems.set(result);
+
+      this.listScoreItems.update((items) =>
+        [...items].sort((a, b) => {
+          if (b.points !== a.points) {
+            return b.points - a.points;
+          }
+
+          if (b.level !== a.level) {
+            return b.level - a.level;
+          }
+
+          return b.scale - a.scale;
+        })
+      );
+    } catch (error: any) {
+      await this.utils.showAlert({
+        header: 'Error read scores',
+        message: error.error.message,
+      });
+    } finally {
+      this.loading.update((v) => !v);
+    }
   }
 }

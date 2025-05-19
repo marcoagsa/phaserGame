@@ -1,7 +1,11 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { GameScoreInfo, ScoreItem } from 'src/app/interfaces';
+import {
+  GameScoreInfo,
+  ScoreSaveResponse,
+  ScoresResponse,
+} from 'src/app/interfaces';
 import { firstValueFrom } from 'rxjs';
 
 @Injectable({
@@ -13,7 +17,16 @@ export class ScoresService {
 
   save(gameScoreInfo: GameScoreInfo) {
     return firstValueFrom(
-      this.http.post<any>(`${this.baseUrl}scores/save`, gameScoreInfo)
+      this.http.post<ScoreSaveResponse>(
+        `${this.baseUrl}scores/save`,
+        gameScoreInfo
+      )
+    );
+  }
+
+  scores(userId: string) {
+    return firstValueFrom(
+      this.http.get<ScoresResponse>(`${this.baseUrl}scores/${userId}`)
     );
   }
 }

@@ -15,3 +15,13 @@ export interface GameScoreInfo {
   scale: number;
   points: number;
 }
+
+export interface ScoreSaveResponse {
+  status: number;
+  message: number;
+}
+
+export interface ScoresResponse {
+  status: number;
+  result: ScoreItemsList;
+}
