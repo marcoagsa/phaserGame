@@ -1,5 +1,5 @@
 export interface ScoreItem {
-  _id: string;
+  userId: string;
   name: string;
   level: number;
   scale: number;
