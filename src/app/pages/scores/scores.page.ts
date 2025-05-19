@@ -45,7 +45,7 @@ import { ScoreItemsList } from 'src/app/interfaces/score-item';
 })
 export class ScoresPage implements OnInit {
   scoreItemExample = {
-    _id: '0',
+    userId: '0',
     name: '--',
     level: 0,
     points: 0,
