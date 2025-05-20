@@ -5,6 +5,9 @@ import {
   IonContent,
   IonTitle,
   IonList,
+  IonRow,
+  IonText,
+  IonSpinner,
 } from '@ionic/angular/standalone';
 import { ItemScoreComponent } from 'src/app/components/score/item-score/item-score.component';
 import { ScoreItemsList } from 'src/app/interfaces/score-item';
@@ -20,6 +23,9 @@ import { ScoresService } from 'src/app/services/scores.service';
     IonContent,
     IonTitle,
     IonList,
+    IonSpinner,
+    IonRow,
+    IonText,
     ItemScoreComponent,
   ],
   template: ` <ion-header>
@@ -29,6 +35,14 @@ import { ScoresService } from 'src/app/services/scores.service';
     </ion-header>
 
     <ion-content [fullscreen]="true" class="ion-padding">
+      @if (loading()) {
+      <ion-spinner name="bubbles" />
+      } @else {
+
+      <ion-row class="row--title">
+        <ion-text> 🍄 Minhas Pontuações 💣 </ion-text>
+      </ion-row>
+
       <ion-list>
         @for (item of listScoreItems(); track $index) {
         <score-item-score [scoreItem]="item" [index]="$index" />
@@ -36,11 +50,36 @@ import { ScoresService } from 'src/app/services/scores.service';
         <score-item-score [scoreItem]="scoreItemExample" [index]="0" />
         }
       </ion-list>
+
+      <ion-row class="row--title">
+        <ion-text> 🍄 Ranking Boomelo 💣 </ion-text>
+      </ion-row>
+
+      <ion-list>
+        @for (item of listBestResults(); track $index) {
+        <score-item-score [scoreItem]="item" [index]="$index" />
+        }@empty {
+        <score-item-score [scoreItem]="scoreItemExample" [index]="0" />
+        }
+      </ion-list>
+      }
     </ion-content>`,
   styles: [
     `
       ion-toolbar {
         --opacity: 0.5;
+      }
+
+      ion-row.row--title {
+        justify-content: center;
+        margin: 2em 0 2em 0;
+      }
+
+      ion-text {
+        font-size: 1.2em;
+        font-weight: bold;
+        text-align: center;
+        color: var(--ion-color-medium);
       }
     `,
   ],
@@ -61,13 +100,15 @@ export class ScoresPage implements OnInit {
 
   listScoreItems = signal<ScoreItemsList>([]);
 
+  listBestResults = signal<ScoreItemsList>([]);
+
   ngOnInit(): void {
-    this.getScores();
+    this.loading.update((v) => !v);
+    Promise.all([this.getScores(), this.getBestScores()]);
+    this.loading.update((v) => !v);
   }
 
   async getScores() {
-    this.loading.update((v) => !v);
-
     try {
       const userId = localStorage.getItem('boomeloUserId') ?? '';
 
@@ -79,8 +120,19 @@ export class ScoresPage implements OnInit {
         header: 'Error read scores',
         message: error.error.message,
       });
-    } finally {
-      this.loading.update((v) => !v);
+    }
+  }
+
+  async getBestScores() {
+    try {
+      const { result } = await this.scoreService.bestScores();
+
+      this.listBestResults.set(result);
+    } catch (error: any) {
+      await this.utils.showAlert({
+        header: 'Error read scores',
+        message: error.error.message,
+      });
     }
   }
 }
