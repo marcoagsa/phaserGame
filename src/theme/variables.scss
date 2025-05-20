@@ -3,6 +3,13 @@
 
 /** Ionic CSS Variables **/
 :root {
+  /** bronze **/
+  --ion-color-bronze: #cd7f32;
+  --ion-color-bronze-rgb: 205, 127, 50;
+  --ion-color-bronze-contrast: #000000;
+  --ion-color-bronze-contrast-rgb: 0, 0, 0;
+  --ion-color-bronze-shade: #b4702c;
+  --ion-color-bronze-tint: #d28c47;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -12,6 +19,13 @@
    */
 
   body {
+    /** bronze **/
+    --ion-color-bronze: #cd7f32;
+    --ion-color-bronze-rgb: 205, 127, 50;
+    --ion-color-bronze-contrast: #000000;
+    --ion-color-bronze-contrast-rgb: 0, 0, 0;
+    --ion-color-bronze-shade: #b4702c;
+    --ion-color-bronze-tint: #d28c47;
   }
 
   /*
