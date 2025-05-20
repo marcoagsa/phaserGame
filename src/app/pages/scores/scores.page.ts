@@ -74,20 +74,6 @@ export class ScoresPage implements OnInit {
       const { result } = await this.scoreService.scores(userId);
 
       this.listScoreItems.set(result);
-
-      this.listScoreItems.update((items) =>
-        [...items].sort((a, b) => {
-          if (b.points !== a.points) {
-            return b.points - a.points;
-          }
-
-          if (b.level !== a.level) {
-            return b.level - a.level;
-          }
-
-          return b.scale - a.scale;
-        })
-      );
     } catch (error: any) {
       await this.utils.showAlert({
         header: 'Error read scores',
