@@ -29,4 +29,10 @@ export class ScoresService {
       this.http.get<ScoresResponse>(`${this.baseUrl}scores/${userId}`)
     );
   }
+
+  bestScores() {
+    return firstValueFrom(
+      this.http.get<ScoresResponse>(`${this.baseUrl}scores/leaderboard/`)
+    );
+  }
 }
