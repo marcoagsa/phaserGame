@@ -81,12 +81,12 @@ https://github.com/user-attachments/assets/46361a78-681a-485d-b993-5ff145601aa9
 > - [ ] Add new object remove life
 > - [ ] Add new object to win more points
 > - [x] Implement about page
-> - [ ] Implement scores page (use Boomelo API to save Scores on mongoBD)
+> - [x] Implement scores page (use Boomelo API to save Scores on mongoBD)
 > - [ ] Add even more background to have more different levels of the game
 > - [ ] Improve game difficulty
 > - [x] Add mute button
 > - [x] Pause the game if the app on background
 > - [x] Implement Electron to be able to deploy for windows or macOS
-> - [ ] Add login page (use Boomelo API to connect to mongoBD)
+> - [x] Add login page (use Boomelo API to connect to mongoBD)
 > - [x] Add logo / splash
 > - [ ] Add Translation for different user languages
