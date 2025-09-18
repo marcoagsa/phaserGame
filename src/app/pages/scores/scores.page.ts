@@ -53,9 +53,10 @@ import { ScoresService } from 'src/app/services/scores.service';
 
       <ion-row class="row--title">
         <ion-text> 🍄 Ranking Boomelo 💣 </ion-text>
+        <ion-text class="bestResultsInfo"> (10 Melhores Resultados) </ion-text>
       </ion-row>
 
-      <ion-list>
+      <ion-list class="bestResults">
         @for (item of listBestResults(); track $index) {
         <score-item-score [scoreItem]="item" [index]="$index" />
         }@empty {
@@ -73,6 +74,7 @@ import { ScoresService } from 'src/app/services/scores.service';
       ion-row.row--title {
         justify-content: center;
         margin: 2em 0 2em 0;
+        display: grid;
       }
 
       ion-text {
@@ -80,6 +82,17 @@ import { ScoresService } from 'src/app/services/scores.service';
         font-weight: bold;
         text-align: center;
         color: var(--ion-color-medium);
+      }
+
+      ion-text.bestResultsInfo {
+        font-size: 0.9em;
+        font-weight: bold;
+        text-align: center;
+        color: var(--ion-color-medium);
+      }
+
+      ion-list.bestResults {
+        padding-bottom: 40%;
       }
     `,
   ],
@@ -116,9 +129,9 @@ export class ScoresPage implements OnInit {
   async getScores() {
     try {
       const { result } = await this.scoreService.scores(this.userId() ?? '');
+
       this.listScoreItems.set(result);
     } catch (error: any) {
-      console.log(`MSA 🔊 error:`, error);
       await this.utils.showAlert({
         header: 'Error read scores',
         message: error.error.message,
