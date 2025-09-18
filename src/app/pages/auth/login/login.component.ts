@@ -104,7 +104,7 @@ export class LoginComponent {
     } catch (error: any) {
       console.log(`MSA 🔊 error:`, error);
 
-      if (error.status === 409) {
+      if (error.error.status === 409) {
         this.user.set(!!localStorage.getItem('boomeloUserId'));
       }
 
