@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 import { ItemScoreComponent } from './item-score.component';
 
@@ -9,8 +10,8 @@ describe('ItemScoreComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ItemScoreComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [ItemScoreComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ItemScoreComponent);
