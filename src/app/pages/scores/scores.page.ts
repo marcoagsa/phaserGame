@@ -89,6 +89,7 @@ export class ScoresPage implements OnInit {
   private readonly utils = inject(UtilsService);
 
   loading = signal<boolean>(false);
+
   scoreItemExample = {
     userId: '0',
     name: '--',
@@ -99,23 +100,25 @@ export class ScoresPage implements OnInit {
   };
 
   listScoreItems = signal<ScoreItemsList>([]);
-
   listBestResults = signal<ScoreItemsList>([]);
+  userId = signal<string | null>(localStorage.getItem('boomeloUserId'));
 
   ngOnInit(): void {
     this.loading.update((v) => !v);
-    Promise.all([this.getScores(), this.getBestScores()]);
+    Promise.all([
+      this.userId()
+        ? (this.getScores(), this.getBestScores())
+        : this.getBestScores(),
+    ]);
     this.loading.update((v) => !v);
   }
 
   async getScores() {
     try {
-      const userId = localStorage.getItem('boomeloUserId') ?? '';
-
-      const { result } = await this.scoreService.scores(userId);
-
+      const { result } = await this.scoreService.scores(this.userId() ?? '');
       this.listScoreItems.set(result);
     } catch (error: any) {
+      console.log(`MSA 🔊 error:`, error);
       await this.utils.showAlert({
         header: 'Error read scores',
         message: error.error.message,
