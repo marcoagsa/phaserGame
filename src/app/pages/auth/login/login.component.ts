@@ -102,14 +102,8 @@ export class LoginComponent {
 
       this.utils.showAlert({ header: 'Sucesso', message });
     } catch (error: any) {
-      if (error.error.status === 409) {
-        console.log(`error.error.status`, error);
-        this.user.set(!!localStorage.getItem('boomeloUserId'));
-      }
-
       if (error.status === 409) {
-        console.log(`error.status:`, error);
-        this.user.set(!!localStorage.getItem('boomeloUserId'));
+        this.user.set(true);
       }
 
       await this.utils.showAlert({
