@@ -129,7 +129,6 @@ export class PlayPage implements OnInit, OnDestroy {
         },
       },
     };
-    console.log('PlayPage initialized');
   }
 
   ngOnDestroy(): void {
