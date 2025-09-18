@@ -168,7 +168,7 @@ export class Overlaps {
     });
 
     if (data) {
-      this.#utils.saveScore({
+      await this.#utils.saveScore({
         name: data?.values?.playerName,
         level: this.#healthBar.level,
         points: this.#healthBar.score,
