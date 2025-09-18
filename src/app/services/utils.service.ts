@@ -1,4 +1,5 @@
 import { Injectable, inject } from '@angular/core';
+import { jwtDecode } from 'jwt-decode';
 import {
   ModalController,
   AlertController,
@@ -86,5 +87,26 @@ export class UtilsService {
 
   clearStorage() {
     localStorage.removeItem('boomeloToken');
+  }
+
+  getUserIdFromToken(token: string): string | null {
+    try {
+      const decodedToken: any = jwtDecode(token);
+      return decodedToken.id || null;
+    } catch (error) {
+      console.error('Invalid token', error);
+      return null;
+    }
+  }
+
+  checkUerId(token: string) {
+    const storedUserId = localStorage.getItem('boomeloUserId');
+
+    if (token && !storedUserId) {
+      const userId = this.getUserIdFromToken(token);
+      if (userId) {
+        this.saveUser(userId);
+      }
+    }
   }
 }

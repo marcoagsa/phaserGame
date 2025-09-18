@@ -72,6 +72,8 @@ export class LoginComponent {
         this.loginForm.value as Login
       );
 
+      this.utils.checkUerId(token);
+
       this.utils.saveToken(token);
 
       this.router.navigate(['/']);
