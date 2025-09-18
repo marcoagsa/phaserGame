@@ -102,6 +102,12 @@ export class LoginComponent {
 
       this.utils.showAlert({ header: 'Sucesso', message });
     } catch (error: any) {
+      console.log(`MSA 🔊 error:`, error);
+
+      if (error.status === 409) {
+        this.user.set(!!localStorage.getItem('boomeloUserId'));
+      }
+
       await this.utils.showAlert({
         header: 'Erro no login',
         message: error.error.message,
