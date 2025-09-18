@@ -21,7 +21,7 @@
         "@capacitor/keyboard": "7.0.3",
         "@capacitor/splash-screen": "^7.0.3",
         "@capacitor/status-bar": "7.0.3",
-        "@ionic/angular": "8.7.4",
+        "@ionic/angular": "8.7.3",
         "@ionic/cli": "^7.2.1",
         "ionicons": "8.0.13",
         "phaser": "3.90.0",
@@ -502,7 +502,7 @@
 
     "@inquirer/type": ["@inquirer/type@3.0.8", "", { "peerDependencies": { "@types/node": ">=18" }, "optionalPeers": ["@types/node"] }, "sha512-lg9Whz8onIHRthWaN1Q9EGLa/0LFJjyM8mEUbL1eTi6yMGvBf8gvyDLtxSXztQsxMvhxxNpJYrwa1YHdq+w4Jw=="],
 
-    "@ionic/angular": ["@ionic/angular@8.7.4", "", { "dependencies": { "@ionic/core": "8.7.4", "ionicons": "^8.0.13", "jsonc-parser": "^3.0.0", "tslib": "^2.3.0" }, "peerDependencies": { "@angular/core": ">=16.0.0", "@angular/forms": ">=16.0.0", "@angular/router": ">=16.0.0", "rxjs": ">=7.5.0", "zone.js": ">=0.13.0" } }, "sha512-owysOSU1SH1OGCJnfTpqFqNNjtais8L3K5DZRmNme0Li4JsgikjRdaWCaFGLFsI1AZcUbLz36zeKfz55uGl/Yw=="],
+    "@ionic/angular": ["@ionic/angular@8.7.3", "", { "dependencies": { "@ionic/core": "8.7.3", "ionicons": "^8.0.13", "jsonc-parser": "^3.0.0", "tslib": "^2.3.0" }, "peerDependencies": { "@angular/core": ">=16.0.0", "@angular/forms": ">=16.0.0", "@angular/router": ">=16.0.0", "rxjs": ">=7.5.0", "zone.js": ">=0.13.0" } }, "sha512-Fd2bsluwsi88d8AEvSVANn3a7xZ7NEmlvgVTLnuF9VTI0TgdkLQptgEolty00axnQdjCaxSXxgFJd/m0gVpKIg=="],
 
     "@ionic/angular-toolkit": ["@ionic/angular-toolkit@12.3.0", "", { "dependencies": { "@angular-devkit/core": "^20.0.0", "@angular-devkit/schematics": "^20.0.0", "@schematics/angular": "^20.0.0" } }, "sha512-9cPTMmwggviB2W7wf4sv4vFeQnYq5HbO6V89UqQHopShokdhSvUFpaQ2w1/Mdf/ot8PghGjR3t5IdnXV7i1LvA=="],
 
@@ -514,7 +514,7 @@
 
     "@ionic/cli-framework-prompts": ["@ionic/cli-framework-prompts@2.1.13", "", { "dependencies": { "@ionic/utils-terminal": "2.3.5", "debug": "^4.0.0", "inquirer": "^7.0.0", "tslib": "^2.0.1" } }, "sha512-Yj1fz6p7OehreQ8C70bd9+M6tYP/rvzLw5JVj8pT/N9s0kQSjqEFRbs96LKr3lfd3TADZaS8OlZrQIqenFIUpg=="],
 
-    "@ionic/core": ["@ionic/core@8.7.4", "", { "dependencies": { "@stencil/core": "4.36.2", "ionicons": "^8.0.13", "tslib": "^2.1.0" } }, "sha512-ZCJYKLWdxq+x4OmEDvodqR+y/FSDJYkkFHozWe1+b/p0l9lNN13lLuSZVs0AEOgPtO89Atl67rTbpGE2ad/SCw=="],
+    "@ionic/core": ["@ionic/core@8.7.3", "", { "dependencies": { "@stencil/core": "4.36.2", "ionicons": "^8.0.13", "tslib": "^2.1.0" } }, "sha512-KdyMxpMDQj+uqpztpK6yvN/T96hqcDiGXQ4T+aAZ+LW3wV3+0it6/rbh9C1B/wCl4Isnm4IRltPabgEfNJ50nw=="],
 
     "@ionic/utils-array": ["@ionic/utils-array@2.1.6", "", { "dependencies": { "debug": "^4.0.0", "tslib": "^2.0.1" } }, "sha512-0JZ1Zkp3wURnv8oq6Qt7fMPo5MpjbLoUoa9Bu2Q4PJuSDWM8H8gwF3dQO7VTeUj3/0o1IB1wGkFWZZYgUXZMUg=="],
 
